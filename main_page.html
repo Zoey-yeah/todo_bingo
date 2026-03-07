@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Task Bingo 🍬</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:           #f7c5d0;
+  --lavender:       #d8cef5;
+  --pistachio:      #c5e5cb;
+  --peach:          #fcd9b4;
+  --sky:            #b9d9f0;
+  --rose-deep:      #e8889c;
+  --lavender-deep:  #9b87e0;
+  --pistachio-deep: #5da86b;
+  --peach-deep:     #e89254;
+  --sky-deep:       #5299cc;
+  --rose-text:      #7a3a4a;
+  --lavender-text:  #42357a;
+  --pistachio-text: #254d2c;
+  --peach-text:     #7a4020;
+  --sky-text:       #1a4a6e;
+  --bg:     #faf5f0;
+  --card:   #fffcf8;
+  --border: #ede7df;
+  --text:   #3e342e;
+  --muted:  #9e8e85;
+  --shadow: 0 2px 16px rgba(120,80,60,0.08);
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* NAV */
+.nav-tabs {
+  display: flex;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-tab {
+  flex: 1; padding: 13px 8px;
+  border: none; background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 600;
+  color: var(--muted); cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-tab.active { color: var(--rose-deep); border-bottom-color: var(--rose-deep); }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* BOARD HEADER */
+.board-header {
+  background: linear-gradient(160deg, #fdf0f3 0%, #f3eefe 55%, #eef6fd 100%);
+  padding: 20px 16px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.board-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.3px;
+}
+.board-date { font-size: 0.76rem; color: var(--muted); margin-top: 3px; }
+.score-row { display: flex; justify-content: center; gap: 8px; margin-top: 11px; }
+.score-pill {
+  background: white; border: 1.5px solid var(--border);
+  border-radius: 30px; padding: 4px 14px;
+  font-size: 0.76rem; font-weight: 600; color: var(--text);
+}
+.score-pill .num { color: var(--rose-deep); font-weight: 700; }
+
+/* BINGO FLASH */
+.bingo-banner {
+  display: none;
+  background: linear-gradient(135deg, var(--lavender-deep), var(--sky-deep));
+  color: white; text-align: center; padding: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem; letter-spacing: 5px;
+  position: sticky; top: 46px; z-index: 49;
+  animation: bannerPop 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.bingo-banner.show { display: block; }
+@keyframes bannerPop {
+  0% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+.container { max-width: 480px; margin: 0 auto; padding: 13px 11px 40px; }
+
+/* CONTROLS */
+.controls { display: flex; gap: 6px; margin-bottom: 11px; }
+.btn {
+  flex: 1; padding: 8px 4px;
+  border: 1.5px solid transparent; border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem; font-weight: 600; cursor: pointer;
+  transition: transform 0.1s, opacity 0.1s;
+}
+.btn:active { transform: scale(0.94); opacity: 0.85; }
+.btn-reset   { background: #fdedf1; border-color: var(--rose);      color: var(--rose-deep); }
+.btn-shuffle { background: #ece8fc; border-color: var(--lavender);  color: var(--lavender-deep); }
+.btn-edit    { background: #e7f6ea; border-color: var(--pistachio); color: var(--pistachio-deep); }
+.btn-save    { background: #fef3e6; border-color: var(--peach);     color: var(--peach-deep); }
+
+/* GRID */
+.bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+.cell {
+  aspect-ratio: 1; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 5px; cursor: pointer;
+  font-size: 0.57rem; font-weight: 500; line-height: 1.3;
+  transition: transform 0.15s cubic-bezier(0.175,0.885,0.32,1.275);
+  position: relative; overflow: hidden;
+  word-break: break-word; hyphens: auto;
+  user-select: none; -webkit-user-select: none;
+  border: 1.5px solid transparent; letter-spacing: 0.1px;
+}
+.cell:active { transform: scale(0.89); }
+.cell-0 { background: #fdf0f3; border-color: #f7c5d0; color: var(--rose-text); }
+.cell-1 { background: #f0ecfd; border-color: #d8cef5; color: var(--lavender-text); }
+.cell-2 { background: #edf7ef; border-color: #c5e5cb; color: var(--pistachio-text); }
+.cell-3 { background: #fef6ee; border-color: #fcd9b4; color: var(--peach-text); }
+.cell-4 { background: #edf5fc; border-color: #b9d9f0; color: var(--sky-text); }
+
+.cell.marked { border-color: transparent !important; color: white !important; }
+.cell.marked::after {
+  content: '✓'; position: absolute; top: 3px; right: 5px;
+  font-size: 0.6rem; opacity: 0.85;
+}
+.cell-0.marked { background: linear-gradient(135deg, #f09aad, #e8889c); box-shadow: 0 3px 10px rgba(240,154,173,0.4); }
+.cell-1.marked { background: linear-gradient(135deg, #b8a8ee, #9b87e0); box-shadow: 0 3px 10px rgba(155,135,224,0.4); }
+.cell-2.marked { background: linear-gradient(135deg, #80ca8e, #5da86b); box-shadow: 0 3px 10px rgba(93,168,107,0.4); }
+.cell-3.marked { background: linear-gradient(135deg, #f5b883, #e89254); box-shadow: 0 3px 10px rgba(232,146,84,0.4); }
+.cell-4.marked { background: linear-gradient(135deg, #82b8e8, #5299cc); box-shadow: 0 3px 10px rgba(82,153,204,0.4); }
+
+.cell.free-space {
+  background: linear-gradient(135deg, #fdf0f3, #f0ecfd) !important;
+  border-color: #e8d0e8 !important; color: var(--lavender-text) !important;
+  font-family: 'Playfair Display', serif; font-size: 0.66rem; font-style: italic;
+}
+.cell.bingo-line.marked { animation: macaronGlow 2s ease-in-out infinite; }
+@keyframes macaronGlow {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.1) saturate(1.1); }
+}
+.cell-mark-anim { animation: markPop 0.28s cubic-bezier(0.175,0.885,0.32,1.275); }
+@keyframes markPop {
+  0% { transform: scale(0.82); } 60% { transform: scale(1.07); } 100% { transform: scale(1); }
+}
+
+/* PROGRESS */
+.progress-section {
+  margin-top: 11px; background: var(--card);
+  border-radius: var(--radius); padding: 13px;
+  border: 1px solid var(--border);
+}
+.progress-label {
+  display: flex; justify-content: space-between;
+  font-size: 0.74rem; font-weight: 600; color: var(--muted); margin-bottom: 7px;
+}
+.progress-bar-outer { height: 7px; background: #f0e8e0; border-radius: 20px; overflow: hidden; }
+.progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose-deep), var(--lavender-deep), var(--sky-deep));
+  border-radius: 20px; transition: width 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.bingo-chips { margin-top: 8px; display: flex; gap: 5px; flex-wrap: wrap; }
+.bingo-chip {
+  background: linear-gradient(135deg, #d8cef5, #b9d9f0);
+  color: var(--lavender-text); border-radius: 20px;
+  padding: 3px 10px; font-size: 0.67rem; font-weight: 700;
+  border: 1px solid #c8c0ee;
+}
+.save-status {
+  text-align: center; font-size: 0.71rem; color: var(--muted);
+  margin-top: 9px; min-height: 18px; transition: opacity 0.3s;
+}
+
+/* ========== HISTORY VIEW ========== */
+.history-header {
+  background: linear-gradient(160deg, #f3eefe 0%, #eef6fd 100%);
+  padding: 18px 16px 14px; border-bottom: 1px solid var(--border);
+}
+.history-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 700; color: var(--text);
+}
+.history-sub { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+
+.history-controls {
+  display: flex; gap: 7px; padding: 11px 11px 0;
+  max-width: 480px; margin: 0 auto;
+}
+.filter-select {
+  flex: 1; padding: 8px 12px;
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+  background: var(--card); color: var(--text); outline: none;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%239e8e85' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+}
+.btn-export {
+  padding: 8px 14px;
+  border: 1.5px solid var(--pistachio); border-radius: var(--radius-sm);
+  background: #e7f6ea; color: var(--pistachio-deep);
+  font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+}
+.btn-export:active { transform: scale(0.95); }
+
+.history-container { max-width: 480px; margin: 0 auto; padding: 10px 11px 40px; }
+
+.summary-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-bottom: 14px; }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 11px 6px; text-align: center;
+}
+.stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); font-weight: 700; line-height: 1; }
+.stat-label { font-size: 0.62rem; color: var(--muted); font-weight: 500; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.month-group { margin-bottom: 18px; }
+.month-label {
+  font-family: 'Playfair Display', serif; font-size: 0.95rem;
+  color: var(--text); font-weight: 700; margin-bottom: 7px;
+  padding-bottom: 5px; border-bottom: 1.5px solid var(--border);
+}
+.day-row {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 6px;
+  cursor: pointer; transition: box-shadow 0.15s;
+}
+.day-row:active { box-shadow: var(--shadow); }
+.day-row-top { display: flex; align-items: center; justify-content: space-between; }
+.day-date { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+.day-right { display: flex; gap: 6px; align-items: center; }
+.day-bingo {
+  font-size: 0.67rem; font-weight: 700; color: var(--lavender-deep);
+  background: #f0ecfd; border-radius: 10px; padding: 2px 8px; border: 1px solid #d8cef5;
+}
+.day-pct { font-size: 0.76rem; font-weight: 700; color: var(--rose-deep); }
+.day-mini-bar { height: 3px; background: #f0e8e0; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+.day-mini-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--rose-deep), var(--lavender-deep)); }
+.day-tasks-expand { display: none; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.day-tasks-expand.open { display: block; }
+.task-section-label {
+  font-size: 0.64rem; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;
+}
+.task-section-label + .task-section-label, .task-chips + .task-section-label { margin-top: 7px; }
+.day-task-chip {
+  display: inline-block; font-size: 0.64rem; font-weight: 500;
+  padding: 2px 8px; border-radius: 10px; margin: 2px 3px 2px 0; border: 1px solid;
+}
+.day-task-chip.done   { background: #e7f6ea; border-color: #c5e5cb; color: var(--pistachio-text); }
+.day-task-chip.undone { background: #faf5f0; border-color: #ede7df; color: var(--muted); }
+
+.history-empty {
+  text-align: center; padding: 48px 20px; color: var(--muted);
+  font-size: 0.83rem; line-height: 1.8;
+}
+.history-empty .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(62,52,46,0.4); z-index: 200;
+  backdrop-filter: blur(5px); align-items: flex-end; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--card); border-radius: 24px 24px 0 0;
+  padding: 18px 17px 42px; width: 100%; max-width: 480px;
+  animation: slideUp 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  border-top: 1px solid var(--border);
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle { width: 38px; height: 4px; background: var(--border); border-radius: 10px; margin: 0 auto 15px; }
+.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 13px; color: var(--text); }
+.task-list-edit { max-height: 46vh; overflow-y: auto; margin-bottom: 11px; }
+.task-item-edit {
+  display: flex; align-items: center; gap: 7px; margin-bottom: 5px;
+  background: #f9f5f0; border-radius: 10px; padding: 7px 9px; border: 1px solid var(--border);
+}
+.task-item-edit input {
+  flex: 1; border: none; background: transparent;
+  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500;
+  outline: none; color: var(--text);
+}
+.task-delete-btn { background: none; border: none; cursor: pointer; font-size: 0.85rem; color: #ccc; transition: color 0.15s; }
+.task-delete-btn:hover { color: var(--rose-deep); }
+.add-task-row { display: flex; gap: 7px; margin-bottom: 13px; }
+.add-task-input {
+  flex: 1; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 8px 11px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
+  font-weight: 500; outline: none; color: var(--text); background: white;
+  transition: border-color 0.15s;
+}
+.add-task-input:focus { border-color: var(--lavender-deep); }
+.add-task-btn {
+  background: #e7f6ea; color: var(--pistachio-deep);
+  border: 1.5px solid var(--pistachio); border-radius: 10px;
+  padding: 8px 13px; font-family: 'DM Sans', sans-serif; font-weight: 700;
+  cursor: pointer; font-size: 0.8rem;
+}
+.modal-actions { display: flex; gap: 7px; }
+.modal-btn {
+  flex: 1; padding: 11px; border: none; border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.84rem; cursor: pointer;
+}
+.modal-cancel { background: #f0e8e0; color: var(--muted); }
+.modal-save   { background: linear-gradient(135deg, var(--rose-deep), var(--lavender-deep)); color: white; }
+
+/* CONFETTI */
+#confetti-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+
+@media (max-width: 360px) {
+  .cell { font-size: 0.51rem; }
+  .board-title { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showView('board')">🎯 Board</button>
+  <button class="nav-tab"        onclick="showView('history')">📅 History</button>
+</div>
+
+<!-- ======= BOARD VIEW ======= -->
+<div class="view active" id="view-board">
+  <div class="board-header">
+    <div class="board-title">✨ Task Bingo</div>
+    <div class="board-date" id="board-date"></div>
+    <div class="score-row">
+      <div class="score-pill">Done <span class="num" id="done-count">0</span>/24</div>
+      <div class="score-pill">🎯 <span class="num" id="bingo-count-display">0</span> Bingo</div>
+    </div>
+  </div>
+  <div class="bingo-banner" id="bingo-banner">✨ B I N G O ✨</div>
+  <div class="container">
+    <div class="controls">
+      <button class="btn btn-reset"   onclick="resetBoard()">↺ Reset</button>
+      <button class="btn btn-shuffle" onclick="shuffleBoard()">⇄ Shuffle</button>
+      <button class="btn btn-edit"    onclick="openModal()">✎ Tasks</button>
+      <button class="btn btn-save"    onclick="saveDayManual()">💾 Save</button>
+    </div>
+    <div class="bingo-grid" id="bingo-grid"></div>
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Today's progress</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+      </div>
+      <div class="bingo-chips" id="bingo-chips"></div>
+    </div>
+    <div class="save-status" id="save-status"></div>
+  </div>
+</div>
+
+<!-- ======= HISTORY VIEW ======= -->
+<div class="view" id="view-history">
+  <div class="history-header">
+    <div class="history-title">My Journey 📖</div>
+    <div class="history-sub">Daily task completion log</div>
+  </div>
+  <div class="history-controls">
+    <select class="filter-select" id="filter-select" onchange="renderHistory()">
+      <option value="all">All time</option>
+      <option value="year">This year</option>
+      <option value="month">This month</option>
+      <option value="week">This week</option>
+    </select>
+    <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+  <div class="history-container">
+    <div class="summary-stats" id="summary-stats"></div>
+    <div id="history-list"></div>
+  </div>
+</div>
+
+<!-- EDIT TASKS MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>Edit Your Tasks</h3>
+    <div class="task-list-edit" id="task-list-edit"></div>
+    <div class="add-task-row">
+      <input class="add-task-input" id="new-task-input" placeholder="Add a new task…" maxlength="40"
+             onkeydown="if(event.key==='Enter')addTaskFromModal()">
+      <button class="add-task-btn" onclick="addTaskFromModal()">+ Add</button>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-btn modal-save"   onclick="saveAndClose()">Save & Shuffle</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =================== DEFAULTS =================== */
+const DEFAULT_TASKS = [
+  "Make your bed","Drink 8 glasses of water","15-min walk","Reply to emails","Call a friend",
+  "Read 20 mins","Tidy your desk","Cook a meal","Take vitamins","Journal 5 mins",
+  "Stretch / Yoga","Do laundry","Plan tomorrow","Meditate","Post something creative",
+  "Declutter 1 drawer","Practice a skill","No doom-scroll","Take a real break","Say thank you",
+  "Go outside","Do finances","Deep clean area","Help someone","Celebrate a win"
+];
+
+let tasks      = [...DEFAULT_TASKS];
+let boardTasks = [];
+let marked     = new Set();
+let bingoLines = new Set();
+let editTasksArr = [];
+let historyData  = {};
+
+/* =================== STORAGE =================== */
+async function storageGet(key) {
+  try { const r = await window.storage.get(key); return r ? JSON.parse(r.value) : null; }
+  catch { return null; }
+}
+async function storageSet(key, val) {
+  try { await window.storage.set(key, JSON.stringify(val)); return true; }
+  catch { return false; }
+}
+async function storageList(prefix) {
+  try { const r = await window.storage.list(prefix); return r ? r.keys : []; }
+  catch { return []; }
+}
+
+/* =================== DATE UTILS =================== */
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' +
+    String(d.getMonth()+1).padStart(2,'0') + '-' +
+    String(d.getDate()).padStart(2,'0');
+}
+function formatDate(str) {
+  const [y,m,d] = str.split('-');
+  const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dt = new Date(+y, +m-1, +d);
+  return days[dt.getDay()] + ', ' + months[+m-1] + ' ' + +d + ', ' + y;
+}
+function monthKey(str) {
+  const [y,m] = str.split('-');
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  return months[+m-1] + ' ' + y;
+}
+
+/* =================== BOARD =================== */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i=a.length-1;i>0;i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function buildBoard() {
+  const pool = [...new Set([...tasks,...DEFAULT_TASKS])];
+  const s = shuffle(pool);
+  boardTasks = s.slice(0,24);
+  boardTasks.splice(12, 0, 'FREE');
+}
+function renderBoard() {
+  const grid = document.getElementById('bingo-grid');
+  grid.innerHTML = '';
+  boardTasks.forEach((task, i) => {
+    const cell = document.createElement('div');
+    const ci = (Math.floor(i/5) + (i%5)) % 5;
+    cell.className = `cell cell-${ci}`;
+    cell.dataset.index = i;
+    if (task === 'FREE') {
+      cell.classList.add('free-space');
+      cell.textContent = '✦ Free';
+      marked.add(i);
+    } else {
+      cell.textContent = task;
+      if (marked.has(i)) cell.classList.add('marked');
+    }
+    cell.addEventListener('click', () => toggleCell(i));
+    grid.appendChild(cell);
+  });
+  updateBingoLines();
+  updateProgress();
+}
+function toggleCell(i) {
+  if (boardTasks[i] === 'FREE') return;
+  const cell = document.querySelector(`.cell[data-index="${i}"]`);
+  if (marked.has(i)) {
+    marked.delete(i);
+    cell.classList.remove('marked');
+  } else {
+    marked.add(i);
+    cell.classList.add('marked','cell-mark-anim');
+    setTimeout(()=>cell.classList.remove('cell-mark-anim'),300);
+  }
+  updateBingoLines();
+  updateProgress();
+  autoSaveDay();
+}
+function getLines() {
+  const L=[];
+  for(let r=0;r<5;r++) L.push([r*5,r*5+1,r*5+2,r*5+3,r*5+4]);
+  for(let c=0;c<5;c++) L.push([c,c+5,c+10,c+15,c+20]);
+  L.push([0,6,12,18,24]);
+  L.push([4,8,12,16,20]);
+  return L;
+}
+function updateBingoLines() {
+  const lines = getLines();
+  const newSet = new Set();
+  let newFound = [];
+  lines.forEach(line => {
+    if (line.every(i=>marked.has(i))) {
+      const k = line.join(',');
+      if (!bingoLines.has(k)) newFound.push(line);
+      newSet.add(k);
+    }
+  });
+  document.querySelectorAll('.cell').forEach(c=>c.classList.remove('bingo-line'));
+  newSet.forEach(k => k.split(',').forEach(i=>document.querySelector(`.cell[data-index="${i}"]`)?.classList.add('bingo-line')));
+  if (newFound.length) { bingoLines = newSet; showBingo(); }
+  else bingoLines = newSet;
+  updateBingoChips();
+}
+function showBingo() {
+  const b = document.getElementById('bingo-banner');
+  b.classList.add('show'); launchConfetti();
+  setTimeout(()=>b.classList.remove('show'), 3000);
+}
+function updateProgress() {
+  const total = boardTasks.filter(t=>t!=='FREE').length;
+  const done  = [...marked].filter(i=>boardTasks[i]!=='FREE').length;
+  const pct   = Math.round(done/total*100);
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('progress-pct').textContent = pct+'%';
+  document.getElementById('progress-bar').style.width = pct+'%';
+}
+function updateBingoChips() {
+  const count = bingoLines.size;
+  document.getElementById('bingo-count-display').textContent = count;
+  const chips = document.getElementById('bingo-chips');
+  chips.innerHTML = '';
+  for (let i=0;i<count;i++) {
+    const c=document.createElement('div'); c.className='bingo-chip';
+    c.textContent='✦ Bingo #'+(i+1); chips.appendChild(c);
+  }
+}
+function resetBoard() {
+  marked=new Set([12]); bingoLines=new Set();
+  renderBoard(); autoSaveDay();
+}
+function shuffleBoard() {
+  marked=new Set([12]); bingoLines=new Set();
+  buildBoard(); renderBoard(); autoSaveDay();
+}
+
+/* =================== SAVE / LOAD =================== */
+function makeSnapshot() {
+  const doneTasks = [...marked].filter(i=>boardTasks[i]!=='FREE');
+  const total = boardTasks.filter(t=>t!=='FREE').length;
+  return {
+    date: todayStr(), tasks: boardTasks, marked: [...marked],
+    done: doneTasks.length, total,
+    pct: Math.round(doneTasks.length/total*100),
+    bingos: bingoLines.size, savedAt: new Date().toISOString()
+  };
+}
+async function autoSaveDay() {
+  const snap = makeSnapshot();
+  const ok = await storageSet('bingo:daily:'+snap.date, snap);
+  if (ok) {
+    historyData[snap.date] = snap;
+    showSaveStatus('Auto-saved ✦ '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  }
+}
+async function saveDayManual() {
+  const snap = makeSnapshot();
+  const ok = await storageSet('bingo:daily:'+snap.date, snap);
+  if (ok) { historyData[snap.date]=snap; showSaveStatus('Saved to history! 🍬'); }
+  else showSaveStatus('Saved locally ✦');
+}
+function showSaveStatus(msg) {
+  const el = document.getElementById('save-status');
+  el.textContent=msg; el.style.opacity=1;
+  setTimeout(()=>{el.style.opacity=0;},2500);
+}
+async function loadTodayBoard() {
+  const snap = await storageGet('bingo:daily:'+todayStr());
+  if (snap && snap.tasks && snap.tasks.length===25) {
+    boardTasks=snap.tasks; marked=new Set(snap.marked); bingoLines=new Set();
+    return true;
+  }
+  return false;
+}
+async function loadAllHistory() {
+  const keys = await storageList('bingo:daily:');
+  for (const k of keys) {
+    const snap = await storageGet(k);
+    if (snap && snap.date) historyData[snap.date]=snap;
+  }
+}
+async function loadCustomTasks() {
+  const saved = await storageGet('bingo:tasks');
+  if (saved && Array.isArray(saved)) tasks=saved;
+}
+async function saveCustomTasks() { await storageSet('bingo:tasks', tasks); }
+
+/* =================== HISTORY =================== */
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-tab')[v==='board'?0:1].classList.add('active');
+  if (v==='history') renderHistory();
+}
+function filterDates() {
+  const f = document.getElementById('filter-select').value;
+  const now = new Date();
+  return Object.keys(historyData).filter(d => {
+    const dt = new Date(d+'T12:00:00');
+    if (f==='week')  return (now-dt)/86400000<=7;
+    if (f==='month') return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();
+    if (f==='year')  return dt.getFullYear()===now.getFullYear();
+    return true;
+  }).sort((a,b)=>b.localeCompare(a));
+}
+function renderHistory() {
+  const dates = filterDates();
+  const totalDays  = dates.length;
+  const avgPct     = totalDays ? Math.round(dates.reduce((s,d)=>s+historyData[d].pct,0)/totalDays) : 0;
+  const totalBingos= dates.reduce((s,d)=>s+historyData[d].bingos,0);
+  document.getElementById('summary-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${totalDays}</div><div class="stat-label">Days logged</div></div>
+    <div class="stat-card"><div class="stat-num">${avgPct}%</div><div class="stat-label">Avg done</div></div>
+    <div class="stat-card"><div class="stat-num">${totalBingos}</div><div class="stat-label">Total bingos</div></div>
+  `;
+  const list = document.getElementById('history-list');
+  if (!dates.length) {
+    list.innerHTML=`<div class="history-empty"><div class="icon">🍬</div>No history yet.<br>Complete tasks and hit <strong>Save</strong><br>to start tracking!</div>`;
+    return;
+  }
+  const groups = {};
+  dates.forEach(d=>{ const mk=monthKey(d); if(!groups[mk])groups[mk]=[]; groups[mk].push(d); });
+  list.innerHTML='';
+  Object.entries(groups).forEach(([month,ds]) => {
+    const mg=document.createElement('div'); mg.className='month-group';
+    mg.innerHTML=`<div class="month-label">${month}</div>`;
+    ds.forEach(d => {
+      const snap=historyData[d];
+      const doneTasks  =snap.tasks.filter((_,i)=>snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
+      const undoneTasks=snap.tasks.filter((_,i)=>!snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
+      const row=document.createElement('div'); row.className='day-row';
+      row.innerHTML=`
+        <div class="day-row-top">
+          <div class="day-date">${formatDate(d)}</div>
+          <div class="day-right">
+            ${snap.bingos>0?`<div class="day-bingo">✦ ${snap.bingos} bingo</div>`:''}
+            <div class="day-pct">${snap.pct}%</div>
+          </div>
+        </div>
+        <div class="day-mini-bar"><div class="day-mini-fill" style="width:${snap.pct}%"></div></div>
+        <div class="day-tasks-expand" id="exp-${d}">
+          <div class="task-section-label">Completed (${doneTasks.length})</div>
+          <div class="task-chips">${doneTasks.map(t=>`<span class="day-task-chip done">✓ ${t}</span>`).join('')}</div>
+          ${undoneTasks.length?`<div class="task-section-label">Remaining (${undoneTasks.length})</div><div class="task-chips">${undoneTasks.map(t=>`<span class="day-task-chip undone">${t}</span>`).join('')}</div>`:''}
+        </div>
+      `;
+      row.addEventListener('click',()=>document.getElementById('exp-'+d).classList.toggle('open'));
+      mg.appendChild(row);
+    });
+    list.appendChild(mg);
+  });
+}
+
+/* =================== CSV EXPORT =================== */
+function exportCSV() {
+  const dates = filterDates();
+  if (!dates.length) { alert('No history to export yet!'); return; }
+  const rows=[['Date','Day of Week','Completion %','Tasks Done','Total Tasks','Bingo Count','Completed Tasks','Remaining Tasks']];
+  dates.forEach(d => {
+    const snap=historyData[d];
+    const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dt=new Date(d+'T12:00:00');
+    const doneTasks  =snap.tasks.filter((_,i)=>snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
+    const undoneTasks=snap.tasks.filter((_,i)=>!snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
+    rows.push([d, days[dt.getDay()], snap.pct+'%', snap.done, snap.total, snap.bingos,
+      '"'+doneTasks.join('; ')+'"', '"'+undoneTasks.join('; ')+'"']);
+  });
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const filter=document.getElementById('filter-select').value;
+  a.href=url; a.download=`task-bingo-${filter}-${todayStr()}.csv`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* =================== MODAL =================== */
+function openModal() {
+  editTasksArr=[...tasks]; renderModalList();
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function renderModalList() {
+  const list=document.getElementById('task-list-edit'); list.innerHTML='';
+  editTasksArr.forEach((task,i) => {
+    const row=document.createElement('div'); row.className='task-item-edit';
+    row.innerHTML=`<input type="text" value="${task.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}" maxlength="40" data-idx="${i}"><button class="task-delete-btn" onclick="removeEditTask(${i})">✕</button>`;
+    list.appendChild(row);
+  });
+}
+function removeEditTask(i) { editTasksArr.splice(i,1); renderModalList(); }
+function addTaskFromModal() {
+  const inp=document.getElementById('new-task-input');
+  const val=inp.value.trim();
+  if(val){ editTasksArr.push(val); renderModalList(); inp.value=''; document.getElementById('task-list-edit').scrollTop=99999; }
+}
+async function saveAndClose() {
+  const inputs=document.querySelectorAll('.task-item-edit input');
+  editTasksArr=[...inputs].map(i=>i.value.trim()).filter(Boolean);
+  tasks=editTasksArr.length>=5?editTasksArr:[...editTasksArr,...DEFAULT_TASKS];
+  await saveCustomTasks();
+  document.getElementById('modal-overlay').classList.remove('open');
+  shuffleBoard();
+}
+function closeModal(event) {
+  if(!event||event.target===document.getElementById('modal-overlay'))
+    document.getElementById('modal-overlay').classList.remove('open');
+}
+
+/* =================== CONFETTI =================== */
+function launchConfetti() {
+  const canvas=document.getElementById('confetti-canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const colors=['#f09aad','#b8a8ee','#80ca8e','#f5b883','#82b8e8','#f7e0e8','#d4c5f9','#fcd9b4'];
+  const pieces=Array.from({length:90},()=>({
+    x:Math.random()*canvas.width,y:-15,r:Math.random()*5+3,
+    color:colors[Math.floor(Math.random()*colors.length)],
+    vx:(Math.random()-0.5)*3,vy:Math.random()*3+2,
+    rot:Math.random()*360,rotV:(Math.random()-0.5)*6,
+    shape:Math.random()>0.5?'circle':'rect'
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.color;
+      if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+      else ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
+      ctx.restore();
+      p.x+=p.vx;p.y+=p.vy;p.rot+=p.rotV;p.vy+=0.04;
+    });
+    frame++;
+    if(frame<130)requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+
+/* =================== INIT =================== */
+async function init() {
+  document.getElementById('board-date').textContent = formatDate(todayStr());
+  await loadCustomTasks();
+  await loadAllHistory();
+  const loaded = await loadTodayBoard();
+  if (!loaded) { buildBoard(); marked=new Set([12]); }
+  renderBoard();
+}
+init();
+</script>
+</body>
+</html>
