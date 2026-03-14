@@ -6,331 +6,453 @@
 <title>Task Bingo 🍬</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ===== THEME VARIABLES ===== */
 :root {
-  --rose:           #f7c5d0;
-  --lavender:       #d8cef5;
-  --pistachio:      #c5e5cb;
-  --peach:          #fcd9b4;
-  --sky:            #b9d9f0;
-  --rose-deep:      #e8889c;
-  --lavender-deep:  #9b87e0;
-  --pistachio-deep: #5da86b;
-  --peach-deep:     #e89254;
-  --sky-deep:       #5299cc;
-  --rose-text:      #7a3a4a;
-  --lavender-text:  #42357a;
-  --pistachio-text: #254d2c;
-  --peach-text:     #7a4020;
-  --sky-text:       #1a4a6e;
-  --bg:     #faf5f0;
-  --card:   #fffcf8;
-  --border: #ede7df;
-  --text:   #3e342e;
-  --muted:  #9e8e85;
-  --shadow: 0 2px 16px rgba(120,80,60,0.08);
-  --radius: 18px;
-  --radius-sm: 12px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
+  --bg:#faf5f0; --card:#fffcf8; --border:#ede7df;
+  --text:#3e342e; --muted:#9e8e85;
+  --shadow:0 2px 16px rgba(120,80,60,0.08);
+  --radius:18px; --radius-sm:12px;
+
+  --c0-bg:#fdf0f3; --c0-bd:#f7c5d0; --c0-tx:#7a3a4a;
+  --c0-mg:linear-gradient(135deg,#f09aad,#e8889c); --c0-sh:rgba(240,154,173,0.4);
+  --c1-bg:#f0ecfd; --c1-bd:#d8cef5; --c1-tx:#42357a;
+  --c1-mg:linear-gradient(135deg,#b8a8ee,#9b87e0); --c1-sh:rgba(155,135,224,0.4);
+  --c2-bg:#edf7ef; --c2-bd:#c5e5cb; --c2-tx:#254d2c;
+  --c2-mg:linear-gradient(135deg,#80ca8e,#5da86b); --c2-sh:rgba(93,168,107,0.4);
+  --c3-bg:#fef6ee; --c3-bd:#fcd9b4; --c3-tx:#7a4020;
+  --c3-mg:linear-gradient(135deg,#f5b883,#e89254); --c3-sh:rgba(232,146,84,0.4);
+  --c4-bg:#edf5fc; --c4-bd:#b9d9f0; --c4-tx:#1a4a6e;
+  --c4-mg:linear-gradient(135deg,#82b8e8,#5299cc); --c4-sh:rgba(82,153,204,0.4);
+
+  --accent-a:#e8889c; --accent-b:#9b87e0; --accent-c:#5299cc;
+  --hdr-grad:linear-gradient(160deg,#fdf0f3 0%,#f3eefe 55%,#eef6fd 100%);
+  --chip-bg:linear-gradient(135deg,#d8cef5,#b9d9f0);
+  --chip-bd:#c8c0ee; --chip-tx:#42357a;
+  --nav-act:#e8889c;
+  --prog-grad:linear-gradient(90deg,#e8889c,#9b87e0,#5299cc);
+  --free-bg:linear-gradient(135deg,#fdf0f3,#f0ecfd);
+  --free-bd:#e8d0e8; --free-tx:#42357a;
 }
 
-/* NAV */
+/* Ocean */
+[data-theme="ocean"] {
+  --bg:#f0f7ff; --card:#f8fbff; --border:#c8dff0;
+  --text:#1a2e4a; --muted:#6a90b5;
+  --shadow:0 2px 16px rgba(30,70,130,0.08);
+  --c0-bg:#dff0ff; --c0-bd:#90c8f0; --c0-tx:#0a3a6a;
+  --c0-mg:linear-gradient(135deg,#60b0f0,#2880d0); --c0-sh:rgba(40,128,208,0.4);
+  --c1-bg:#e0f8f8; --c1-bd:#90d8d8; --c1-tx:#0a4a4a;
+  --c1-mg:linear-gradient(135deg,#50c8c8,#159898); --c1-sh:rgba(21,152,152,0.4);
+  --c2-bg:#e8f2ff; --c2-bd:#a8c8f5; --c2-tx:#1a2e70;
+  --c2-mg:linear-gradient(135deg,#6888f0,#3050c8); --c2-sh:rgba(48,80,200,0.4);
+  --c3-bg:#e0f5ff; --c3-bd:#88ccf0; --c3-tx:#0a3858;
+  --c3-mg:linear-gradient(135deg,#48b8e8,#1080b8); --c3-sh:rgba(16,128,184,0.4);
+  --c4-bg:#e8f0ff; --c4-bd:#b0c8f8; --c4-tx:#1a2870;
+  --c4-mg:linear-gradient(135deg,#7098f0,#3868d0); --c4-sh:rgba(56,104,208,0.4);
+  --accent-a:#2880d0; --accent-b:#159898; --accent-c:#3050c8;
+  --hdr-grad:linear-gradient(160deg,#dff0ff 0%,#e0f8f8 55%,#e8f0ff 100%);
+  --chip-bg:linear-gradient(135deg,#90c8f0,#a8c8f8); --chip-bd:#80b8e8; --chip-tx:#0a3a6a;
+  --nav-act:#2880d0; --prog-grad:linear-gradient(90deg,#2880d0,#159898,#3050c8);
+  --free-bg:linear-gradient(135deg,#e0f5ff,#e8f2ff); --free-bd:#a0c8f0; --free-tx:#0a3a6a;
+}
+
+/* Forest */
+[data-theme="forest"] {
+  --bg:#f3f8f2; --card:#f9fcf8; --border:#c8dfc0;
+  --text:#1e3018; --muted:#6a8f60;
+  --shadow:0 2px 16px rgba(30,80,20,0.08);
+  --c0-bg:#e5f5e0; --c0-bd:#a0d090; --c0-tx:#1a4810;
+  --c0-mg:linear-gradient(135deg,#70c860,#38a828); --c0-sh:rgba(56,168,40,0.4);
+  --c1-bg:#eef8e8; --c1-bd:#b8d8a8; --c1-tx:#204820;
+  --c1-mg:linear-gradient(135deg,#88c878,#50a040); --c1-sh:rgba(80,160,64,0.4);
+  --c2-bg:#f5f2e8; --c2-bd:#d8c890; --c2-tx:#4a3810;
+  --c2-mg:linear-gradient(135deg,#d0b060,#a08030); --c2-sh:rgba(160,128,48,0.4);
+  --c3-bg:#e8f0e0; --c3-bd:#a8c898; --c3-tx:#1e4018;
+  --c3-mg:linear-gradient(135deg,#68b858,#389830); --c3-sh:rgba(56,152,48,0.4);
+  --c4-bg:#edf5e8; --c4-bd:#b0d0a0; --c4-tx:#204828;
+  --c4-mg:linear-gradient(135deg,#78c070,#409840); --c4-sh:rgba(64,152,64,0.4);
+  --accent-a:#38a828; --accent-b:#50a040; --accent-c:#a08030;
+  --hdr-grad:linear-gradient(160deg,#e8f5e0 0%,#f0f5e8 55%,#edf8e8 100%);
+  --chip-bg:linear-gradient(135deg,#a0d090,#b8d8a8); --chip-bd:#90c880; --chip-tx:#1a4810;
+  --nav-act:#38a828; --prog-grad:linear-gradient(90deg,#38a828,#50a040,#a08030);
+  --free-bg:linear-gradient(135deg,#eef8e8,#f5f2e8); --free-bd:#b8d8a8; --free-tx:#204820;
+}
+
+/* Sunset */
+[data-theme="sunset"] {
+  --bg:#fff8f0; --card:#fffdf8; --border:#f0d8b8;
+  --text:#3a2010; --muted:#a07850;
+  --shadow:0 2px 16px rgba(160,100,30,0.08);
+  --c0-bg:#fff0d8; --c0-bd:#f8c870; --c0-tx:#6a3a08;
+  --c0-mg:linear-gradient(135deg,#f8c040,#d09010); --c0-sh:rgba(208,144,16,0.4);
+  --c1-bg:#ffece0; --c1-bd:#f8b888; --c1-tx:#6a2808;
+  --c1-mg:linear-gradient(135deg,#f89060,#d05020); --c1-sh:rgba(208,80,32,0.4);
+  --c2-bg:#fff5e0; --c2-bd:#f8d090; --c2-tx:#5a3808;
+  --c2-mg:linear-gradient(135deg,#f8b848,#d08818); --c2-sh:rgba(208,136,24,0.4);
+  --c3-bg:#ffe8d8; --c3-bd:#f8a878; --c3-tx:#6a2008;
+  --c3-mg:linear-gradient(135deg,#f87848,#d04018); --c3-sh:rgba(208,64,24,0.4);
+  --c4-bg:#fff8e8; --c4-bd:#f8d898; --c4-tx:#5a3c08;
+  --c4-mg:linear-gradient(135deg,#f8c858,#d09828); --c4-sh:rgba(208,152,40,0.4);
+  --accent-a:#d09010; --accent-b:#d05020; --accent-c:#d08818;
+  --hdr-grad:linear-gradient(160deg,#fff0d8 0%,#ffece0 55%,#fff5e0 100%);
+  --chip-bg:linear-gradient(135deg,#f8c870,#f8b888); --chip-bd:#f0a860; --chip-tx:#6a3a08;
+  --nav-act:#d09010; --prog-grad:linear-gradient(90deg,#d09010,#d05020,#d08818);
+  --free-bg:linear-gradient(135deg,#fff0d8,#fff5e0); --free-bd:#f8d090; --free-tx:#6a3a08;
+}
+
+/* Midnight */
+[data-theme="midnight"] {
+  --bg:#14101e; --card:#1e1a2e; --border:#38305a;
+  --text:#e0d8f8; --muted:#8870b0;
+  --shadow:0 2px 16px rgba(0,0,0,0.5);
+  --c0-bg:#2a2048; --c0-bd:#5848a8; --c0-tx:#c8b8ff;
+  --c0-mg:linear-gradient(135deg,#7868d0,#5848a8); --c0-sh:rgba(88,72,168,0.5);
+  --c1-bg:#201c40; --c1-bd:#4838a8; --c1-tx:#b8a8ff;
+  --c1-mg:linear-gradient(135deg,#6858d8,#4838a8); --c1-sh:rgba(72,56,168,0.5);
+  --c2-bg:#2c2050; --c2-bd:#6848b8; --c2-tx:#d8b8ff;
+  --c2-mg:linear-gradient(135deg,#9068d8,#6848b8); --c2-sh:rgba(104,72,184,0.5);
+  --c3-bg:#261e48; --c3-bd:#5840b0; --c3-tx:#d0b0ff;
+  --c3-mg:linear-gradient(135deg,#8060d0,#5840b0); --c3-sh:rgba(88,64,176,0.5);
+  --c4-bg:#221a40; --c4-bd:#5038a8; --c4-tx:#c8b0ff;
+  --c4-mg:linear-gradient(135deg,#7858c8,#5038a8); --c4-sh:rgba(80,56,168,0.5);
+  --accent-a:#9068d8; --accent-b:#6858d8; --accent-c:#6848b8;
+  --hdr-grad:linear-gradient(160deg,#2a2048 0%,#201c40 55%,#2c2050 100%);
+  --chip-bg:linear-gradient(135deg,#5848a8,#4838a8); --chip-bd:#7858d0; --chip-tx:#c8b8ff;
+  --nav-act:#9068d8; --prog-grad:linear-gradient(90deg,#9068d8,#6858d8,#6848b8);
+  --free-bg:linear-gradient(135deg,#2c2050,#2a2048); --free-bd:#7858d0; --free-tx:#d8b8ff;
+}
+
+/* ===== GLOBAL ===== */
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh; overflow-x:hidden;
+  transition:background 0.3s, color 0.3s;
+}
+
+/* ===== NAV ===== */
 .nav-tabs {
-  display: flex;
-  background: var(--card);
-  border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 50;
+  display:flex; background:var(--card);
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0; z-index:50;
 }
 .nav-tab {
-  flex: 1; padding: 13px 8px;
-  border: none; background: transparent;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem; font-weight: 600;
-  color: var(--muted); cursor: pointer;
-  border-bottom: 2.5px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  flex:1; padding:13px 8px;
+  border:none; background:transparent;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.8rem; font-weight:600;
+  color:var(--muted); cursor:pointer;
+  border-bottom:2.5px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
 }
-.nav-tab.active { color: var(--rose-deep); border-bottom-color: var(--rose-deep); }
+.nav-tab.active { color:var(--nav-act); border-bottom-color:var(--nav-act); }
 
-/* VIEWS */
-.view { display: none; }
-.view.active { display: block; }
+/* ===== VIEWS ===== */
+.view { display:none; }
+.view.active { display:block; }
 
-/* BOARD HEADER */
+/* ===== BOARD HEADER ===== */
 .board-header {
-  background: linear-gradient(160deg, #fdf0f3 0%, #f3eefe 55%, #eef6fd 100%);
-  padding: 20px 16px 16px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
+  background:var(--hdr-grad);
+  padding:18px 16px 14px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
 }
 .board-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.7rem; font-weight: 700;
-  color: var(--text); letter-spacing: -0.3px;
+  font-family:'Playfair Display',serif;
+  font-size:1.7rem; font-weight:700;
+  color:var(--text); letter-spacing:-0.3px;
 }
-.board-date { font-size: 0.76rem; color: var(--muted); margin-top: 3px; }
-.score-row { display: flex; justify-content: center; gap: 8px; margin-top: 11px; }
+.board-date { font-size:0.76rem; color:var(--muted); margin-top:3px; }
+.score-row { display:flex; justify-content:center; gap:8px; margin-top:11px; }
 .score-pill {
-  background: white; border: 1.5px solid var(--border);
-  border-radius: 30px; padding: 4px 14px;
-  font-size: 0.76rem; font-weight: 600; color: var(--text);
+  background:var(--card); border:1.5px solid var(--border);
+  border-radius:30px; padding:4px 14px;
+  font-size:0.76rem; font-weight:600; color:var(--text);
 }
-.score-pill .num { color: var(--rose-deep); font-weight: 700; }
+.score-pill .num { color:var(--accent-a); font-weight:700; }
 
-/* BINGO FLASH */
+/* ===== THEME SWATCHES ===== */
+.theme-swatches {
+  display:flex; gap:8px; justify-content:center; margin-top:12px;
+}
+.theme-swatch {
+  width:24px; height:24px; border-radius:50%;
+  border:2.5px solid transparent; cursor:pointer;
+  transition:transform 0.15s, border-color 0.2s;
+  box-shadow:0 1px 5px rgba(0,0,0,0.18);
+  position:relative;
+}
+.theme-swatch:hover { transform:scale(1.2); }
+.theme-swatch.active {
+  border-color:var(--text);
+  transform:scale(1.15);
+  box-shadow:0 2px 8px rgba(0,0,0,0.28);
+}
+.theme-swatch::after {
+  content:attr(data-label);
+  position:absolute; bottom:-18px; left:50%;
+  transform:translateX(-50%);
+  font-size:0.55rem; font-weight:600;
+  color:var(--muted); white-space:nowrap;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.15s;
+}
+.theme-swatch:hover::after { opacity:1; }
+
+/* ===== BINGO FLASH ===== */
 .bingo-banner {
-  display: none;
-  background: linear-gradient(135deg, var(--lavender-deep), var(--sky-deep));
-  color: white; text-align: center; padding: 10px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem; letter-spacing: 5px;
-  position: sticky; top: 46px; z-index: 49;
-  animation: bannerPop 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  display:none;
+  background:linear-gradient(135deg,var(--accent-b),var(--accent-c));
+  color:white; text-align:center; padding:10px;
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem; letter-spacing:5px;
+  position:sticky; top:46px; z-index:49;
+  animation:bannerPop 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
 }
-.bingo-banner.show { display: block; }
+.bingo-banner.show { display:block; }
 @keyframes bannerPop {
-  0% { transform: scaleY(0); opacity: 0; }
-  100% { transform: scaleY(1); opacity: 1; }
+  0% { transform:scaleY(0); opacity:0; }
+  100% { transform:scaleY(1); opacity:1; }
 }
 
-.container { max-width: 480px; margin: 0 auto; padding: 13px 11px 40px; }
+.container { max-width:480px; margin:0 auto; padding:13px 11px 40px; }
 
-/* CONTROLS */
-.controls { display: flex; gap: 6px; margin-bottom: 11px; }
+/* ===== CONTROLS ===== */
+.controls { display:flex; gap:6px; margin-bottom:11px; }
 .btn {
-  flex: 1; padding: 8px 4px;
-  border: 1.5px solid transparent; border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.72rem; font-weight: 600; cursor: pointer;
-  transition: transform 0.1s, opacity 0.1s;
+  flex:1; padding:8px 4px;
+  border:1.5px solid transparent; border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.72rem; font-weight:600; cursor:pointer;
+  transition:transform 0.1s,opacity 0.1s;
+  background:var(--card);
 }
-.btn:active { transform: scale(0.94); opacity: 0.85; }
-.btn-reset   { background: #fdedf1; border-color: var(--rose);      color: var(--rose-deep); }
-.btn-shuffle { background: #ece8fc; border-color: var(--lavender);  color: var(--lavender-deep); }
-.btn-edit    { background: #e7f6ea; border-color: var(--pistachio); color: var(--pistachio-deep); }
-.btn-save    { background: #fef3e6; border-color: var(--peach);     color: var(--peach-deep); }
+.btn:active { transform:scale(0.94); opacity:0.85; }
+.btn-reset   { background:var(--c0-bg); border-color:var(--c0-bd); color:var(--c0-tx); }
+.btn-shuffle { background:var(--c1-bg); border-color:var(--c1-bd); color:var(--c1-tx); }
+.btn-edit    { background:var(--c2-bg); border-color:var(--c2-bd); color:var(--c2-tx); }
+.btn-save    { background:var(--c3-bg); border-color:var(--c3-bd); color:var(--c3-tx); }
 
-/* GRID */
-.bingo-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+/* ===== GRID ===== */
+.bingo-grid { display:grid; gap:5px; }
 .cell {
-  aspect-ratio: 1; border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 5px; cursor: pointer;
-  font-size: 0.57rem; font-weight: 500; line-height: 1.3;
-  transition: transform 0.15s cubic-bezier(0.175,0.885,0.32,1.275);
-  position: relative; overflow: hidden;
-  word-break: break-word; hyphens: auto;
-  user-select: none; -webkit-user-select: none;
-  border: 1.5px solid transparent; letter-spacing: 0.1px;
+  aspect-ratio:1; border-radius:var(--radius-sm);
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:5px; cursor:pointer;
+  font-weight:500; line-height:1.3;
+  transition:transform 0.15s cubic-bezier(0.175,0.885,0.32,1.275);
+  position:relative; overflow:hidden;
+  word-break:break-word; hyphens:auto;
+  user-select:none; -webkit-user-select:none;
+  border:1.5px solid transparent; letter-spacing:0.1px;
 }
-.cell:active { transform: scale(0.89); }
-.cell-0 { background: #fdf0f3; border-color: #f7c5d0; color: var(--rose-text); }
-.cell-1 { background: #f0ecfd; border-color: #d8cef5; color: var(--lavender-text); }
-.cell-2 { background: #edf7ef; border-color: #c5e5cb; color: var(--pistachio-text); }
-.cell-3 { background: #fef6ee; border-color: #fcd9b4; color: var(--peach-text); }
-.cell-4 { background: #edf5fc; border-color: #b9d9f0; color: var(--sky-text); }
+.cell:active { transform:scale(0.89); }
 
-.cell.marked { border-color: transparent !important; color: white !important; }
+/* Dynamic font sizes per grid size */
+.bingo-grid[data-size="3"] .cell { font-size:0.82rem; padding:8px; }
+.bingo-grid[data-size="4"] .cell { font-size:0.64rem; padding:6px; }
+.bingo-grid[data-size="5"] .cell { font-size:0.57rem; padding:5px; }
+
+.cell-0 { background:var(--c0-bg); border-color:var(--c0-bd); color:var(--c0-tx); }
+.cell-1 { background:var(--c1-bg); border-color:var(--c1-bd); color:var(--c1-tx); }
+.cell-2 { background:var(--c2-bg); border-color:var(--c2-bd); color:var(--c2-tx); }
+.cell-3 { background:var(--c3-bg); border-color:var(--c3-bd); color:var(--c3-tx); }
+.cell-4 { background:var(--c4-bg); border-color:var(--c4-bd); color:var(--c4-tx); }
+
+.cell.marked { border-color:transparent !important; color:white !important; }
 .cell.marked::after {
-  content: '✓'; position: absolute; top: 3px; right: 5px;
-  font-size: 0.6rem; opacity: 0.85;
+  content:'✓'; position:absolute; top:3px; right:5px;
+  font-size:0.6rem; opacity:0.85;
 }
-.cell-0.marked { background: linear-gradient(135deg, #f09aad, #e8889c); box-shadow: 0 3px 10px rgba(240,154,173,0.4); }
-.cell-1.marked { background: linear-gradient(135deg, #b8a8ee, #9b87e0); box-shadow: 0 3px 10px rgba(155,135,224,0.4); }
-.cell-2.marked { background: linear-gradient(135deg, #80ca8e, #5da86b); box-shadow: 0 3px 10px rgba(93,168,107,0.4); }
-.cell-3.marked { background: linear-gradient(135deg, #f5b883, #e89254); box-shadow: 0 3px 10px rgba(232,146,84,0.4); }
-.cell-4.marked { background: linear-gradient(135deg, #82b8e8, #5299cc); box-shadow: 0 3px 10px rgba(82,153,204,0.4); }
+.cell-0.marked { background:var(--c0-mg); box-shadow:0 3px 10px var(--c0-sh); }
+.cell-1.marked { background:var(--c1-mg); box-shadow:0 3px 10px var(--c1-sh); }
+.cell-2.marked { background:var(--c2-mg); box-shadow:0 3px 10px var(--c2-sh); }
+.cell-3.marked { background:var(--c3-mg); box-shadow:0 3px 10px var(--c3-sh); }
+.cell-4.marked { background:var(--c4-mg); box-shadow:0 3px 10px var(--c4-sh); }
 
 .cell.free-space {
-  background: linear-gradient(135deg, #fdf0f3, #f0ecfd) !important;
-  border-color: #e8d0e8 !important; color: var(--lavender-text) !important;
-  font-family: 'Playfair Display', serif; font-size: 0.66rem; font-style: italic;
+  background:var(--free-bg) !important;
+  border-color:var(--free-bd) !important;
+  color:var(--free-tx) !important;
+  font-family:'Playfair Display',serif;
+  font-style:italic;
 }
-.cell.bingo-line.marked { animation: macaronGlow 2s ease-in-out infinite; }
+.cell.bingo-line.marked { animation:macaronGlow 2s ease-in-out infinite; }
 @keyframes macaronGlow {
-  0%,100% { filter: brightness(1); }
-  50% { filter: brightness(1.1) saturate(1.1); }
+  0%,100% { filter:brightness(1); }
+  50% { filter:brightness(1.1) saturate(1.1); }
 }
-.cell-mark-anim { animation: markPop 0.28s cubic-bezier(0.175,0.885,0.32,1.275); }
+.cell-mark-anim { animation:markPop 0.28s cubic-bezier(0.175,0.885,0.32,1.275); }
 @keyframes markPop {
-  0% { transform: scale(0.82); } 60% { transform: scale(1.07); } 100% { transform: scale(1); }
+  0% { transform:scale(0.82); } 60% { transform:scale(1.07); } 100% { transform:scale(1); }
 }
 
-/* PROGRESS */
+/* ===== PROGRESS ===== */
 .progress-section {
-  margin-top: 11px; background: var(--card);
-  border-radius: var(--radius); padding: 13px;
-  border: 1px solid var(--border);
+  margin-top:11px; background:var(--card);
+  border-radius:var(--radius); padding:13px;
+  border:1px solid var(--border);
 }
 .progress-label {
-  display: flex; justify-content: space-between;
-  font-size: 0.74rem; font-weight: 600; color: var(--muted); margin-bottom: 7px;
+  display:flex; justify-content:space-between;
+  font-size:0.74rem; font-weight:600; color:var(--muted); margin-bottom:7px;
 }
-.progress-bar-outer { height: 7px; background: #f0e8e0; border-radius: 20px; overflow: hidden; }
+.progress-bar-outer { height:7px; background:var(--border); border-radius:20px; overflow:hidden; }
 .progress-bar-inner {
-  height: 100%;
-  background: linear-gradient(90deg, var(--rose-deep), var(--lavender-deep), var(--sky-deep));
-  border-radius: 20px; transition: width 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  height:100%;
+  background:var(--prog-grad);
+  border-radius:20px; transition:width 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
 }
-.bingo-chips { margin-top: 8px; display: flex; gap: 5px; flex-wrap: wrap; }
+.bingo-chips { margin-top:8px; display:flex; gap:5px; flex-wrap:wrap; }
 .bingo-chip {
-  background: linear-gradient(135deg, #d8cef5, #b9d9f0);
-  color: var(--lavender-text); border-radius: 20px;
-  padding: 3px 10px; font-size: 0.67rem; font-weight: 700;
-  border: 1px solid #c8c0ee;
+  background:var(--chip-bg);
+  color:var(--chip-tx); border-radius:20px;
+  padding:3px 10px; font-size:0.67rem; font-weight:700;
+  border:1px solid var(--chip-bd);
 }
 .save-status {
-  text-align: center; font-size: 0.71rem; color: var(--muted);
-  margin-top: 9px; min-height: 18px; transition: opacity 0.3s;
+  text-align:center; font-size:0.71rem; color:var(--muted);
+  margin-top:9px; min-height:18px; transition:opacity 0.3s;
 }
 
-/* ========== HISTORY VIEW ========== */
+/* ===== HISTORY VIEW ===== */
 .history-header {
-  background: linear-gradient(160deg, #f3eefe 0%, #eef6fd 100%);
-  padding: 18px 16px 14px; border-bottom: 1px solid var(--border);
+  background:var(--hdr-grad);
+  padding:18px 16px 14px; border-bottom:1px solid var(--border);
 }
 .history-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem; font-weight: 700; color: var(--text);
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem; font-weight:700; color:var(--text);
 }
-.history-sub { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
-
+.history-sub { font-size:0.74rem; color:var(--muted); margin-top:2px; }
 .history-controls {
-  display: flex; gap: 7px; padding: 11px 11px 0;
-  max-width: 480px; margin: 0 auto;
+  display:flex; gap:7px; padding:11px 11px 0;
+  max-width:480px; margin:0 auto;
 }
 .filter-select {
-  flex: 1; padding: 8px 12px;
-  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
-  background: var(--card); color: var(--text); outline: none;
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%239e8e85' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+  flex:1; padding:8px 12px;
+  border:1.5px solid var(--border); border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500;
+  background:var(--card); color:var(--text); outline:none;
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%239e8e85' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; padding-right:28px;
 }
 .btn-export {
-  padding: 8px 14px;
-  border: 1.5px solid var(--pistachio); border-radius: var(--radius-sm);
-  background: #e7f6ea; color: var(--pistachio-deep);
-  font-family: 'DM Sans', sans-serif; font-size: 0.76rem; font-weight: 600;
-  cursor: pointer; white-space: nowrap;
+  padding:8px 14px;
+  border:1.5px solid var(--c2-bd); border-radius:var(--radius-sm);
+  background:var(--c2-bg); color:var(--c2-tx);
+  font-family:'DM Sans',sans-serif; font-size:0.76rem; font-weight:600;
+  cursor:pointer; white-space:nowrap;
 }
-.btn-export:active { transform: scale(0.95); }
-
-.history-container { max-width: 480px; margin: 0 auto; padding: 10px 11px 40px; }
-
-.summary-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin-bottom: 14px; }
+.btn-export:active { transform:scale(0.95); }
+.history-container { max-width:480px; margin:0 auto; padding:10px 11px 40px; }
+.summary-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:14px; }
 .stat-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 11px 6px; text-align: center;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:11px 6px; text-align:center;
 }
-.stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--text); font-weight: 700; line-height: 1; }
-.stat-label { font-size: 0.62rem; color: var(--muted); font-weight: 500; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
-
-.month-group { margin-bottom: 18px; }
+.stat-num { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--text); font-weight:700; line-height:1; }
+.stat-label { font-size:0.62rem; color:var(--muted); font-weight:500; margin-top:3px; text-transform:uppercase; letter-spacing:0.4px; }
+.month-group { margin-bottom:18px; }
 .month-label {
-  font-family: 'Playfair Display', serif; font-size: 0.95rem;
-  color: var(--text); font-weight: 700; margin-bottom: 7px;
-  padding-bottom: 5px; border-bottom: 1.5px solid var(--border);
+  font-family:'Playfair Display',serif; font-size:0.95rem;
+  color:var(--text); font-weight:700; margin-bottom:7px;
+  padding-bottom:5px; border-bottom:1.5px solid var(--border);
 }
 .day-row {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 6px;
-  cursor: pointer; transition: box-shadow 0.15s;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:6px;
+  cursor:pointer; transition:box-shadow 0.15s;
 }
-.day-row:active { box-shadow: var(--shadow); }
-.day-row-top { display: flex; align-items: center; justify-content: space-between; }
-.day-date { font-size: 0.8rem; font-weight: 600; color: var(--text); }
-.day-right { display: flex; gap: 6px; align-items: center; }
+.day-row:active { box-shadow:var(--shadow); }
+.day-row-top { display:flex; align-items:center; justify-content:space-between; }
+.day-date { font-size:0.8rem; font-weight:600; color:var(--text); }
+.day-right { display:flex; gap:6px; align-items:center; }
 .day-bingo {
-  font-size: 0.67rem; font-weight: 700; color: var(--lavender-deep);
-  background: #f0ecfd; border-radius: 10px; padding: 2px 8px; border: 1px solid #d8cef5;
+  font-size:0.67rem; font-weight:700; color:var(--accent-b);
+  background:var(--c1-bg); border-radius:10px; padding:2px 8px; border:1px solid var(--c1-bd);
 }
-.day-pct { font-size: 0.76rem; font-weight: 700; color: var(--rose-deep); }
-.day-mini-bar { height: 3px; background: #f0e8e0; border-radius: 10px; overflow: hidden; margin-top: 5px; }
-.day-mini-fill { height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--rose-deep), var(--lavender-deep)); }
-.day-tasks-expand { display: none; margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
-.day-tasks-expand.open { display: block; }
+.day-pct { font-size:0.76rem; font-weight:700; color:var(--accent-a); }
+.day-mini-bar { height:3px; background:var(--border); border-radius:10px; overflow:hidden; margin-top:5px; }
+.day-mini-fill { height:100%; border-radius:10px; background:var(--prog-grad); }
+.day-tasks-expand { display:none; margin-top:9px; padding-top:9px; border-top:1px solid var(--border); }
+.day-tasks-expand.open { display:block; }
 .task-section-label {
-  font-size: 0.64rem; font-weight: 700; color: var(--muted);
-  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px;
+  font-size:0.64rem; font-weight:700; color:var(--muted);
+  text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px;
 }
-.task-section-label + .task-section-label, .task-chips + .task-section-label { margin-top: 7px; }
+.task-section-label + .task-section-label, .task-chips + .task-section-label { margin-top:7px; }
 .day-task-chip {
-  display: inline-block; font-size: 0.64rem; font-weight: 500;
-  padding: 2px 8px; border-radius: 10px; margin: 2px 3px 2px 0; border: 1px solid;
+  display:inline-block; font-size:0.64rem; font-weight:500;
+  padding:2px 8px; border-radius:10px; margin:2px 3px 2px 0; border:1px solid;
 }
-.day-task-chip.done   { background: #e7f6ea; border-color: #c5e5cb; color: var(--pistachio-text); }
-.day-task-chip.undone { background: #faf5f0; border-color: #ede7df; color: var(--muted); }
-
+.day-task-chip.done   { background:var(--c2-bg); border-color:var(--c2-bd); color:var(--c2-tx); }
+.day-task-chip.undone { background:var(--bg); border-color:var(--border); color:var(--muted); }
 .history-empty {
-  text-align: center; padding: 48px 20px; color: var(--muted);
-  font-size: 0.83rem; line-height: 1.8;
+  text-align:center; padding:48px 20px; color:var(--muted);
+  font-size:0.83rem; line-height:1.8;
 }
-.history-empty .icon { font-size: 2.5rem; margin-bottom: 10px; }
+.history-empty .icon { font-size:2.5rem; margin-bottom:10px; }
 
-/* MODAL */
+/* ===== MODAL ===== */
 .modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(62,52,46,0.4); z-index: 200;
-  backdrop-filter: blur(5px); align-items: flex-end; justify-content: center;
+  display:none; position:fixed; inset:0;
+  background:rgba(62,52,46,0.4); z-index:200;
+  backdrop-filter:blur(5px); align-items:flex-end; justify-content:center;
 }
-.modal-overlay.open { display: flex; }
+.modal-overlay.open { display:flex; }
 .modal {
-  background: var(--card); border-radius: 24px 24px 0 0;
-  padding: 18px 17px 42px; width: 100%; max-width: 480px;
-  animation: slideUp 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-  border-top: 1px solid var(--border);
+  background:var(--card); border-radius:24px 24px 0 0;
+  padding:18px 17px 42px; width:100%; max-width:480px;
+  animation:slideUp 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  border-top:1px solid var(--border);
 }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-handle { width: 38px; height: 4px; background: var(--border); border-radius: 10px; margin: 0 auto 15px; }
-.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 13px; color: var(--text); }
-.task-list-edit { max-height: 46vh; overflow-y: auto; margin-bottom: 11px; }
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+.modal-handle { width:38px; height:4px; background:var(--border); border-radius:10px; margin:0 auto 15px; }
+.modal h3 { font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:13px; color:var(--text); }
+.task-list-edit { max-height:46vh; overflow-y:auto; margin-bottom:11px; }
 .task-item-edit {
-  display: flex; align-items: center; gap: 7px; margin-bottom: 5px;
-  background: #f9f5f0; border-radius: 10px; padding: 7px 9px; border: 1px solid var(--border);
+  display:flex; align-items:center; gap:7px; margin-bottom:5px;
+  background:var(--bg); border-radius:10px; padding:7px 9px; border:1px solid var(--border);
 }
 .task-item-edit input {
-  flex: 1; border: none; background: transparent;
-  font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500;
-  outline: none; color: var(--text);
+  flex:1; border:none; background:transparent;
+  font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:500;
+  outline:none; color:var(--text);
 }
-.task-delete-btn { background: none; border: none; cursor: pointer; font-size: 0.85rem; color: #ccc; transition: color 0.15s; }
-.task-delete-btn:hover { color: var(--rose-deep); }
-.add-task-row { display: flex; gap: 7px; margin-bottom: 13px; }
+.task-delete-btn { background:none; border:none; cursor:pointer; font-size:0.85rem; color:var(--muted); transition:color 0.15s; }
+.task-delete-btn:hover { color:var(--accent-a); }
+.add-task-row { display:flex; gap:7px; margin-bottom:13px; }
 .add-task-input {
-  flex: 1; border: 1.5px solid var(--border); border-radius: 10px;
-  padding: 8px 11px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem;
-  font-weight: 500; outline: none; color: var(--text); background: white;
-  transition: border-color 0.15s;
+  flex:1; border:1.5px solid var(--border); border-radius:10px;
+  padding:8px 11px; font-family:'DM Sans',sans-serif; font-size:0.8rem;
+  font-weight:500; outline:none; color:var(--text); background:var(--card);
+  transition:border-color 0.15s;
 }
-.add-task-input:focus { border-color: var(--lavender-deep); }
+.add-task-input:focus { border-color:var(--accent-b); }
 .add-task-btn {
-  background: #e7f6ea; color: var(--pistachio-deep);
-  border: 1.5px solid var(--pistachio); border-radius: 10px;
-  padding: 8px 13px; font-family: 'DM Sans', sans-serif; font-weight: 700;
-  cursor: pointer; font-size: 0.8rem;
+  background:var(--c2-bg); color:var(--c2-tx);
+  border:1.5px solid var(--c2-bd); border-radius:10px;
+  padding:8px 13px; font-family:'DM Sans',sans-serif; font-weight:700;
+  cursor:pointer; font-size:0.8rem;
 }
-.modal-actions { display: flex; gap: 7px; }
+.modal-actions { display:flex; gap:7px; }
 .modal-btn {
-  flex: 1; padding: 11px; border: none; border-radius: var(--radius-sm);
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.84rem; cursor: pointer;
+  flex:1; padding:11px; border:none; border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.84rem; cursor:pointer;
 }
-.modal-cancel { background: #f0e8e0; color: var(--muted); }
-.modal-save   { background: linear-gradient(135deg, var(--rose-deep), var(--lavender-deep)); color: white; }
+.modal-cancel { background:var(--border); color:var(--muted); }
+.modal-save   { background:linear-gradient(135deg,var(--accent-a),var(--accent-b)); color:white; }
 
-/* CONFETTI */
-#confetti-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+/* ===== CONFETTI ===== */
+#confetti-canvas { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:9999; }
 
-@media (max-width: 360px) {
-  .cell { font-size: 0.51rem; }
-  .board-title { font-size: 1.4rem; }
+@media (max-width:360px) {
+  .bingo-grid[data-size="5"] .cell { font-size:0.51rem; }
+  .board-title { font-size:1.4rem; }
 }
 </style>
 </head>
@@ -349,8 +471,15 @@ body {
     <div class="board-title">✨ Task Bingo</div>
     <div class="board-date" id="board-date"></div>
     <div class="score-row">
-      <div class="score-pill">Done <span class="num" id="done-count">0</span>/24</div>
+      <div class="score-pill">Done <span class="num" id="done-count">0</span>/<span id="total-count">0</span></div>
       <div class="score-pill">🎯 <span class="num" id="bingo-count-display">0</span> Bingo</div>
+    </div>
+    <div class="theme-swatches">
+      <button class="theme-swatch active" data-theme=""        style="background:#f7c5d0" data-label="Blossom"  onclick="setTheme('')"></button>
+      <button class="theme-swatch"        data-theme="ocean"   style="background:#2880d0" data-label="Ocean"    onclick="setTheme('ocean')"></button>
+      <button class="theme-swatch"        data-theme="forest"  style="background:#38a828" data-label="Forest"   onclick="setTheme('forest')"></button>
+      <button class="theme-swatch"        data-theme="sunset"  style="background:#f8c040" data-label="Sunset"   onclick="setTheme('sunset')"></button>
+      <button class="theme-swatch"        data-theme="midnight"style="background:#7858c8" data-label="Night"    onclick="setTheme('midnight')"></button>
     </div>
   </div>
   <div class="bingo-banner" id="bingo-banner">✨ B I N G O ✨</div>
@@ -425,25 +554,42 @@ const DEFAULT_TASKS = [
   "Go outside","Do finances","Deep clean area","Help someone","Celebrate a win"
 ];
 
-let tasks      = [...DEFAULT_TASKS];
-let boardTasks = [];
-let marked     = new Set();
-let bingoLines = new Set();
+let tasks        = [...DEFAULT_TASKS];
+let boardTasks   = [];
+let marked       = new Set();
+let bingoLines   = new Set();
+let gridSize     = 5;
 let editTasksArr = [];
 let historyData  = {};
 
 /* =================== STORAGE =================== */
+// Uses window.storage if available (custom runtime), otherwise falls back to localStorage
 async function storageGet(key) {
   try { const r = await window.storage.get(key); return r ? JSON.parse(r.value) : null; }
-  catch { return null; }
+  catch {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; }
+    catch { return null; }
+  }
 }
 async function storageSet(key, val) {
   try { await window.storage.set(key, JSON.stringify(val)); return true; }
-  catch { return false; }
+  catch {
+    try { localStorage.setItem(key, JSON.stringify(val)); return true; }
+    catch { return false; }
+  }
 }
 async function storageList(prefix) {
   try { const r = await window.storage.list(prefix); return r ? r.keys : []; }
-  catch { return []; }
+  catch {
+    try {
+      const keys = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefix)) keys.push(k);
+      }
+      return keys;
+    } catch { return []; }
+  }
 }
 
 /* =================== DATE UTILS =================== */
@@ -462,37 +608,78 @@ function formatDate(str) {
 }
 function monthKey(str) {
   const [y,m] = str.split('-');
-  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const months = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
   return months[+m-1] + ' ' + y;
+}
+
+/* =================== THEME =================== */
+function setTheme(theme) {
+  document.body.dataset.theme = theme;
+  document.querySelectorAll('.theme-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.theme === theme);
+  });
+  storageSet('bingo:theme', theme);
+}
+async function loadTheme() {
+  const theme = await storageGet('bingo:theme');
+  if (theme !== null && theme !== undefined) setTheme(theme);
+}
+
+/* =================== GRID SIZING =================== */
+function getGridSize(n) {
+  if (n <= 9)  return 3;
+  if (n <= 16) return 4;
+  return 5;
 }
 
 /* =================== BOARD =================== */
 function shuffle(arr) {
   const a = [...arr];
-  for (let i=a.length-1;i>0;i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
+
 function buildBoard() {
-  const pool = [...new Set([...tasks,...DEFAULT_TASKS])];
-  const s = shuffle(pool);
-  boardTasks = s.slice(0,24);
-  boardTasks.splice(12, 0, 'FREE');
+  gridSize = getGridSize(tasks.length);
+  const total = gridSize * gridSize;
+  // Use only the user's tasks (no mixing with defaults)
+  const shuffled = shuffle([...tasks]);
+  // Take up to `total` tasks, pad remainder with 'FREE'
+  const arr = shuffled.slice(0, total);
+  while (arr.length < total) arr.push('FREE');
+  // Shuffle again so FREE cells are distributed randomly
+  boardTasks = shuffle(arr);
 }
+
+function initMarks() {
+  // Keep existing marks for non-FREE cells; ensure all FREE cells are marked
+  const newMarked = new Set();
+  boardTasks.forEach((t, i) => {
+    if (t === 'FREE') newMarked.add(i);
+    else if (marked.has(i)) newMarked.add(i);
+  });
+  marked = newMarked;
+}
+
 function renderBoard() {
   const grid = document.getElementById('bingo-grid');
   grid.innerHTML = '';
+  grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+  grid.dataset.size = gridSize;
+
   boardTasks.forEach((task, i) => {
     const cell = document.createElement('div');
-    const ci = (Math.floor(i/5) + (i%5)) % 5;
+    const ci = (Math.floor(i / gridSize) + (i % gridSize)) % 5;
     cell.className = `cell cell-${ci}`;
     cell.dataset.index = i;
+
     if (task === 'FREE') {
-      cell.classList.add('free-space');
+      cell.classList.add('free-space', 'marked');
       cell.textContent = '✦ Free';
-      marked.add(i);
     } else {
       cell.textContent = task;
       if (marked.has(i)) cell.classList.add('marked');
@@ -503,6 +690,7 @@ function renderBoard() {
   updateBingoLines();
   updateProgress();
 }
+
 function toggleCell(i) {
   if (boardTasks[i] === 'FREE') return;
   const cell = document.querySelector(`.cell[data-index="${i}"]`);
@@ -511,145 +699,186 @@ function toggleCell(i) {
     cell.classList.remove('marked');
   } else {
     marked.add(i);
-    cell.classList.add('marked','cell-mark-anim');
-    setTimeout(()=>cell.classList.remove('cell-mark-anim'),300);
+    cell.classList.add('marked', 'cell-mark-anim');
+    setTimeout(() => cell.classList.remove('cell-mark-anim'), 300);
   }
   updateBingoLines();
   updateProgress();
   autoSaveDay();
 }
+
 function getLines() {
-  const L=[];
-  for(let r=0;r<5;r++) L.push([r*5,r*5+1,r*5+2,r*5+3,r*5+4]);
-  for(let c=0;c<5;c++) L.push([c,c+5,c+10,c+15,c+20]);
-  L.push([0,6,12,18,24]);
-  L.push([4,8,12,16,20]);
+  const n = gridSize, L = [];
+  for (let r = 0; r < n; r++) {
+    const row = [];
+    for (let c = 0; c < n; c++) row.push(r * n + c);
+    L.push(row);
+  }
+  for (let c = 0; c < n; c++) {
+    const col = [];
+    for (let r = 0; r < n; r++) col.push(r * n + c);
+    L.push(col);
+  }
+  const d1 = [], d2 = [];
+  for (let i = 0; i < n; i++) {
+    d1.push(i * n + i);
+    d2.push(i * n + (n - 1 - i));
+  }
+  L.push(d1); L.push(d2);
   return L;
 }
+
 function updateBingoLines() {
   const lines = getLines();
   const newSet = new Set();
   let newFound = [];
   lines.forEach(line => {
-    if (line.every(i=>marked.has(i))) {
+    if (line.every(i => marked.has(i))) {
       const k = line.join(',');
       if (!bingoLines.has(k)) newFound.push(line);
       newSet.add(k);
     }
   });
-  document.querySelectorAll('.cell').forEach(c=>c.classList.remove('bingo-line'));
-  newSet.forEach(k => k.split(',').forEach(i=>document.querySelector(`.cell[data-index="${i}"]`)?.classList.add('bingo-line')));
+  document.querySelectorAll('.cell').forEach(c => c.classList.remove('bingo-line'));
+  newSet.forEach(k => k.split(',').forEach(i =>
+    document.querySelector(`.cell[data-index="${i}"]`)?.classList.add('bingo-line')
+  ));
   if (newFound.length) { bingoLines = newSet; showBingo(); }
   else bingoLines = newSet;
   updateBingoChips();
 }
+
 function showBingo() {
   const b = document.getElementById('bingo-banner');
   b.classList.add('show'); launchConfetti();
-  setTimeout(()=>b.classList.remove('show'), 3000);
+  setTimeout(() => b.classList.remove('show'), 3000);
 }
+
 function updateProgress() {
-  const total = boardTasks.filter(t=>t!=='FREE').length;
-  const done  = [...marked].filter(i=>boardTasks[i]!=='FREE').length;
-  const pct   = Math.round(done/total*100);
+  const total = boardTasks.filter(t => t !== 'FREE').length;
+  const done  = [...marked].filter(i => boardTasks[i] !== 'FREE').length;
+  const pct   = total > 0 ? Math.round(done / total * 100) : 0;
   document.getElementById('done-count').textContent = done;
-  document.getElementById('progress-pct').textContent = pct+'%';
-  document.getElementById('progress-bar').style.width = pct+'%';
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-bar').style.width = pct + '%';
 }
+
 function updateBingoChips() {
   const count = bingoLines.size;
   document.getElementById('bingo-count-display').textContent = count;
   const chips = document.getElementById('bingo-chips');
   chips.innerHTML = '';
-  for (let i=0;i<count;i++) {
-    const c=document.createElement('div'); c.className='bingo-chip';
-    c.textContent='✦ Bingo #'+(i+1); chips.appendChild(c);
+  for (let i = 0; i < count; i++) {
+    const c = document.createElement('div'); c.className = 'bingo-chip';
+    c.textContent = '✦ Bingo #' + (i+1); chips.appendChild(c);
   }
 }
+
 function resetBoard() {
-  marked=new Set([12]); bingoLines=new Set();
-  renderBoard(); autoSaveDay();
+  marked = new Set();
+  boardTasks.forEach((t, i) => { if (t === 'FREE') marked.add(i); });
+  bingoLines = new Set();
+  renderBoard();
+  autoSaveDay();
 }
+
 function shuffleBoard() {
-  marked=new Set([12]); bingoLines=new Set();
-  buildBoard(); renderBoard(); autoSaveDay();
+  marked = new Set();
+  bingoLines = new Set();
+  buildBoard();
+  initMarks();
+  renderBoard();
+  autoSaveDay();
 }
 
 /* =================== SAVE / LOAD =================== */
 function makeSnapshot() {
-  const doneTasks = [...marked].filter(i=>boardTasks[i]!=='FREE');
-  const total = boardTasks.filter(t=>t!=='FREE').length;
+  const doneTasks = [...marked].filter(i => boardTasks[i] !== 'FREE');
+  const total = boardTasks.filter(t => t !== 'FREE').length;
   return {
     date: todayStr(), tasks: boardTasks, marked: [...marked],
     done: doneTasks.length, total,
-    pct: Math.round(doneTasks.length/total*100),
+    pct: total > 0 ? Math.round(doneTasks.length / total * 100) : 0,
     bingos: bingoLines.size, savedAt: new Date().toISOString()
   };
 }
+
 async function autoSaveDay() {
   const snap = makeSnapshot();
-  const ok = await storageSet('bingo:daily:'+snap.date, snap);
+  const ok = await storageSet('bingo:daily:' + snap.date, snap);
   if (ok) {
     historyData[snap.date] = snap;
-    showSaveStatus('Auto-saved ✦ '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+    showSaveStatus('Auto-saved ✦ ' + new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
   }
 }
+
 async function saveDayManual() {
   const snap = makeSnapshot();
-  const ok = await storageSet('bingo:daily:'+snap.date, snap);
-  if (ok) { historyData[snap.date]=snap; showSaveStatus('Saved to history! 🍬'); }
+  const ok = await storageSet('bingo:daily:' + snap.date, snap);
+  if (ok) { historyData[snap.date] = snap; showSaveStatus('Saved to history! 🍬'); }
   else showSaveStatus('Saved locally ✦');
 }
+
 function showSaveStatus(msg) {
   const el = document.getElementById('save-status');
-  el.textContent=msg; el.style.opacity=1;
-  setTimeout(()=>{el.style.opacity=0;},2500);
+  el.textContent = msg; el.style.opacity = 1;
+  setTimeout(() => { el.style.opacity = 0; }, 2500);
 }
+
 async function loadTodayBoard() {
-  const snap = await storageGet('bingo:daily:'+todayStr());
-  if (snap && snap.tasks && snap.tasks.length===25) {
-    boardTasks=snap.tasks; marked=new Set(snap.marked); bingoLines=new Set();
+  const snap = await storageGet('bingo:daily:' + todayStr());
+  if (snap && snap.tasks && snap.tasks.length > 0) {
+    boardTasks = snap.tasks;
+    marked = new Set(snap.marked);
+    bingoLines = new Set();
+    gridSize = Math.round(Math.sqrt(boardTasks.length));
     return true;
   }
   return false;
 }
+
 async function loadAllHistory() {
   const keys = await storageList('bingo:daily:');
   for (const k of keys) {
     const snap = await storageGet(k);
-    if (snap && snap.date) historyData[snap.date]=snap;
+    if (snap && snap.date) historyData[snap.date] = snap;
   }
 }
+
 async function loadCustomTasks() {
   const saved = await storageGet('bingo:tasks');
-  if (saved && Array.isArray(saved)) tasks=saved;
+  if (saved && Array.isArray(saved) && saved.length > 0) tasks = saved;
 }
+
 async function saveCustomTasks() { await storageSet('bingo:tasks', tasks); }
 
 /* =================== HISTORY =================== */
 function showView(v) {
-  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(el=>el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
-  document.querySelectorAll('.nav-tab')[v==='board'?0:1].classList.add('active');
-  if (v==='history') renderHistory();
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-' + v).classList.add('active');
+  document.querySelectorAll('.nav-tab')[v === 'board' ? 0 : 1].classList.add('active');
+  if (v === 'history') renderHistory();
 }
+
 function filterDates() {
   const f = document.getElementById('filter-select').value;
   const now = new Date();
   return Object.keys(historyData).filter(d => {
-    const dt = new Date(d+'T12:00:00');
-    if (f==='week')  return (now-dt)/86400000<=7;
-    if (f==='month') return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();
-    if (f==='year')  return dt.getFullYear()===now.getFullYear();
+    const dt = new Date(d + 'T12:00:00');
+    if (f === 'week')  return (now - dt) / 86400000 <= 7;
+    if (f === 'month') return dt.getMonth() === now.getMonth() && dt.getFullYear() === now.getFullYear();
+    if (f === 'year')  return dt.getFullYear() === now.getFullYear();
     return true;
-  }).sort((a,b)=>b.localeCompare(a));
+  }).sort((a,b) => b.localeCompare(a));
 }
+
 function renderHistory() {
   const dates = filterDates();
-  const totalDays  = dates.length;
-  const avgPct     = totalDays ? Math.round(dates.reduce((s,d)=>s+historyData[d].pct,0)/totalDays) : 0;
-  const totalBingos= dates.reduce((s,d)=>s+historyData[d].bingos,0);
+  const totalDays   = dates.length;
+  const avgPct      = totalDays ? Math.round(dates.reduce((s,d) => s + historyData[d].pct, 0) / totalDays) : 0;
+  const totalBingos = dates.reduce((s,d) => s + historyData[d].bingos, 0);
   document.getElementById('summary-stats').innerHTML = `
     <div class="stat-card"><div class="stat-num">${totalDays}</div><div class="stat-label">Days logged</div></div>
     <div class="stat-card"><div class="stat-num">${avgPct}%</div><div class="stat-label">Avg done</div></div>
@@ -657,36 +886,36 @@ function renderHistory() {
   `;
   const list = document.getElementById('history-list');
   if (!dates.length) {
-    list.innerHTML=`<div class="history-empty"><div class="icon">🍬</div>No history yet.<br>Complete tasks and hit <strong>Save</strong><br>to start tracking!</div>`;
+    list.innerHTML = `<div class="history-empty"><div class="icon">🍬</div>No history yet.<br>Complete tasks and hit <strong>Save</strong><br>to start tracking!</div>`;
     return;
   }
   const groups = {};
-  dates.forEach(d=>{ const mk=monthKey(d); if(!groups[mk])groups[mk]=[]; groups[mk].push(d); });
-  list.innerHTML='';
-  Object.entries(groups).forEach(([month,ds]) => {
-    const mg=document.createElement('div'); mg.className='month-group';
-    mg.innerHTML=`<div class="month-label">${month}</div>`;
+  dates.forEach(d => { const mk = monthKey(d); if (!groups[mk]) groups[mk] = []; groups[mk].push(d); });
+  list.innerHTML = '';
+  Object.entries(groups).forEach(([month, ds]) => {
+    const mg = document.createElement('div'); mg.className = 'month-group';
+    mg.innerHTML = `<div class="month-label">${month}</div>`;
     ds.forEach(d => {
-      const snap=historyData[d];
-      const doneTasks  =snap.tasks.filter((_,i)=>snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
-      const undoneTasks=snap.tasks.filter((_,i)=>!snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
-      const row=document.createElement('div'); row.className='day-row';
-      row.innerHTML=`
+      const snap = historyData[d];
+      const doneTasks   = snap.tasks.filter((_,i) => snap.marked.includes(i) && snap.tasks[i] !== 'FREE');
+      const undoneTasks = snap.tasks.filter((_,i) => !snap.marked.includes(i) && snap.tasks[i] !== 'FREE');
+      const row = document.createElement('div'); row.className = 'day-row';
+      row.innerHTML = `
         <div class="day-row-top">
           <div class="day-date">${formatDate(d)}</div>
           <div class="day-right">
-            ${snap.bingos>0?`<div class="day-bingo">✦ ${snap.bingos} bingo</div>`:''}
+            ${snap.bingos > 0 ? `<div class="day-bingo">✦ ${snap.bingos} bingo</div>` : ''}
             <div class="day-pct">${snap.pct}%</div>
           </div>
         </div>
         <div class="day-mini-bar"><div class="day-mini-fill" style="width:${snap.pct}%"></div></div>
         <div class="day-tasks-expand" id="exp-${d}">
           <div class="task-section-label">Completed (${doneTasks.length})</div>
-          <div class="task-chips">${doneTasks.map(t=>`<span class="day-task-chip done">✓ ${t}</span>`).join('')}</div>
-          ${undoneTasks.length?`<div class="task-section-label">Remaining (${undoneTasks.length})</div><div class="task-chips">${undoneTasks.map(t=>`<span class="day-task-chip undone">${t}</span>`).join('')}</div>`:''}
+          <div class="task-chips">${doneTasks.map(t => `<span class="day-task-chip done">✓ ${t}</span>`).join('')}</div>
+          ${undoneTasks.length ? `<div class="task-section-label">Remaining (${undoneTasks.length})</div><div class="task-chips">${undoneTasks.map(t => `<span class="day-task-chip undone">${t}</span>`).join('')}</div>` : ''}
         </div>
       `;
-      row.addEventListener('click',()=>document.getElementById('exp-'+d).classList.toggle('open'));
+      row.addEventListener('click', () => document.getElementById('exp-' + d).classList.toggle('open'));
       mg.appendChild(row);
     });
     list.appendChild(mg);
@@ -697,83 +926,115 @@ function renderHistory() {
 function exportCSV() {
   const dates = filterDates();
   if (!dates.length) { alert('No history to export yet!'); return; }
-  const rows=[['Date','Day of Week','Completion %','Tasks Done','Total Tasks','Bingo Count','Completed Tasks','Remaining Tasks']];
+  const rows = [['Date','Day of Week','Completion %','Tasks Done','Total Tasks','Bingo Count','Completed Tasks','Remaining Tasks']];
   dates.forEach(d => {
-    const snap=historyData[d];
-    const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const dt=new Date(d+'T12:00:00');
-    const doneTasks  =snap.tasks.filter((_,i)=>snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
-    const undoneTasks=snap.tasks.filter((_,i)=>!snap.marked.includes(i)&&snap.tasks[i]!=='FREE');
-    rows.push([d, days[dt.getDay()], snap.pct+'%', snap.done, snap.total, snap.bingos,
-      '"'+doneTasks.join('; ')+'"', '"'+undoneTasks.join('; ')+'"']);
+    const snap = historyData[d];
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dt = new Date(d + 'T12:00:00');
+    const doneTasks   = snap.tasks.filter((_,i) => snap.marked.includes(i) && snap.tasks[i] !== 'FREE');
+    const undoneTasks = snap.tasks.filter((_,i) => !snap.marked.includes(i) && snap.tasks[i] !== 'FREE');
+    rows.push([d, days[dt.getDay()], snap.pct + '%', snap.done, snap.total, snap.bingos,
+      '"' + doneTasks.join('; ') + '"', '"' + undoneTasks.join('; ') + '"']);
   });
-  const csv=rows.map(r=>r.join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  const filter=document.getElementById('filter-select').value;
-  a.href=url; a.download=`task-bingo-${filter}-${todayStr()}.csv`; a.click();
+  const csv  = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const filter = document.getElementById('filter-select').value;
+  a.href = url; a.download = `task-bingo-${filter}-${todayStr()}.csv`; a.click();
   URL.revokeObjectURL(url);
 }
 
 /* =================== MODAL =================== */
 function openModal() {
-  editTasksArr=[...tasks]; renderModalList();
+  editTasksArr = [...tasks];
+  renderModalList();
   document.getElementById('modal-overlay').classList.add('open');
 }
+
 function renderModalList() {
-  const list=document.getElementById('task-list-edit'); list.innerHTML='';
-  editTasksArr.forEach((task,i) => {
-    const row=document.createElement('div'); row.className='task-item-edit';
-    row.innerHTML=`<input type="text" value="${task.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}" maxlength="40" data-idx="${i}"><button class="task-delete-btn" onclick="removeEditTask(${i})">✕</button>`;
+  const list = document.getElementById('task-list-edit');
+  list.innerHTML = '';
+  editTasksArr.forEach((task, i) => {
+    const row = document.createElement('div'); row.className = 'task-item-edit';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.value = task;
+    input.maxLength = 40;
+    input.dataset.idx = i;
+    const btn = document.createElement('button');
+    btn.className = 'task-delete-btn';
+    btn.textContent = '✕';
+    btn.onclick = () => removeEditTask(i);
+    row.appendChild(input);
+    row.appendChild(btn);
     list.appendChild(row);
   });
 }
-function removeEditTask(i) { editTasksArr.splice(i,1); renderModalList(); }
-function addTaskFromModal() {
-  const inp=document.getElementById('new-task-input');
-  const val=inp.value.trim();
-  if(val){ editTasksArr.push(val); renderModalList(); inp.value=''; document.getElementById('task-list-edit').scrollTop=99999; }
+
+function removeEditTask(i) {
+  editTasksArr.splice(i, 1);
+  renderModalList();
 }
+
+function addTaskFromModal() {
+  const inp = document.getElementById('new-task-input');
+  const val = inp.value.trim();
+  if (val) {
+    editTasksArr.push(val);
+    renderModalList();
+    inp.value = '';
+    document.getElementById('task-list-edit').scrollTop = 99999;
+  }
+}
+
 async function saveAndClose() {
-  const inputs=document.querySelectorAll('.task-item-edit input');
-  editTasksArr=[...inputs].map(i=>i.value.trim()).filter(Boolean);
-  tasks=editTasksArr.length>=5?editTasksArr:[...editTasksArr,...DEFAULT_TASKS];
+  // Read current input values directly from the DOM
+  const inputs = document.querySelectorAll('.task-item-edit input');
+  const updated = [...inputs].map(inp => inp.value.trim()).filter(Boolean);
+  // Merge with any tasks added via addTaskFromModal that aren't yet in DOM
+  tasks = updated.length > 0 ? updated : [...DEFAULT_TASKS];
   await saveCustomTasks();
   document.getElementById('modal-overlay').classList.remove('open');
-  shuffleBoard();
+  marked = new Set();
+  bingoLines = new Set();
+  buildBoard();
+  initMarks();
+  renderBoard();
+  autoSaveDay();
 }
+
 function closeModal(event) {
-  if(!event||event.target===document.getElementById('modal-overlay'))
+  if (!event || event.target === document.getElementById('modal-overlay'))
     document.getElementById('modal-overlay').classList.remove('open');
 }
 
 /* =================== CONFETTI =================== */
 function launchConfetti() {
-  const canvas=document.getElementById('confetti-canvas');
-  const ctx=canvas.getContext('2d');
-  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-  const colors=['#f09aad','#b8a8ee','#80ca8e','#f5b883','#82b8e8','#f7e0e8','#d4c5f9','#fcd9b4'];
-  const pieces=Array.from({length:90},()=>({
-    x:Math.random()*canvas.width,y:-15,r:Math.random()*5+3,
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  const colors = ['#f09aad','#b8a8ee','#80ca8e','#f5b883','#82b8e8','#f7e0e8','#d4c5f9','#fcd9b4'];
+  const pieces = Array.from({length:90}, () => ({
+    x:Math.random()*canvas.width, y:-15, r:Math.random()*5+3,
     color:colors[Math.floor(Math.random()*colors.length)],
-    vx:(Math.random()-0.5)*3,vy:Math.random()*3+2,
-    rot:Math.random()*360,rotV:(Math.random()-0.5)*6,
+    vx:(Math.random()-0.5)*3, vy:Math.random()*3+2,
+    rot:Math.random()*360, rotV:(Math.random()-0.5)*6,
     shape:Math.random()>0.5?'circle':'rect'
   }));
-  let frame=0;
-  function draw(){
+  let frame = 0;
+  function draw() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p=>{
-      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
-      ctx.fillStyle=p.color;
-      if(p.shape==='circle'){ctx.beginPath();ctx.arc(0,0,p.r,0,Math.PI*2);ctx.fill();}
+    pieces.forEach(p => {
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle = p.color;
+      if (p.shape==='circle') { ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); }
       else ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);
       ctx.restore();
-      p.x+=p.vx;p.y+=p.vy;p.rot+=p.rotV;p.vy+=0.04;
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rotV; p.vy+=0.04;
     });
     frame++;
-    if(frame<130)requestAnimationFrame(draw);
+    if (frame < 130) requestAnimationFrame(draw);
     else ctx.clearRect(0,0,canvas.width,canvas.height);
   }
   draw();
@@ -782,10 +1043,14 @@ function launchConfetti() {
 /* =================== INIT =================== */
 async function init() {
   document.getElementById('board-date').textContent = formatDate(todayStr());
+  await loadTheme();
   await loadCustomTasks();
   await loadAllHistory();
   const loaded = await loadTodayBoard();
-  if (!loaded) { buildBoard(); marked=new Set([12]); }
+  if (!loaded) {
+    buildBoard();
+    initMarks();
+  }
   renderBoard();
 }
 init();
