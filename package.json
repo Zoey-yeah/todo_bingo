@@ -1,0 +1,21 @@
+{
+  "name": "task-bingo",
+  "version": "1.0.0",
+  "description": "Task Bingo - a productivity bingo board for your daily tasks",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step needed' && exit 0",
+    "sync": "npx cap sync",
+    "ios": "npx cap open ios"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/cli": "^8.2.0",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/ios": "^8.2.0",
+    "@capacitor/splash-screen": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.1"
+  }
+}
