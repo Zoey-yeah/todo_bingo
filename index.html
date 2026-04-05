@@ -486,100 +486,86 @@ body {
 /* ══════════════════════════════════════════
    LEARNING: LAYOUT
 ══════════════════════════════════════════ */
-.wrap { max-width:680px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
+.wrap { max-width:720px; margin:0 auto; padding:1.5rem 1.25rem 4rem; }
 .lsec { display:none; }
 .lsec.on { display:block; }
-
-/* greeting header */
 .learn-hdr { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:.75rem; }
 .dateline { font-size:10px; color:var(--text3); letter-spacing:.1em; text-transform:uppercase; margin-bottom:5px; }
 .greeting { font-size:20px; font-weight:500; color:var(--text); }
 
-/* ══════════════════════════════════════════
-   LEARNING: TODAY
-══════════════════════════════════════════ */
-.today-subtitle { font-size:12px; color:var(--text3); margin-top:4px; margin-bottom:1.25rem; }
+/* ── TODAY ── */
+.today-meta { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; flex-wrap:wrap; gap:8px; }
+.today-tracks-label { font-size:15px; font-weight:500; color:var(--text); }
+.time-pill { font-size:11px; background:var(--bg2); border:.5px solid var(--border); border-radius:20px; padding:4px 10px; color:var(--text2); }
 
-.plan-card {
-  background:var(--card); border:.5px solid var(--border);
-  border-radius:var(--r); margin-bottom:12px; overflow:hidden;
-}
+.plan-card { background:var(--card); border:.5px solid var(--border); border-radius:var(--r); margin-bottom:12px; overflow:hidden; transition:border-color .2s; }
 .plan-card.complete { border-color:var(--tc,var(--accent-a)); }
-
-.plan-card-top { padding:14px 16px 12px; border-bottom:.5px solid var(--border); }
-.plan-card-heading { display:flex; align-items:center; gap:10px; }
+.plan-card-top { padding:14px 18px; border-bottom:.5px solid var(--border); display:flex; align-items:center; gap:10px; }
 .plan-accent { width:3px; height:32px; border-radius:3px; background:var(--tc,var(--accent-a)); flex-shrink:0; }
 .plan-icon { font-size:16px; }
-.plan-name { font-size:13px; font-weight:500; color:var(--text); flex:1; }
-.plan-streak { font-size:11px; color:var(--text3); }
-.plan-streak b { color:var(--tc,var(--accent-a)); font-weight:500; }
-.plan-done-badge {
-  font-size:10px; font-weight:500; padding:3px 9px; border-radius:20px;
-  background:var(--tc,var(--accent-a)); color:white; opacity:0; transition:opacity .2s;
-}
-.plan-card.complete .plan-done-badge { opacity:1; }
+.plan-info { flex:1; min-width:0; }
+.plan-name { font-size:13px; font-weight:500; color:var(--text); }
+.plan-sub { font-size:10px; color:var(--text3); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.plan-streak { font-size:10px; color:var(--text3); text-align:right; flex-shrink:0; }
+.plan-streak b { display:block; font-size:15px; font-weight:500; color:var(--tc,var(--accent-a)); line-height:1; }
+.done-badge { font-size:10px; font-weight:500; padding:3px 9px; border-radius:20px; background:var(--tc,var(--accent-a)); color:white; margin-left:6px; opacity:0; transition:opacity .2s; white-space:nowrap; flex-shrink:0; }
+.plan-card.complete .done-badge { opacity:1; }
 
-.plan-tasks { padding:0 16px 4px; }
-.l-task-row { display:flex; align-items:flex-start; gap:10px; padding:12px 0; border-bottom:.5px solid var(--border); }
-.l-task-row:last-of-type { border-bottom:none; }
-.l-task-cb { width:16px; height:16px; margin-top:1px; cursor:pointer; flex-shrink:0; border-radius:4px; }
-.l-task-body { flex:1; }
-.l-task-label { font-size:13px; color:var(--text2); line-height:1.55; cursor:pointer; }
-.l-task-row input:checked ~ .l-task-body .l-task-label { color:var(--text3); text-decoration:line-through; }
-.l-task-meta { display:flex; align-items:center; gap:8px; margin-top:3px; flex-wrap:wrap; }
-.l-task-tip { font-size:11px; color:var(--tc,var(--accent-a)); font-style:italic; }
-.l-task-session {
-  font-size:10px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
-  color:var(--text3); padding:10px 16px 2px; display:block;
-}
-.plan-note-area { padding:10px 16px 14px; border-top:.5px solid var(--border); margin-top:2px; }
-.plan-note-lbl { font-size:10px; color:var(--text3); letter-spacing:.05em; text-transform:uppercase; margin-bottom:5px; }
-.plan-note-ta {
-  width:100%; font-size:12px; padding:7px 10px;
-  border:.5px solid var(--border); border-radius:var(--rs);
-  background:var(--bg2); color:var(--text); font-family:inherit; resize:none; line-height:1.5;
-}
-.plan-note-ta:focus { outline:none; border-color:var(--accent-b); }
-
-.learn-save-btn {
-  width:100%; padding:11px; background:var(--text); color:var(--card);
-  border:none; border-radius:var(--rs); font-size:13px; font-weight:500;
-  cursor:pointer; font-family:inherit; margin-top:4px; transition:opacity .15s;
-}
+.task-section { border-bottom:.5px solid var(--border); }
+.task-section:last-of-type { border-bottom:none; }
+.task-slabel { font-size:10px; font-weight:500; color:var(--text3); letter-spacing:.07em; text-transform:uppercase; padding:11px 18px 0; }
+.task-row { display:flex; align-items:flex-start; gap:10px; padding:8px 18px 12px; }
+.task-cb { width:15px; height:15px; margin-top:2px; cursor:pointer; flex-shrink:0; accent-color:var(--tc,var(--accent-a)); }
+.task-body { flex:1; }
+.task-label { font-size:13px; color:var(--text2); line-height:1.55; cursor:pointer; display:block; }
+.task-row input:checked ~ .task-body .task-label { color:var(--text3); text-decoration:line-through; }
+.task-tip { font-size:11px; color:var(--tc,var(--accent-a)); font-style:italic; margin-top:3px; }
+.swap-link { font-size:10px; color:var(--text3); background:none; border:none; cursor:pointer; font-family:inherit; text-decoration:underline; text-underline-offset:2px; margin-top:2px; display:inline-block; padding:0; }
+.swap-link:hover { color:var(--text2); }
+.note-area { padding:10px 18px 14px; border-top:.5px solid var(--border); }
+.note-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+.note-ta { width:100%; font-size:12px; padding:7px 10px; border:.5px solid var(--border); border-radius:var(--rs); background:var(--bg2); color:var(--text); font-family:inherit; resize:none; line-height:1.5; }
+.note-ta:focus { outline:none; border-color:var(--border2); }
+.learn-save-btn { width:100%; padding:11px; background:var(--text); color:var(--card); border:none; border-radius:var(--rs); font-size:13px; font-weight:500; cursor:pointer; font-family:inherit; margin-top:4px; transition:opacity .15s; }
 .learn-save-btn:hover { opacity:.8; }
 
-.swap-row { display:flex; justify-content:flex-end; padding:0 0 4px; }
-.swap-btn { font-size:11px; color:var(--text3); background:none; border:none; cursor:pointer; font-family:inherit; padding:4px 0; text-decoration:underline; text-underline-offset:2px; }
-.swap-btn:hover { color:var(--text2); }
+/* ── CURRICULUM ── */
+.curr-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:10px; }
+.curr-title { font-size:15px; font-weight:500; color:var(--text); }
+.curr-nav { display:flex; align-items:center; gap:6px; }
+.curr-nav button { background:var(--card); border:.5px solid var(--border); border-radius:var(--rs); padding:5px 10px; font-size:12px; cursor:pointer; font-family:inherit; color:var(--text2); }
+.curr-nav button:hover { border-color:var(--border2); }
+.curr-wlabel { font-size:12px; color:var(--text2); min-width:70px; text-align:center; }
+.track-switcher { display:flex; gap:4px; margin-bottom:1.25rem; background:var(--bg2); border-radius:var(--rs); padding:3px; width:fit-content; flex-wrap:wrap; }
+.ts-btn { padding:6px 12px; font-size:12px; border:none; background:transparent; border-radius:6px; cursor:pointer; color:var(--text2); font-family:inherit; transition:all .15s; white-space:nowrap; }
+.ts-btn.on { background:var(--card); color:var(--text); font-weight:500; border:.5px solid var(--border); }
+.phase-pill { display:inline-block; font-size:10px; font-weight:500; padding:3px 9px; border-radius:20px; margin-bottom:10px; }
+.week-title { font-size:15px; font-weight:500; color:var(--text); margin-bottom:3px; }
+.week-sub { font-size:11px; color:var(--text3); margin-bottom:1rem; }
+.day-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.day-card { background:var(--card); border:.5px solid var(--border); border-radius:var(--r); padding:14px 16px 14px 19px; position:relative; overflow:hidden; }
+.day-card.is-today { border-width:1.5px; }
+.dc-accent { position:absolute; left:0; top:0; bottom:0; width:3px; }
+.dc-daytag { font-size:10px; font-weight:500; color:var(--text3); letter-spacing:.06em; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+.dc-today-pill { font-size:9px; font-weight:500; padding:1px 6px; border-radius:10px; }
+.dc-topic { font-size:12px; font-weight:500; color:var(--text); margin-bottom:10px; line-height:1.4; }
+.dc-resource { margin-bottom:9px; }
+.dc-rtype { font-size:9px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.07em; margin-bottom:3px; }
+.dc-rtext { font-size:11px; color:var(--text2); line-height:1.5; }
 
-/* ══════════════════════════════════════════
-   LEARNING: SCHEDULE
-══════════════════════════════════════════ */
+/* ── SCHEDULE ── */
 .sched-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-bottom:1rem; }
-.sched-day { background:var(--card); border:.5px solid var(--border); border-radius:var(--rs); padding:10px 6px; text-align:center; }
+.sched-day { background:var(--card); border:.5px solid var(--border); border-radius:var(--rs); padding:9px 5px; text-align:center; }
 .sched-day.is-today { border:.5px solid var(--text); background:var(--text); }
-.sched-dayname { font-size:10px; font-weight:500; color:var(--text3); margin-bottom:7px; letter-spacing:.03em; }
+.sched-dayname { font-size:10px; font-weight:500; color:var(--text3); margin-bottom:6px; }
 .sched-day.is-today .sched-dayname { color:rgba(255,255,255,.5); }
-.sched-dot { width:9px; height:9px; border-radius:50%; margin:3px auto; }
-.sched-icon { font-size:11px; margin-top:2px; }
-.l-legend { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1.5rem; }
+.sched-dot { width:8px; height:8px; border-radius:50%; margin:3px auto; }
+.sched-icon { font-size:10px; margin-top:2px; }
+.l-legend { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1.25rem; }
 .legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--text2); }
 .legend-dot { width:8px; height:8px; border-radius:50%; }
-.detail-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.dcard { background:var(--card); border:.5px solid var(--border); border-radius:var(--r); padding:16px 16px 16px 20px; position:relative; overflow:hidden; }
-.dcard-accent { position:absolute; left:0; top:0; bottom:0; width:3px; }
-.dcard-hdr { display:flex; align-items:center; gap:7px; margin-bottom:3px; }
-.dcard-icon { font-size:15px; }
-.dcard-name { font-size:13px; font-weight:500; color:var(--text); }
-.dcard-freq { font-size:10px; color:var(--text3); margin-bottom:10px; }
-.dsess { margin-bottom:10px; }
-.dsess-title { font-size:10px; font-weight:500; color:var(--text3); text-transform:uppercase; letter-spacing:.06em; margin-bottom:5px; }
-.dact { font-size:11px; color:var(--text2); padding:4px 0; border-bottom:.5px solid var(--border); line-height:1.4; display:flex; justify-content:space-between; gap:8px; }
-.dact:last-child { border-bottom:none; }
 
-/* ══════════════════════════════════════════
-   LEARNING: HISTORY
-══════════════════════════════════════════ */
+/* ── HISTORY ── */
 .hentry { background:var(--card); border:.5px solid var(--border); border-radius:var(--r); padding:12px 16px; margin-bottom:8px; }
 .hdate { font-size:11px; font-weight:500; color:var(--text2); margin-bottom:6px; display:flex; justify-content:space-between; }
 .hbadges { display:flex; gap:5px; flex-wrap:wrap; }
@@ -587,9 +573,7 @@ body {
 .hnote { font-size:11px; color:var(--text3); font-style:italic; margin-top:5px; }
 .l-empty { text-align:center; padding:3rem; color:var(--text3); font-size:13px; }
 
-/* ══════════════════════════════════════════
-   LEARNING: STATS
-══════════════════════════════════════════ */
+/* ── STATS ── */
 .sgrid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:10px; }
 .scard { background:var(--bg2); border-radius:var(--rs); padding:12px; }
 .slabel { font-size:10px; color:var(--text3); margin-bottom:3px; }
@@ -620,7 +604,8 @@ body {
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width:560px) {
-  .detail-cards,.sgrid4,.streak-row { grid-template-columns:1fr 1fr; }
+  .day-cards,.sgrid4,.streak-row { grid-template-columns:1fr 1fr; }
+  .track-switcher { flex-wrap:wrap; }
 }
 @media (max-width:360px) {
   .bingo-grid[data-size="5"] .cell { font-size:0.51rem; }
@@ -645,6 +630,7 @@ body {
   <!-- Learning sub-nav -->
   <div class="ltab-bar" id="learn-subnav">
     <button class="ltab on" onclick="lsw('today',this)">Today</button>
+    <button class="ltab"    onclick="lsw('curriculum',this)">Curriculum</button>
     <button class="ltab"    onclick="lsw('schedule',this)">Schedule</button>
     <button class="ltab"    onclick="lsw('history',this)">History</button>
     <button class="ltab"    onclick="lsw('stats',this)">Stats</button>
@@ -733,18 +719,42 @@ body {
 
     <!-- TODAY -->
     <div class="lsec on" id="s-today">
-      <div id="l-today-heading" style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px"></div>
-      <div class="today-subtitle" id="l-today-sub"></div>
+      <div class="today-meta">
+        <div class="today-tracks-label" id="today-label"></div>
+        <div class="time-pill">~1.5–2 hrs</div>
+      </div>
       <div id="today-cards"></div>
       <button class="learn-save-btn" id="svbtn" onclick="learnSave()">Save today's log</button>
+    </div>
+
+    <!-- CURRICULUM -->
+    <div class="lsec" id="s-curriculum">
+      <div class="curr-top">
+        <div class="curr-title" id="curr-title">Curriculum</div>
+        <div class="curr-nav">
+          <button onclick="learnNavCurr(-1)">←</button>
+          <div class="curr-wlabel" id="curr-wlabel">Week 1</div>
+          <button onclick="learnNavCurr(1)">→</button>
+        </div>
+      </div>
+      <div class="track-switcher" id="track-switcher"></div>
+      <div id="curr-content"></div>
     </div>
 
     <!-- SCHEDULE -->
     <div class="lsec" id="s-schedule">
       <div class="sched-grid" id="sched-grid"></div>
       <div class="l-legend" id="l-legend"></div>
-      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:12px">Full activity library</div>
-      <div class="detail-cards" id="detail-cards"></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px">Weekly tracks</div>
+      <div style="font-size:12px;color:var(--text2);background:var(--card);border:.5px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;line-height:2">
+        <b>Mon:</b> 🗣 English + 🤖 ML &amp; AI &nbsp;·&nbsp;
+        <b>Tue:</b> 🗣 English + 📈 Finance &nbsp;·&nbsp;
+        <b>Wed:</b> 🤖 ML &amp; AI + 📈 Finance<br>
+        <b>Thu:</b> 🗣 English + 🤖 ML &amp; AI &nbsp;·&nbsp;
+        <b>Fri:</b> 🗣 English + 📈 Finance &nbsp;·&nbsp;
+        <b>Sat:</b> 🤖 ML &amp; AI + 📷 Art<br>
+        <b>Sun:</b> 🗣 English + 📷 Art
+      </div>
     </div>
 
     <!-- HISTORY -->
@@ -1188,248 +1198,647 @@ function closeModal(event) {
 /* ╔══════════════════════════════════════════╗
    ║  LEARNING — DATA                         ║
    ╚══════════════════════════════════════════╝ */
-const TR = {
+var TR = {
   english:{id:'english',name:'English skills',icon:'🗣',color:'#1D9E75',bg:'#E1F5EE',tc:'#0F6E56',
-    freq:'5×/week — Mon Tue Thu Fri Sun',
+    freq:'Mon Tue Thu Fri Sun',
     sessions:[
       {label:'Listening',time:'25–30 min',acts:[
-        {n:'Watch a movie or show with English subtitles — pay attention to how characters phrase things, not just the plot',tip:'Pause and repeat any line that sounds natural but you wouldn\'t have said yourself'},
-        {n:'Listen to a podcast without subtitles — write down 3 phrases you couldn\'t catch on the first pass',tip:'Try The Daily, NPR Politics, or Conan O\'Brien Needs a Friend'},
-        {n:'Watch a YouTube essay or vlog and note informal expressions, filler words, and speech rhythm',tip:'This trains you to follow fast, casual native speech — closer to real movies than textbooks'},
-        {n:'Re-watch a 5-min scene you\'ve already seen — this time focus entirely on rhythm, stress, and phrasing',tip:'Familiarity with the content lets you focus on *how* things are said, not just *what*'}
+        {n:'Watch a movie or show with English subtitles — focus on how characters phrase things, not just what they say',tip:'Pause and repeat any line that sounds natural but you wouldn\'t have said yourself'},
+        {n:'Listen to a podcast without subtitles — write down 3 phrases you couldn\'t catch on first pass',tip:'Try The Daily, NPR Politics, or Conan O\'Brien Needs a Friend'},
+        {n:'Watch a YouTube essay or vlog — note informal expressions, filler words, and speech rhythm',tip:'This trains you to follow fast, casual native speech'},
+        {n:'Re-watch a 5-min scene you already know — this time focus entirely on rhythm, stress, and phrasing',tip:'Familiarity with the content lets you focus on how things are said'}
       ]},
       {label:'Reading & writing',time:'20–25 min',acts:[
-        {n:'Read one article (The Atlantic, Vox, NYT) — underline 3 sentences you would never have written yourself, then ask why',tip:'The goal is noticing patterns, not reading for content'},
-        {n:'Write one paragraph — diary entry, opinion, or a recap of your day — without translating from Chinese first',tip:'English first even if it\'s messy. Edit afterward. This is how the muscle builds'},
-        {n:'Study 5–8 collocations or idioms with example sentences, e.g. "pull it off", "make it work", "it\'s on me"',tip:'Collocations beat isolated vocab — native speakers think in chunks, not individual words'},
-        {n:'Write a short response to something you read or watched today — 3–5 sentences, your actual opinion',tip:'Forming opinions in English is a skill. The more you practice, the faster it flows'}
+        {n:'Read one article (The Atlantic, Vox, NYT) — underline 3 sentences you\'d never have written yourself and ask why',tip:'Goal is noticing native patterns, not reading for content'},
+        {n:'Write one paragraph — diary entry, opinion, or day recap — without translating from Chinese first',tip:'English first even if messy. Edit afterward. This is how the muscle builds'},
+        {n:'Study 5–8 collocations or idioms with example sentences — e.g. "pull it off", "it\'s on me", "make it work"',tip:'Collocations beat isolated vocab — native speakers think in chunks'},
+        {n:'Write a short response to something you read or watched — 3–5 sentences, your actual opinion',tip:'Forming opinions in English is a skill. Practice makes it faster'}
       ]},
       {label:'Speaking',time:'10–15 min',acts:[
-        {n:'Shadowing: replay a 2-min clip sentence by sentence, mimicking tone, rhythm, and stress exactly',tip:'Don\'t focus on accent — focus on natural rhythm. That\'s what makes you sound fluent'},
-        {n:'Think-aloud: speak for 3 minutes on any topic without stopping to translate or self-correct',tip:'Record yourself once a week — you\'ll start noticing your own patterns quickly'},
-        {n:'Read one paragraph of an article aloud, then close it and say the same content in your own words',tip:'This builds the bridge between reading fluency and speaking fluency'}
+        {n:'Shadowing: replay a 2-min clip sentence by sentence, mimicking tone, rhythm, and stress exactly',tip:'Don\'t focus on accent — rhythm is what makes you sound fluent'},
+        {n:'Think-aloud: speak for 3 minutes on any topic without stopping to translate or self-correct',tip:'Record yourself once a week — you\'ll notice your own patterns quickly'},
+        {n:'Read one paragraph aloud, then close it and say the same content in your own words',tip:'This bridges reading fluency to speaking fluency'}
       ]}
     ]},
   ml:{id:'ml',name:'ML & AI',icon:'🤖',color:'#7F77DD',bg:'#EEEDFE',tc:'#3C3489',
-    freq:'4×/week — Mon Wed Thu Sat',
+    freq:'Mon Wed Thu Sat',
     sessions:[
-      {label:'Theory',time:'25–30 min',acts:[
-        {n:'Read a research paper — skim abstract, intro, and conclusion first, then read the methods carefully',tip:'Papers With Code and Hugging Face Daily Papers are great for finding relevant work'},
-        {n:'Read a technical blog post by Lilian Weng, Andrej Karpathy, Jay Alammar, or Sebastian Ruder',tip:'Don\'t skip the visuals — they carry most of the intuition'},
-        {n:'Study one textbook section with handwritten notes — PRML, ESL, Sutton & Barto, or Bishop',tip:'Summarizing in your own words beats re-reading three times'},
-        {n:'Watch a lecture from Stanford CS224N, CS234, or MIT 6.S191 — pause to reproduce key derivations',tip:'Watch at 1.25× and stop whenever something is unclear rather than letting it slide'}
-      ]},
-      {label:'Coding',time:'40–45 min',acts:[
-        {n:'Implement one concept from scratch in Python — no high-level wrappers for things you\'re actively learning',tip:'If you can\'t code it, you don\'t fully understand it yet. This is the real test'},
-        {n:'Work on a Kaggle notebook — focus on one specific technique or hypothesis per session',tip:'Read top kernels for ideas, then always run and modify things yourself'},
-        {n:'Run an ablation or experiment on your RL project — change one variable, plot the result, form a conclusion',tip:'Real research intuition comes from watching things fail and figuring out why'},
-        {n:'Build a small AI-powered tool or mini-app — even 50 clean lines teaches more than an hour of reading',tip:'Building compounds into deep intuition faster than consuming ever will'}
-      ]}
+      {label:'Theory',time:'25–30 min'},
+      {label:'Coding',time:'40–45 min'}
     ]},
   finance:{id:'finance',name:'Finance & investing',icon:'📈',color:'#BA7517',bg:'#FAEEDA',tc:'#633806',
-    freq:'3×/week — Tue Wed Fri',
+    freq:'Tue Wed Fri',
     sessions:[
-      {label:'Markets',time:'15–20 min',acts:[
+      {label:'Markets & reading',time:'20–25 min',acts:[
         {n:'Scan WSJ, Bloomberg, or The Economist — identify today\'s main macro theme and ask: what is the mechanism?',tip:'Why did the market move? What caused what? This is how macro thinking develops'},
         {n:'Check your watchlist — note how 3–5 stocks or ETFs moved and form a hypothesis for why',tip:'Don\'t act on impulse. Just observe, hypothesize, and verify later'},
         {n:'Track one macro indicator this week: Fed rate, CPI, yield curve, dollar index, or unemployment claims',tip:'The economy is a slow-moving puzzle — one piece per week adds up fast'}
       ]},
-      {label:'Concepts & depth',time:'30–35 min',acts:[
-        {n:'Study one investing concept deeply: DCF, P/E ratios, dollar-cost averaging, options basics, or asset allocation',tip:'Investopedia for definitions, but seek books for judgment — that\'s where understanding forms'},
-        {n:'Read a chapter from The Intelligent Investor, A Random Walk Down Wall Street, or The Little Book',tip:'Buffett, Bogle, and Malkiel together cover 90% of what a long-term investor needs to know'},
-        {n:'Watch a macro explainer: Patrick Boyle on YouTube, Odd Lots podcast, or The Plain Bagel',tip:'Patrick Boyle is exceptional — rigorous, funny, and data-driven on real market events'},
-        {n:'Analyze one company or ETF: read its 10-K summary, check valuation multiples, write a 3-sentence thesis',tip:'If you can\'t state the thesis in 3 sentences, you don\'t have one yet'}
+      {label:'Study & analysis',time:'30–35 min',acts:[
+        {n:'Study one investing concept: DCF, P/E ratios, dollar-cost averaging, options basics, or asset allocation',tip:'Investopedia for definitions, books for judgment'},
+        {n:'Read a chapter from The Intelligent Investor, A Random Walk, or The Little Book',tip:'Buffett, Bogle, and Malkiel together cover 90% of what a long-term investor needs'},
+        {n:'Watch Patrick Boyle on YouTube, Odd Lots podcast, or The Plain Bagel',tip:'Patrick Boyle is exceptional — rigorous and data-driven'},
+        {n:'Analyze one company or ETF: read its summary, check valuation multiples, write a 3-sentence thesis',tip:'If you can\'t write the thesis in 3 sentences, you don\'t have one yet'}
       ]}
     ]},
   art:{id:'art',name:'Art & fashion',icon:'📷',color:'#D4537E',bg:'#FBEAF0',tc:'#72243E',
-    freq:'2×/week — Sat Sun',
+    freq:'Sat Sun',
     sessions:[
       {label:'Study',time:'25–30 min',acts:[
         {n:'Complete a Coursera fashion module — take notes on terminology, business concepts, and history',tip:'Ask yourself: can I see this concept applied in what I already own or wear?'},
-        {n:'Study one designer, photographer, or art movement: read their background and look at 10+ pieces of their work',tip:'Vogue archives, MoMA, and Business of Fashion are all excellent starting points'},
-        {n:'Analyze 5 editorial photos or outfits: describe the composition, color palette, mood, and specific styling decisions',tip:'Training your eye always comes before training your hands — look first, shoot later'}
+        {n:'Study one designer, photographer, or art movement — read background and look at 10+ works',tip:'Vogue archives, MoMA, and Business of Fashion are excellent starting points'},
+        {n:'Analyze 5 editorial photos or outfits: composition, color palette, mood, and styling decisions',tip:'Training your eye always comes before training your hands'}
       ]},
       {label:'Create',time:'35–40 min',acts:[
-        {n:'Shoot with one creative constraint — only shadows, only one color, only candid moments, or only from below',tip:'Constraints eliminate creative blocks. A rule actually sets you free'},
-        {n:'Edit 5–10 photos from a recent shoot — focus on consistent color grading across all of them',tip:'Lightroom presets are a starting point. Tweak every single one — that\'s where your style forms'},
-        {n:'Study one photography technique in depth — golden hour, negative space, leading lines, or layering — then go shoot it',tip:'Theory without immediate practice evaporates. Always try it the same day'},
-        {n:'Build or update your Notion or Pinterest mood board — curate your personal style vision for next season',tip:'Style is intentional. Curation is the first step to actually owning a look'}
+        {n:'Shoot with one creative constraint — only shadows, only one color, only candid, or only from below',tip:'Constraints eliminate creative blocks. A rule sets you free'},
+        {n:'Edit 5–10 photos from a recent shoot — focus on consistent color grading across all of them',tip:'Lightroom presets are a start. Tweaking every one is where your style forms'},
+        {n:'Study one photography technique in depth — golden hour, negative space, leading lines — then go shoot it',tip:'Theory without immediate practice evaporates. Try it the same day'},
+        {n:'Build or update your Notion or Pinterest mood board — curate your style vision for next season',tip:'Style is intentional. Curation is the first step to owning a look'}
       ]}
     ]}
 };
 
-const WEEKLY    = {0:['english','art'],1:['english','ml'],2:['english','finance'],3:['ml','finance'],4:['english','ml'],5:['english','finance'],6:['ml','art']};
-const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const LEARN_STORE = 'zt2026v4';
-let allLearnLogs={}, todayLearnLog={}, learnStreaks={};
-let swapOffsets={};
+var WEEKLY={0:['english','art'],1:['english','ml'],2:['english','finance'],3:['ml','finance'],4:['english','ml'],5:['english','finance'],6:['ml','art']};
+var DAY_NAMES=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var CURR_START=new Date('2026-01-05');
+var LEARN_STORE='zt2026v5';
+var allLearnLogs={},todayLearnLog={},learnStreaks={};
+var swapOffsets={};
+var learnCurrViewIdx=0,learnCurrTrack='ml';
+var DOW_TO_KEY={0:'sun',1:'mon',2:'tue',3:'wed',4:'thu',5:'fri',6:'sat'};
 
-function learnTodayKey(){ return new Date().toISOString().slice(0,10); }
-function learnFmtDate(k){ const d=new Date(k+'T12:00:00'); return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); }
-function dayOfYear(){ const n=new Date(),s=new Date(n.getFullYear(),0,0); return Math.floor((n-s)/86400000); }
+function learnTodayKey(){return new Date().toISOString().slice(0,10);}
+function learnFmtDate(k){var d=new Date(k+'T12:00:00');return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+function dayOfYear(){var n=new Date(),s=new Date(n.getFullYear(),0,0);return Math.floor((n-s)/86400000);}
+function learnCurrWeekIdx(){var now=new Date();var diff=Math.floor((now-CURR_START)/86400000/7);return Math.max(0,Math.min(diff,17));}
+
+/* ── ML CURRICULUM (18 weeks) ── */
+var ML_CUR=[
+  {phase:'Phase 1 · Deep Learning Foundations',title:'Neural Networks & Backpropagation',
+   mon:{topic:'Neural net internals from scratch',s0:'3Blue1Brown "But what is a neural network?" YouTube series ep 1–3 (~1h)',s1:'Build a 2-layer MLP in pure NumPy — forward pass, manual gradients, train on XOR'},
+   wed:{topic:'Autograd & the computation graph',s0:'Karpathy "The spelled-out intro to backpropagation" YouTube (2.5h) — watch fully, take notes',s1:'Implement micrograd: a scalar autograd engine with .backward() — type every line yourself'},
+   thu:{topic:'Batch norm, layer norm & training tricks',s0:'CS231n Lecture 7 "Training Neural Networks I" — weight init, batch norm, dropout',s1:'Implement BatchNorm and LayerNorm from scratch in NumPy; verify against torch.nn.BatchNorm1d'},
+   sat:{topic:'Loss landscapes & activations',s0:'Goodfellow Deep Learning Ch. 6–7 — activation functions and universal approximation theorem',s1:'Visualize loss landscapes for ReLU vs Tanh vs Sigmoid; plot how LR changes the landscape'}},
+  {phase:'Phase 1 · Deep Learning Foundations',title:'Optimization & Regularization',
+   mon:{topic:'Gradient descent variants',s0:'Sebastian Ruder "An Overview of Gradient Descent Optimization Algorithms" — blog post, read fully',s1:'Implement SGD, Momentum, RMSProp, Adam from scratch; compare convergence on a quadratic bowl'},
+   wed:{topic:'LR schedules & weight decay',s0:'CS231n Lecture 8 "Training Neural Networks II" — LR schedules, hyperparameter search',s1:'Implement cosine annealing LR; train a small net on MNIST with and without it; compare curves'},
+   thu:{topic:'Dropout & regularization',s0:'"Dropout: A Simple Way to Prevent Overfitting" (Srivastava et al. 2014) — full paper',s1:'Implement inverted dropout; compare L1/L2/dropout regularization on an overfit toy dataset'},
+   sat:{topic:'PyTorch training loop',s0:'PyTorch "Training a Classifier" + "Writing Custom Datasets" official tutorials',s1:'Write a reusable training loop class with logging, checkpointing, and LR scheduling'}},
+  {phase:'Phase 1 · Deep Learning Foundations',title:'CNNs & Residual Networks',
+   mon:{topic:'Convolutional layers from scratch',s0:'CS231n Lecture 5 "Convolutional Neural Networks" — spatial structure, receptive fields, pooling',s1:'Implement Conv2d in NumPy (naive, then im2col); verify output matches torch.nn.Conv2d'},
+   wed:{topic:'ResNet & skip connections',s0:'"Deep Residual Learning for Image Recognition" (He et al. 2016) — why identity shortcuts solve degradation',s1:'Build ResNet-18 in PyTorch from scratch (no torchvision.models) — implement each residual block'},
+   thu:{topic:'Modern CNN architectures',s0:'"EfficientNet: Rethinking Model Scaling" (Tan & Le 2019) — compound scaling and the NAS search space',s1:'Train ResNet-18 vs baseline on CIFAR-10; plot training curves; analyze where errors cluster'},
+   sat:{topic:'Gradient flow & vanishing gradients',s0:'Karpathy "Yes you should understand backprop" (Medium essay)',s1:'Plot gradient magnitudes across layers with and without batch norm; observe vanishing/exploding behavior'}},
+  {phase:'Phase 2 · Sequence Models & Transformers',title:'RNNs, LSTMs & Language Models',
+   mon:{topic:'Recurrent nets & character LMs',s0:'Karpathy "The Unreasonable Effectiveness of Recurrent Neural Networks" blog post (2015)',s1:'Implement a character-level RNN in NumPy; train on Shakespeare; generate text'},
+   wed:{topic:'LSTMs & gating mechanisms',s0:'"Long Short-Term Memory" (Hochreiter 1997) + Lilian Weng "Understanding LSTM Networks" blog',s1:'Karpathy makemore Part 1 & 2 (YouTube) — implement bigram and MLP language models'},
+   thu:{topic:'Sequence to sequence',s0:'"Sequence to Sequence Learning with Neural Networks" (Sutskever et al. 2014) — encoder–decoder and beam search',s1:'Build a seq2seq model with LSTM encoder and decoder for a toy translation task'},
+   sat:{topic:'Language model evaluation',s0:'CS224N Lecture 6 "Recurrent Neural Networks and Language Models" (Stanford YouTube)',s1:'Train char-level vs word-level LMs; compute perplexity; plot curves with different hidden sizes'}},
+  {phase:'Phase 2 · Sequence Models & Transformers',title:'Attention Mechanisms',
+   mon:{topic:'Bahdanau attention',s0:'"Neural Machine Translation by Jointly Learning to Align and Translate" (Bahdanau 2015) + Jay Alammar "Visualizing NMT" blog',s1:'Add Bahdanau attention to your seq2seq model; visualize attention weights as a heatmap'},
+   wed:{topic:'Scaled dot-product attention',s0:'"Attention Is All You Need" (Vaswani et al. 2017) — full paper; read the architecture section 3 times if needed',s1:'Implement scaled dot-product attention from scratch; verify it matches torch.nn.MultiheadAttention'},
+   thu:{topic:'Multi-head attention & positional encoding',s0:'Jay Alammar "The Illustrated Transformer" blog — best visual explanation of the full transformer',s1:'Implement multi-head attention + sinusoidal positional encoding; build a full Transformer encoder block'},
+   sat:{topic:'Mini transformer end to end',s0:'CS224N Lecture 9 "Transformers" — self-attention, cross-attention, decoder masking',s1:'Build a complete char-level transformer from scratch; train on Shakespeare; compare to LSTM baseline'}},
+  {phase:'Phase 2 · Sequence Models & Transformers',title:'BERT, GPT & Pretraining',
+   mon:{topic:'BERT & masked language modeling',s0:'"BERT: Pre-training of Deep Bidirectional Transformers" (Devlin et al. 2019) — focus on pretraining objectives',s1:'Fine-tune BERT on text classification using HuggingFace Transformers — understand every step'},
+   wed:{topic:'GPT & autoregressive LMs',s0:'"Improving Language Understanding by Generative Pre-Training" (GPT-1, Radford 2018) + Karpathy nanoGPT video Part 1',s1:'Karpathy nanoGPT video Part 2 — follow along; train nanoGPT on a small dataset end to end'},
+   thu:{topic:'In-context learning & few-shot prompting',s0:'"Language Models are Few-Shot Learners" (GPT-3, Brown et al. 2020) — sections 1–3; emergence of ICL',s1:'Experiment with GPT-2 via HuggingFace: zero-shot, one-shot, few-shot on classification; measure accuracy'},
+   sat:{topic:'Tokenization & vocabulary',s0:'"Neural MT of Rare Words with Subword Units" (BPE, Sennrich 2016) + HuggingFace tokenizer docs',s1:'Implement BPE tokenization from scratch on a small corpus; compare vocab sizes vs char/word tokenization'}},
+  {phase:'Phase 3 · Large Language Models',title:'Scaling Laws & Pretraining at Scale',
+   mon:{topic:'Scaling laws for LLMs',s0:'"Scaling Laws for Neural Language Models" (Kaplan et al. 2020, OpenAI) — understand loss vs compute / tokens / params',s1:'Reproduce scaling law plots: train toy transformers of different sizes; fit power law curves to results'},
+   wed:{topic:'Chinchilla & compute-optimal training',s0:'"Training Compute-Optimal Large Language Models" (Chinchilla, Hoffmann 2022, DeepMind)',s1:'Given a fixed compute budget, calculate optimal model size and token count using Chinchilla ratios'},
+   thu:{topic:'LLaMA architecture deep dive',s0:'"LLaMA: Open and Efficient Foundation Language Models" (Touvron 2023) — RoPE, RMSNorm, SwiGLU vs original transformer',s1:'Modify your nanoGPT to use RMSNorm + SwiGLU + RoPE; verify it trains more stably'},
+   sat:{topic:'Rotary positional encoding (RoPE)',s0:'"RoFormer: Enhanced Transformer with Rotary Position Embedding" (Su 2021) + Lilian Weng "Position Encodings" blog',s1:'Implement RoPE from scratch; verify correctness by checking relative attention patterns; benchmark vs sinusoidal'}},
+  {phase:'Phase 3 · Large Language Models',title:'RLHF, Instruction Tuning & Alignment',
+   mon:{topic:'InstructGPT & RLHF pipeline',s0:'"Training Language Models to Follow Instructions with Human Feedback" (Ouyang et al. 2022) — map SFT → RM → PPO to CS 234',s1:'Diagram the full RLHF pipeline; label where each CS 234 concept (policy, value fn, PPO clip) appears'},
+   wed:{topic:'Direct Preference Optimization (DPO)',s0:'"Direct Preference Optimization: Your LM is Secretly a Reward Model" (Rafailov 2023)',s1:'Implement the DPO loss function; compare it to PPO update on a toy bandit with preference data'},
+   thu:{topic:'LoRA: parameter-efficient fine-tuning',s0:'"LoRA: Low-Rank Adaptation of Large Language Models" (Hu et al. 2022) — math of decomposing weight updates',s1:'Fine-tune GPT-2 on a custom dataset using LoRA via HuggingFace PEFT; compare to full fine-tuning'},
+   sat:{topic:'QLoRA & quantized training',s0:'"QLoRA: Efficient Finetuning of Quantized LLMs" (Dettmers 2023) — NF4 quantization and double quantization',s1:'Run QLoRA fine-tuning on a small open-source LLM using bitsandbytes; compare quality at 4-bit vs FP32'}},
+  {phase:'Phase 3 · Large Language Models',title:'Efficient Training & Inference',
+   mon:{topic:'Mixed precision training',s0:'"Mixed Precision Training" (Micikevicius et al. 2018) — FP16 vs BF16, loss scaling',s1:'Enable PyTorch AMP (torch.cuda.amp) in your training loop; benchmark throughput and memory vs FP32'},
+   wed:{topic:'FlashAttention',s0:'"FlashAttention: Fast and Memory-Efficient Exact Attention" (Dao et al. 2022) — IO-aware tiling algorithm',s1:'Benchmark torch.nn.MultiheadAttention vs flash_attn at seq length 512, 1024, 2048, 4096'},
+   thu:{topic:'KV cache & inference optimization',s0:'Lilian Weng "Large Transformer Model Inference Optimization" blog — KV cache, speculative decoding, quantization',s1:'Implement KV caching manually in your transformer; verify identical outputs; benchmark speedup'},
+   sat:{topic:'INT8 & INT4 quantization',s0:'"LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" (Dettmers 2022)',s1:'Apply dynamic INT8 quantization to GPT-2 using torch.quantization; measure perplexity vs speedup tradeoff'}},
+  {phase:'Phase 4 · Generative Models',title:'Variational Autoencoders',
+   mon:{topic:'VAE theory & ELBO derivation',s0:'"Auto-Encoding Variational Bayes" (Kingma & Welling 2014) — derive the ELBO from scratch before reading; compare',s1:'Implement a VAE on MNIST from scratch in PyTorch — encoder, reparameterization trick, decoder, ELBO loss'},
+   wed:{topic:'VAE internals',s0:'Lilian Weng "From Autoencoder to Beta-VAE" blog — comprehensive coverage of the full VAE family',s1:'Vary the beta coefficient; visualize latent space with t-SNE; observe disentanglement at different betas'},
+   thu:{topic:'VQ-VAE & discrete latents',s0:'"Neural Discrete Representation Learning" (VQ-VAE, van den Oord 2017) — codebook learning and straight-through estimator',s1:'Implement VQ-VAE on MNIST/CIFAR-10; visualize codebook usage; compare reconstruction to continuous VAE'},
+   sat:{topic:'Latent space interpolation',s0:'Read the DALL-E 1 paper (discrete VAE section) — VQ-VAE applied at scale',s1:'Interpolate between pairs of images in latent space; generate a grid; visualize the learned manifold with PCA'}},
+  {phase:'Phase 4 · Generative Models',title:'Diffusion Models',
+   mon:{topic:'DDPM theory',s0:'"Denoising Diffusion Probabilistic Models" (Ho et al. 2020) + Lilian Weng "What are Diffusion Models?" blog',s1:'Implement the DDPM forward process: add noise at each timestep; visualize progression from image to noise'},
+   wed:{topic:'DDPM reverse process',s0:'"Score-Based Generative Modeling through SDEs" (Song 2021) — focus on the SDE perspective',s1:'Implement the full DDPM denoising process; train a small UNet on MNIST; generate samples'},
+   thu:{topic:'DDIM sampling',s0:'"Improved DDPM" (Nichol & Dhariwal 2021) — learned noise schedule and improved architecture',s1:'Implement DDIM deterministic sampling; compare quality and speed at 10, 50, 1000 steps'},
+   sat:{topic:'Classifier-free guidance',s0:'"Diffusion Models Beat GANs" (Dhariwal & Nichol 2021) — classifier guidance; then CFG paper by Ho & Salimans',s1:'Add classifier-free guidance to your DDPM; experiment with guidance scale 1–10; observe quality/diversity tradeoff'}},
+  {phase:'Phase 4 · Generative Models',title:'Stable Diffusion & Multimodal',
+   mon:{topic:'Latent diffusion models',s0:'"High-Resolution Image Synthesis with Latent Diffusion Models" (Rombach 2022) — study the VAE + UNet + CLIP architecture',s1:'Draw the full Stable Diffusion architecture from memory; identify where each component connects to your prior work'},
+   wed:{topic:'CLIP: image-language pretraining',s0:'"Learning Transferable Visual Models From Natural Language Supervision" (CLIP, Radford 2021) — contrastive loss and zero-shot transfer',s1:'Use HuggingFace CLIP to compute image-text similarity; implement zero-shot classification on a custom dataset'},
+   thu:{topic:'Stable Diffusion internals',s0:'"SDXL: Improving Latent Diffusion Models" (Podell 2023) — compare architectural choices to original SD',s1:'Run Stable Diffusion via HuggingFace Diffusers; study the pipeline source code; trace a single inference call'},
+   sat:{topic:'ControlNet & conditional generation',s0:'"Adding Conditional Control to Text-to-Image Diffusion Models" (ControlNet, Zhang 2023)',s1:'Use ControlNet with edge map or depth conditioning; experiment with prompt + condition interactions'}},
+  {phase:'Phase 5 · ML Systems & Engineering',title:'Distributed Training',
+   mon:{topic:'Data parallelism & DDP',s0:'PyTorch "Distributed Data Parallel" tutorial + Li 2020 paper on accelerating DDP',s1:'Implement a toy DDP training loop using torch.distributed; profile all-reduce vs compute time'},
+   wed:{topic:'Model parallelism & tensor parallelism',s0:'"Megatron-LM: Training Multi-Billion Parameter Language Models" (Shoeybi 2019)',s1:'Implement column and row tensor parallelism for a single linear layer; verify outputs match non-parallel version'},
+   thu:{topic:'ZeRO & memory optimization',s0:'"ZeRO: Memory Optimizations Toward Training Trillion Parameter Models" (Rajbhandari 2020) — three stages',s1:'Profile memory at different ZeRO stages using DeepSpeed; compare to naive DDP; simulate stage 1 manually'},
+   sat:{topic:'Gradient checkpointing',s0:'"Training Deep Nets with Sublinear Memory Cost" (Chen 2016)',s1:'Enable gradient checkpointing in your transformer; measure the memory-vs-compute tradeoff; combine with AMP'}},
+  {phase:'Phase 5 · ML Systems & Engineering',title:'MLOps & Production ML',
+   mon:{topic:'Rules of machine learning',s0:'"Rules of Machine Learning: Best Practices for ML Engineering" (Zinkevich, Google 2017) — all 43 rules',s1:'Audit your RL project against the 43 rules; write a short doc of what you would change in hindsight'},
+   wed:{topic:'Experiment tracking & reproducibility',s0:'"Hidden Technical Debt in Machine Learning Systems" (Sculley et al. 2015, Google NeurIPS)',s1:'Set up Weights & Biases on a project; log hyperparameters and metrics; run a sweep over LR and batch size'},
+   thu:{topic:'Model serving & latency',s0:'Chip Huyen "Designing Machine Learning Systems" Ch. 7 — latency vs throughput, batching, hardware selection',s1:'Serve a PyTorch model via FastAPI; benchmark throughput at batch size 1, 8, 32, 64; implement dynamic batching'},
+   sat:{topic:'Data pipelines & feature stores',s0:'Chip Huyen "Designing Machine Learning Systems" Ch. 5–6 — feature engineering, offline evaluation',s1:'Build a data pipeline with preprocessing and train/val/test split for a project; version the features'}},
+  {phase:'Phase 5 · ML Systems & Engineering',title:'Evaluation & Benchmarking',
+   mon:{topic:'LLM evaluation methodology',s0:'"Holistic Evaluation of Language Models" (HELM, Liang et al. 2022) — metrics and benchmark limitations',s1:'Run LM Evaluation Harness (EleutherAI) on GPT-2; compare across 3 tasks; study benchmark contamination'},
+   wed:{topic:'Human eval & preference data',s0:'"Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference" (Zheng 2023) — Elo and Bradley-Terry model',s1:'Design a small human eval: collect 20 pairwise preferences on 2 models; compute Elo scores'},
+   thu:{topic:'Building custom evals',s0:'Anthropic "Evaluation" docs + OpenAI Evals README — what makes a good eval: calibration, coverage, adversarial cases',s1:'Write a custom eval harness for a domain-specific task; run it on GPT-2 and a larger model; compare'},
+   sat:{topic:'Red-teaming & failure analysis',s0:'"Red Teaming Language Models to Reduce Harms" (Ganguli 2022, Anthropic)',s1:'Red-team a fine-tuned model: find 10 failure modes; categorize them; propose mitigations for the top 3'}},
+  {phase:'Phase 6 · Agentic AI & Frontier',title:'Agents, Tools & Chain-of-Thought',
+   mon:{topic:'Chain-of-Thought prompting',s0:'"Chain-of-Thought Prompting Elicits Reasoning in LLMs" (Wei et al. 2022, Google) + "Least-to-Most Prompting"',s1:'Benchmark CoT vs direct prompting on GSM8K math using GPT-2 or a small open model; measure failure modes'},
+   wed:{topic:'ReAct: reasoning + acting agents',s0:'"ReAct: Synergizing Reasoning and Acting in Language Models" (Yao 2023)',s1:'Build a ReAct agent from scratch (no LangChain): give it search and calculator; test on multi-step QA'},
+   thu:{topic:'Tool use & function calling',s0:'"Toolformer: Language Models Can Teach Themselves to Use Tools" (Schick 2023)',s1:'Build an agent with 3 tools (search, calculator, code exec) using raw API function calling; test on 10 tasks'},
+   sat:{topic:'Multi-agent systems',s0:'"Communicative Agents for Software Development" (ChatDev, Qian 2023) + skim AutoGen paper',s1:'Build a 2-agent system (planner + executor) for a coding task; measure vs single-agent with same token budget'}},
+  {phase:'Phase 6 · Agentic AI & Frontier',title:'RL + LLMs & Test-Time Compute',
+   mon:{topic:'RLHF viewed through CS 234',s0:'"Training LMs to Follow Instructions with HF" (again) — map each component to CS 234: RM=R, LM=π, PPO clip=A2 code',s1:'Draw RLHF computation graph; label CS 234 policy, value function, advantage estimator, clipped objective'},
+   wed:{topic:'Constitutional AI & RLAIF',s0:'"Constitutional AI: Harmlessness from AI Feedback" (Bai et al. 2022, Anthropic)',s1:'Simulate a mini Constitutional AI pipeline: use a small model to critique and revise its own outputs'},
+   thu:{topic:'Process reward models',s0:'"Let\'s Verify Step by Step" (Lightman et al. 2023, OpenAI) — outcome vs process reward; why step-level supervision matters',s1:'Implement a simple process reward model for a math solver; compare to outcome-only reward on toy arithmetic'},
+   sat:{topic:'Test-time compute & best-of-N',s0:'OpenAI o1 System Card (blog) + "Scaling LLM Test-Time Compute Optimally" (Snell 2024)',s1:'Implement best-of-N sampling with a reward model; measure quality vs N from 1 to 32 on a reasoning task'}},
+  {phase:'Phase 6 · Agentic AI & Frontier',title:'Multimodal Models & Vision-Language',
+   mon:{topic:'Vision Transformers (ViT)',s0:'"An Image is Worth 16x16 Words" (Dosovitskiy 2021) — patch embeddings and why it works',s1:'Implement ViT from scratch (patch embedding, pos encoding, transformer encoder, cls head); train on CIFAR-10'},
+   wed:{topic:'Flamingo & visual instruction tuning',s0:'"Flamingo: a Visual Language Model for Few-Shot Learning" (Alayrac 2022)',s1:'Study the LLaVA architecture; trace a single inference through vision encoder → projection → LLM pipeline'},
+   thu:{topic:'SAM & foundation models for vision',s0:'"Segment Anything" (Kirillov 2023, Meta) — promptable segmentation and the 1B-mask data engine',s1:'Use SAM API to segment objects in your own photos; experiment with point, box, and mask prompts'},
+   sat:{topic:'Synthesis & your next arc',s0:'Read 2 frontier papers from the last 2 months (Anthropic, OpenAI, DeepMind, or top-tier conference)',s1:'Reproduce one key result from any paper in this curriculum; write a 1-page reflection on what surprised you most'}}
+];
+
+/* ── ENGLISH CURRICULUM (18 weeks) ── */
+var ENG_CUR=[
+  {phase:'Phase 1 · Sound & Rhythm',title:'American English Stress Patterns',
+   mon:{topic:'Stress-timed rhythm',s0:'Rachel\'s English "Word Stress" YouTube playlist (ep 1–3, ~30 min)',s1:'Record yourself reading a paragraph; compare your rhythm to the native speaker; note every mismatch'},
+   tue:{topic:'Reductions: gonna/wanna/gotta/kinda',s0:'Pronunciation with Emma "Reductions in English" YouTube (10 min)',s1:'Transcribe a 2-min podcast clip paying close attention to every reduction; mark each one'},
+   thu:{topic:'Thought groups & pausing',s0:'English with Jennifer "Thought Groups" YouTube',s1:'Take a New Yorker paragraph; mark thought group breaks with slashes; read aloud and record'},
+   fri:{topic:'Linking sounds between words',s0:'Rachel\'s English "Linking" playlist (ep 1–2)',s1:'Write 10 sentences with intentional linking opportunities; drill them 3 times each aloud'},
+   sun:{topic:'Movie: The Devil Wears Prada (2006)',s0:'Watch 30 min — fast professional dialogue; focus on how Miranda Priestly forms sentences',s1:'Write 5 phrases from the film you\'d like to say more naturally; practice each one aloud 5 times'}},
+  {phase:'Phase 1 · Sound & Rhythm',title:'Connected Speech & Reductions',
+   mon:{topic:'Schwa — the most common English sound',s0:'BBC Learning English "The schwa" YouTube',s1:'Find all schwas in a paragraph; record yourself; is your schwa natural or over-pronounced?'},
+   tue:{topic:'Flap T: water, butter, ladder',s0:'Rachel\'s English "American T" YouTube',s1:'List 15 words with flap T you use daily (water, better, matter, little); drill them aloud'},
+   thu:{topic:'H-dropping in casual speech',s0:'Listen to 30 min of Conan O\'Brien Needs a Friend — no subtitles',s1:'Write down 5 phrases you missed; look them up; replay until you can catch them clearly'},
+   fri:{topic:'Caught-cot vowel merger',s0:'Accent\'s Way YouTube "The cot-caught merger"',s1:'Practice minimal pairs: cot/caught, Dawn/Don, paw/pa, collar/caller — record each pair'},
+   sun:{topic:'Movie: Knives Out (2019)',s0:'Watch 40 min — layered American accents, fast casual dialogue',s1:'Note 3 expressions used casually that you didn\'t know; add to your personal idiom list'}},
+  {phase:'Phase 1 · Sound & Rhythm',title:'Intonation & Emotion',
+   mon:{topic:'Rising vs falling intonation',s0:'English with Lucy "Intonation Patterns" YouTube',s1:'Record 5 questions with rising vs falling intonation; check if they sound native; adjust and re-record'},
+   tue:{topic:'Emphatic stress for meaning',s0:'Amy Cuddy TED Talk "Your body language may shape who you are" — note stress patterns throughout',s1:'Pick 3 sentences; stress different words each time; write how the meaning shifts'},
+   thu:{topic:'Intonation in sarcasm & humor',s0:'Watch The Office (US) S1E1 — focus on how Michael\'s intonation signals humor vs sincerity',s1:'Transcribe 3 lines where intonation changes meaning; explain to yourself why each works'},
+   fri:{topic:'Intonation in questions vs statements',s0:'BBC 6 Minute English podcast — any recent episode',s1:'Write a 10-line dialogue and mark intonation; speak it; record and assess your own naturalness'},
+   sun:{topic:'Movie: Legally Blonde (2001)',s0:'Watch 40 min — upbeat American speech patterns, Valley Girl vs professional code switching',s1:'List 5 expressions Elle uses that feel very naturally American; use each in a sentence today'}},
+  {phase:'Phase 2 · Reading & Writing Like a Native',title:'Sentence Structure & Variety',
+   mon:{topic:'Short sentences for emphasis',s0:'Read Hemingway "Hills Like White Elephants" — study sentence length variation',s1:'Rewrite a paragraph from your life using Hemingway-style short sentences; compare the impact'},
+   tue:{topic:'Subordinate clauses & complexity',s0:'Read The Atlantic "Why Your Late 20s Are the Hardest" — study how clauses are stacked',s1:'Write a paragraph using at least 3 different clause types; underline each type'},
+   thu:{topic:'Parallel structure',s0:'Read MLK "I Have a Dream" — find every parallel construction and note its effect',s1:'Write 5 parallel sentences about your daily routine; check if they feel rhythmic aloud'},
+   fri:{topic:'The em dash — how Americans use it',s0:'Read any recent NYT opinion piece — notice punctuation for emphasis and asides',s1:'Rewrite 3 of your past sentences using em dashes to add emphasis or a parenthetical aside'},
+   sun:{topic:'Show: Gilmore Girls S1E1',s0:'Watch 30 min — extremely fast, pop culture-dense speech',s1:'Write a short scene imitating Lorelai\'s speech patterns: fast, layered, associative'}},
+  {phase:'Phase 2 · Reading & Writing Like a Native',title:'Paragraph Organization',
+   mon:{topic:'Topic → body → pivot structure',s0:'Malcolm Gladwell "The Tipping Point" Ch. 1 — study paragraph structure, not just content',s1:'Outline 3 of his paragraphs; write your own paragraph about ML using his exact structure'},
+   tue:{topic:'Transition phrases native writers use',s0:'Paul Graham "Keep Your Identity Small" essay — note every transition word or phrase',s1:'Write a short essay paragraph using at least 5 native transition phrases; underline each'},
+   thu:{topic:'Opening hooks & closers',s0:'Read 3 different New Yorker article openings — how does each hook work?',s1:'Write 3 different opening sentences for the same topic; pick the strongest; explain why'},
+   fri:{topic:'Showing vs telling',s0:'Read any Chuck Palahniuk excerpt — strong show-don\'t-tell writing',s1:'Take 5 "telling" sentences and rewrite each as "showing" — specific sensory detail every time'},
+   sun:{topic:'Podcast: This American Life — any episode',s0:'Full episode, 45 min — narrative nonfiction in spoken form',s1:'Write 2 paragraphs imitating the episode\'s storytelling voice; use the same pacing'}},
+  {phase:'Phase 2 · Reading & Writing Like a Native',title:'Voice & Tone',
+   mon:{topic:'Formal vs casual register',s0:'Compare a WSJ editorial and a Buzzfeed article on the same topic — same facts, different voice',s1:'Write 2 versions of the same paragraph: one WSJ formal, one casual blog; compare aloud'},
+   tue:{topic:'Hedging language: "tends to", "arguably"',s0:'The Economist "Lexington" column (weekly opinion) — find every hedge',s1:'Rewrite 5 of your past definitive statements using appropriate hedging language'},
+   thu:{topic:'Confident vs uncertain language',s0:'Read an Anthropic or DeepMind blog post — note how they balance confidence and humility',s1:'Write a paragraph about your CS 234 project in confident but honest English'},
+   fri:{topic:'Personal essay voice',s0:'Roxane Gay "Bad Feminist" introduction — study first-person directness',s1:'Write a 200-word personal essay opener about something you genuinely believe'},
+   sun:{topic:'Movie: The Social Network (2010)',s0:'Watch 40 min — Sorkin dialogue: extremely fast, overlapping speech',s1:'Transcribe one fast exchange; note what made it hard to follow; replay until you catch every word'}},
+  {phase:'Phase 3 · Idioms, Collocations & Casual Speech',title:'Idioms in Context',
+   mon:{topic:'10 idioms from everyday English',s0:'BBC Learning English "Idioms in Use" YouTube (any recent episode)',s1:'Use each idiom in a sentence about ML or grad school — make them feel natural, not forced'},
+   tue:{topic:'Idioms for difficulty & success',s0:'Scan any Hacker News "Ask HN" thread — note idioms in comments',s1:'Write a paragraph about your week using at least 4 idioms; read aloud to check naturalness'},
+   thu:{topic:'Idioms for time & deadlines',s0:'Listen to any English-language meeting or office-hours recording if available',s1:'Write a mock email using "on track", "up against the clock", "behind the eight ball" naturally'},
+   fri:{topic:'Phrasal verbs: give up, figure out, come up with',s0:'Paul Graham "Do Things That Don\'t Scale" — find every phrasal verb',s1:'Replace formal verbs in 5 of your sentences with natural phrasal verbs; check they sound right'},
+   sun:{topic:'Show: Succession S1E1',s0:'Watch 40 min — British/American business English, layered power dynamics',s1:'Note 5 expressions that feel very native; add to your personal idiom list with example sentences'}},
+  {phase:'Phase 3 · Idioms, Collocations & Casual Speech',title:'Phrasal Verbs Deep Dive',
+   mon:{topic:'Separable vs inseparable phrasal verbs',s0:'"English Phrasal Verbs in Use" (Cambridge) Ch. 1–3',s1:'Use 8 phrasal verbs correctly in a narrative paragraph about your morning routine'},
+   tue:{topic:'Phrasal verbs for work & productivity',s0:'Tim Ferriss podcast episode of choice — transcribe 2 min of natural speech',s1:'Make a table of 10 work phrasal verbs (wrap up, follow up, hand off, etc.) with example sentences'},
+   thu:{topic:'Phrasal verbs for emotions',s0:'Brené Brown "The Power of Vulnerability" TED talk',s1:'Write a personal reflection using 5 emotional phrasal verbs (open up, hold back, break down, etc.)'},
+   fri:{topic:'Phrasal verbs in academic English',s0:'Read the abstract of a recent ML paper — note any phrasal verbs that appear',s1:'Rewrite your CS 234 abstract replacing formal verbs with phrasal verbs where it sounds natural'},
+   sun:{topic:'Movie: Little Miss Sunshine (2006)',s0:'Watch 40 min — character-rich American English, overlapping family conversation',s1:'Note 3 moments where characters say something the "wrong" way intentionally — what does it signal?'}},
+  {phase:'Phase 3 · Idioms, Collocations & Casual Speech',title:'Collocations — Words That Go Together',
+   mon:{topic:'Verb-noun collocations: make vs do a decision',s0:'Cambridge Dictionary collocations dictionary — browse make/do/take/have + noun entries',s1:'Write 10 sentences using make/do/take/have + noun correctly — check every one'},
+   tue:{topic:'Adjective-noun collocations',s0:'BBC 6 Minute English — any recent episode; note adjective-noun pairs',s1:'Find 8 adjective-noun collocations you\'ve been getting wrong (heavy rain not strong rain); correct them'},
+   thu:{topic:'Preposition collocations',s0:'"English Collocations in Use" (Cambridge) Ch. 1–5',s1:'Write a paragraph about your research using 10 correct preposition collocations; underline each'},
+   fri:{topic:'Collocations in academic writing',s0:'One section of a recent ACL or Nature paper — highlight collocations only',s1:'Rewrite 3 of your past sentences replacing awkward combos with native collocations'},
+   sun:{topic:'Show: Parks and Recreation S2E1',s0:'Watch 30 min — warm, character-driven American speech',s1:'Note 5 phrases that feel impossible to translate directly into Chinese — explain why each one resists translation'}},
+  {phase:'Phase 4 · Advanced Comprehension',title:'Documentary, News & Debate English',
+   mon:{topic:'News anchor speech: pacing and formality',s0:'NPR Morning Edition — full 45-min episode',s1:'Write a 200-word news brief on any topic in NPR style — formal but warm'},
+   tue:{topic:'Documentary narration voice',s0:'Planet Earth II — any 20-min segment; note Attenborough\'s narration style',s1:'Write a 150-word narration describing your campus or neighborhood in documentary style'},
+   thu:{topic:'Debate & argumentation language',s0:'Intelligence Squared debate of choice (Oxford-style, YouTube) — full 60 min',s1:'Write a 3-sentence counterargument to a claim in the debate using native transition phrases'},
+   fri:{topic:'Interview vs conversation grammars',s0:'Fresh Air (Terry Gross) interview of choice — note how she formulates questions',s1:'Write mock interview questions in Fresh Air style for someone in your field; make them open-ended'},
+   sun:{topic:'Movie: Arrival (2016)',s0:'Watch full — technical dialogue, emotional subtext, dense exposition',s1:'Write a 200-word reaction without simplifying your vocabulary; push yourself to use complex structures'}},
+  {phase:'Phase 4 · Advanced Comprehension',title:'Comedy, Irony & Implied Meaning',
+   mon:{topic:'Sarcasm: when English means the opposite',s0:'Watch 15 min of Arrested Development — most sarcasm-dense show on TV',s1:'Write 5 lines of dialogue where what\'s said is the opposite of what\'s meant; mark the irony'},
+   tue:{topic:'Understatement in English',s0:'Any Economist article — find every example of understatement (often in the final sentence)',s1:'Rewrite 3 dramatic statements as English understatements; read them aloud'},
+   thu:{topic:'Irony in written English',s0:'David Sedaris "Me Talk Pretty One Day" (short story, 20 min free online)',s1:'Write a short paragraph using Sedaris-style ironic self-deprecation about something that went wrong'},
+   fri:{topic:'Wordplay & puns',s0:'Wait Wait Don\'t Tell Me (NPR) — any episode; note all wordplay and puns',s1:'Write 3 puns on ML-related terms; understand why puns require deep collocation knowledge'},
+   sun:{topic:'Show: The Bear S1E1',s0:'Watch 40 min — Chicago English, rapid overlapping, kitchen slang',s1:'Note every phrase you couldn\'t catch; look up 5 of them; replay those scenes'}},
+  {phase:'Phase 4 · Advanced Comprehension',title:'Academic Talks & Lectures',
+   mon:{topic:'Academic hedging, stance & citation',s0:'Any NeurIPS talk on YouTube — note how presenters hedge their claims',s1:'Write a 200-word abstract for a fictional ML paper in correct academic English; hedge where appropriate'},
+   tue:{topic:'How academics tell stories in talks',s0:'Lex Fridman interview with any ML researcher (30 min)',s1:'Describe your CS 234 project to a non-expert in 3 clear paragraphs — no jargon'},
+   thu:{topic:'Q&A English: answering questions gracefully',s0:'Any conference Q&A session on YouTube',s1:'Write 5 graceful hedged responses to hard questions about your research; practice saying them aloud'},
+   fri:{topic:'Presenting disagreement politely',s0:'Study the tone of academic paper rebuttal examples (find on OpenReview)',s1:'Write a polite rebuttal to a critique of your work — firm but not defensive'},
+   sun:{topic:'TED Talk: Brené Brown "The Power of Vulnerability"',s0:'Full 20-min talk',s1:'Outline the structure; explain her main argument in your own words in 150 words; note her rhythm'}},
+  {phase:'Phase 5 · Writing for Real Contexts',title:'Professional & Email Writing',
+   mon:{topic:'Cold email structure',s0:'Study 3 successful cold emails (Reddit r/cscareerquestions or career forums)',s1:'Write a cold email to a professor or researcher you genuinely admire; make it specific and short'},
+   tue:{topic:'Slack messages: concise and warm',s0:'"Everybody Writes" by Ann Handley Ch. 3 — clarity and warmth in digital writing',s1:'Rewrite 5 of your past messages or emails to be clearer and warmer; compare old vs new'},
+   thu:{topic:'Resume language: action verbs & metrics',s0:'Austin Kleon "Show Your Work" Ch. 1 — showing rather than claiming',s1:'Rewrite your resume bullet points with stronger action verbs + quantification wherever possible'},
+   fri:{topic:'Giving feedback in English',s0:'Kim Scott "Radical Candor" — key principles for direct but kind feedback',s1:'Write a piece of feedback you\'ve been avoiding; revise it to be honest and warm at the same time'},
+   sun:{topic:'Movie: The Intern (2015)',s0:'Watch 40 min — professional American speech patterns across generations',s1:'Write a short monologue in the style of Robert DeNiro\'s opening — confident and self-aware'}},
+  {phase:'Phase 5 · Writing for Real Contexts',title:'Storytelling & Narrative',
+   mon:{topic:'The 3-act story structure',s0:'Pixar\'s 22 Story Rules (free online) — read all 22 and annotate',s1:'Tell a story from your week in 3 acts — even something small; keep it concrete and specific'},
+   tue:{topic:'Specific details make stories real',s0:'This American Life "Fiasco" episode — note how specificity creates comedy and truth',s1:'Rewrite a vague sentence into one with 4 specific sensory details; do this 5 times'},
+   thu:{topic:'Pacing: short for speed, long for reflection',s0:'Joan Didion "The Year of Magical Thinking" opening pages — study the rhythm',s1:'Write a 150-word scene alternating between fast and slow pacing intentionally; mark the shifts'},
+   fri:{topic:'Character voice in writing',s0:'Zadie Smith "On Beauty" opening chapter — study how each character\'s voice differs',s1:'Write 3 different 2-sentence character introductions; make each voice clearly distinct from the others'},
+   sun:{topic:'Show: Chef\'s Table Season 1 Episode 1',s0:'Watch full episode (50 min) — narrative documentary about a chef\'s artistic philosophy',s1:'Write your own 200-word Chef\'s Table-style intro about yourself and what drives you'}},
+  {phase:'Phase 5 · Writing for Real Contexts',title:'Opinion & Argumentation',
+   mon:{topic:'Thesis → evidence → analysis',s0:'George Orwell "Politics and the English Language" essay (free online)',s1:'Write a 3-paragraph op-ed on any tech or policy topic using Orwell\'s principles'},
+   tue:{topic:'Concession & rebuttal',s0:'Any NYT "Room for Debate" column — note how writers handle opposing views',s1:'Write a short argument including: "While X is true, it is important to note that Y because..."'},
+   thu:{topic:'Making recommendations in English',s0:'Skim any McKinsey or BCG public report — note the language of recommendation',s1:'Write a 200-word recommendation memo for a decision in your own life; be specific and direct'},
+   fri:{topic:'Using data to argue',s0:'FiveThirtyEight article on any topic — note how they weave data into prose',s1:'Write a paragraph arguing a position using 2 statistics and 1 specific example; cite each cleanly'},
+   sun:{topic:'Movie: Moneyball (2011)',s0:'Watch 40 min — data vs intuition; American sports and business English',s1:'Write a debate speech: argue Brad Pitt\'s side, then the scouts\' side; use native persuasive language'}},
+  {phase:'Phase 6 · Fluency & Authentic Voice',title:'Slang & Generational Language',
+   mon:{topic:'Gen Z & Millennial slang',s0:'YouTube: "Gen Z slang explained" + any Jubilee "Middle Ground" video',s1:'Write a casual paragraph using 5 current expressions naturally — not forced; ask a native speaker to rate authenticity'},
+   tue:{topic:'Tech & startup slang',s0:'Browse Hacker News front page for 30 min — note the jargon and community phrases',s1:'Explain what you\'re working on to an imaginary friend using zero academic jargon; be casual'},
+   thu:{topic:'Language borrowing & code-switching',s0:'NPR Code Switch podcast — any episode on language',s1:'Write 2 versions of the same message: one for a professor, one for a close friend; identify every shift'},
+   fri:{topic:'When slang is appropriate vs not',s0:'Listen to a professional podcast then a casual one back-to-back; note the register gap',s1:'Write a mock Slack message, an email to your advisor, and a text to a friend on the same topic'},
+   sun:{topic:'Show: Atlanta S1E1',s0:'Watch 40 min — layered American English, cultural subtext, irony',s1:'Note 5 moments of code-switching; describe what language changed and why in each case'}},
+  {phase:'Phase 6 · Fluency & Authentic Voice',title:'Technical Vocabulary & Domain English',
+   mon:{topic:'Explaining ML to a non-expert',s0:'Watch Lex Fridman explain a complex concept to a non-technical guest',s1:'Explain attention mechanisms in 150 words for a total beginner; use no ML jargon'},
+   tue:{topic:'Technical writing: clarity over cleverness',s0:'Google Technical Writing Fundamentals (free course) — Module 1–2',s1:'Rewrite a section of your CS 234 paper using Google\'s clarity guidelines; cut every unnecessary word'},
+   thu:{topic:'Writing about uncertainty',s0:'Read the limitations section of any Nature or Science research article',s1:'Write the limitations section of your own RL project in clear, honest, academically appropriate English'},
+   fri:{topic:'Conference talk vs paper language',s0:'Watch any 15-min ICML 2024 talk on YouTube',s1:'Write the opening 3 sentences of a talk on your paper — engaging, clear, no jargon in the first 30 seconds'},
+   sun:{topic:'Podcast: Machine Learning Street Talk — any episode',s0:'Full episode (~60 min) — advanced ML discussion in natural conversational English',s1:'Summarize the episode in 200 words without translating from Chinese; think in English throughout'}},
+  {phase:'Phase 6 · Fluency & Authentic Voice',title:'Your Authentic English Voice',
+   mon:{topic:'Finding your writing signature',s0:'Compare 3 writers you admire (e.g. Lilian Weng, Paul Graham, Joan Didion) — what makes each distinct?',s1:'Write a paragraph in your own genuine voice about why you love ML; revise until it sounds like you'},
+   tue:{topic:'Public writing: English blogging',s0:'Lilian Weng\'s blog — study her voice (technical but personal, precise but warm)',s1:'Draft an English version of one of your posts; adapt the structure for a Western reader'},
+   thu:{topic:'Spontaneous English: no preparation',s0:'Watch any panel where speakers get surprise questions; note how they buy time and structure answers',s1:'Write your answer to a hard surprise question you got in English this week; analyze what was hard'},
+   fri:{topic:'Interview & networking English',s0:'"What Color Is Your Parachute" — interview preparation chapter',s1:'Answer "Tell me about yourself" in 150 words in your authentic English voice; be specific and confident'},
+   sun:{topic:'Movie: Parasite (2019)',s0:'Watch in Korean with English subtitles — note how subtitles handle subtext and humor',s1:'Write 200 words reflecting on your English growth over the past 18 weeks; what feels most natural now?'}}
+];
+
+/* ── FINANCE CURRICULUM (18 weeks) ── */
+var FIN_CUR=[
+  {phase:'Phase 1 · Investing Foundations',title:'How Markets Work',
+   tue:{topic:'What you\'re actually buying when you buy stock',s0:'"A Random Walk Down Wall Street" Ch. 1–2 — fundamentals of what equity ownership means',s1:'Look up the definition of market cap, float, and shares outstanding for 3 companies you know'},
+   wed:{topic:'Asset classes: stocks, bonds, REITs, commodities',s0:'Ben Felix "The Case for Indexed Investing" YouTube (10 min)',s1:'Look up current allocations of a classic 3-fund portfolio; understand why those weights are chosen'},
+   fri:{topic:'How to read a stock chart',s0:'Investopedia "How to Read Stock Charts" — price, volume, 52w range, support/resistance',s1:'Pull up charts for AAPL, NVDA, SPY on Yahoo Finance; identify: ATH, support levels, volume spikes'}},
+  {phase:'Phase 1 · Investing Foundations',title:'The Power of Compounding',
+   tue:{topic:'Compound interest: the 8th wonder',s0:'"The Psychology of Money" by Morgan Housel Ch. 1–4',s1:'Build a compound interest model in Sheets: $500/month at 7% vs 10% over 30 years; plot the gap'},
+   wed:{topic:'Dollar-cost averaging vs lump sum',s0:'Vanguard research paper "Dollar-cost averaging just means taking risk later" (free PDF)',s1:'Compare DCA vs lump sum on SPY over last 5, 10, 20 years using Portfolio Visualizer'},
+   fri:{topic:'Index funds vs active management',s0:'JL Collins "The Simple Path to Wealth" Ch. 8 + Ben Felix "Index Funds for Beginners" YouTube',s1:'Compare expense ratios and 10-year returns: VTI vs any actively managed fund in the same category'}},
+  {phase:'Phase 1 · Investing Foundations',title:'Reading Financial Statements',
+   tue:{topic:'Income statement: revenue, EBITDA, net income',s0:'"Financial Statements" by Thomas Ittelson Ch. 1–3',s1:'Pull up NVDA\'s latest 10-K on SEC EDGAR; read the income statement; calculate YoY revenue growth'},
+   wed:{topic:'Balance sheet: assets, liabilities, equity',s0:'Ittelson Ch. 4–5 + Investopedia "Balance Sheet" article',s1:'Pull Apple\'s balance sheet; calculate current ratio and debt-to-equity; compare to Apple in 2019'},
+   fri:{topic:'Cash flow statement: why it matters more than net income',s0:'Ittelson Ch. 6–7 — focus on why operating cash flow tells a more honest story than net income',s1:'Find a company with positive net income but negative operating cash flow; explain why this is a red flag'}},
+  {phase:'Phase 2 · Stock Analysis & Valuation',title:'Fundamental Analysis',
+   tue:{topic:'P/E ratio and what it really means',s0:'"The Intelligent Investor" Ch. 11 (Mr. Market) + Ch. 14 — Benjamin Graham\'s core framework',s1:'Calculate P/E, forward P/E, and PEG ratio for 3 stocks in different industries; compare them'},
+   wed:{topic:'DCF: discounting cash flows',s0:'Aswath Damodaran "Valuation" YouTube Lecture 1 (NYU Stern, free)',s1:'Build a simple 5-year DCF in Excel for one company you know — pick your discount rate and justify it'},
+   fri:{topic:'EV/EBITDA vs P/E: when to use each',s0:'Damodaran blog "The Right Multiple" + WSJ "How to Value a Stock"',s1:'Compare EV/EBITDA across 5 companies in the same sector; identify which looks cheapest and why'}},
+  {phase:'Phase 2 · Stock Analysis & Valuation',title:'Industry & Competitive Analysis',
+   tue:{topic:'Porter\'s Five Forces',s0:'Michael Porter "Competitive Strategy" Ch. 1 (library copy or summary)',s1:'Apply Porter\'s 5 Forces to NVDA\'s semiconductor business; write a 1-paragraph investment thesis'},
+   wed:{topic:'Moats: competitive advantages',s0:'Warren Buffett 2007 Berkshire Hathaway letter — section on economic moats (free on BH website)',s1:'Identify the moat for MSFT, AMZN, and TSLA; classify: network effect, cost advantage, switching cost, brand'},
+   fri:{topic:'Reading earnings call transcripts',s0:'Read NVDA\'s most recent earnings call transcript on Seeking Alpha or Motley Fool',s1:'List 3 insights from the call that weren\'t in the headline numbers; note management tone and confidence'}},
+  {phase:'Phase 2 · Stock Analysis & Valuation',title:'Reading the Market',
+   tue:{topic:'Technical analysis: moving averages, RSI',s0:'Investopedia "Technical Analysis Beginners Guide"',s1:'Look at the 50-day and 200-day MA crossover on any stock; identify the golden cross and death cross'},
+   wed:{topic:'Sector rotation across economic cycles',s0:'Fidelity "Sector Rotation" explainer YouTube (free)',s1:'Which sectors are outperforming YTD? Which are lagging? Map to where we are in the economic cycle'},
+   fri:{topic:'Earnings season: how to trade around it',s0:'Patrick Boyle "What Moves Markets" YouTube (any earnings-related episode)',s1:'Look at the last 4 earnings surprises for a stock you follow; how did price react vs analyst expectations?'}},
+  {phase:'Phase 3 · Macroeconomics',title:'The Fed & Interest Rates',
+   tue:{topic:'How the Fed works: open market operations',s0:'Federal Reserve "The Fed Explained" (official guide, free PDF) Ch. 1–3',s1:'Plot the Fed Funds Rate over the last 20 years; mark every recession with a vertical line; observe the pattern'},
+   wed:{topic:'Yield curve: what inversions predict',s0:'Patrick Boyle "The Yield Curve Explained" YouTube',s1:'Pull the current yield curve from Treasury.gov; compare shape to 2006 and 2020; is it currently inverted?'},
+   fri:{topic:'Inflation: CPI, PCE, and what they measure',s0:'Latest BLS CPI report (2 pages, free) + Brookings "Understanding Inflation" article',s1:'Track core CPI vs headline CPI over last 2 years; identify which categories drove the divergence'}},
+  {phase:'Phase 3 · Macroeconomics',title:'Global Macro',
+   tue:{topic:'Currency exchange: why the dollar matters',s0:'Patrick Boyle "Dollar as World Reserve Currency" YouTube or Odd Lots "Dollar Dominance" episode',s1:'Look at DXY (dollar index) over past 3 years; correlate dollar strength moves with S&P 500 performance'},
+   wed:{topic:'Trade deficits & current accounts',s0:'The Economist "Free Exchange" column — latest 3 issues (free via library)',s1:'Find the US trade deficit for the last 12 months; which countries and sectors drive it most?'},
+   fri:{topic:'GDP components: C + I + G + NX',s0:'"Basic Economics" by Thomas Sowell Ch. 10–12 — clear explanations without jargon',s1:'Break down current US GDP into its 4 components; which is the largest recent driver of growth?'}},
+  {phase:'Phase 3 · Macroeconomics',title:'Economic Cycles & Recessions',
+   tue:{topic:'Business cycle: expansion to trough',s0:'Ray Dalio "How the Economic Machine Works" YouTube (30 min) — watch this fully, it\'s essential',s1:'Map the 2020, 2008, and 2001 recessions onto the business cycle; identify what triggered each'},
+   wed:{topic:'Leading vs lagging economic indicators',s0:'Conference Board Leading Economic Index methodology + Investopedia "Leading Indicators"',s1:'Check the current LEI reading on Conference Board website; what is it signaling for the next 6 months?'},
+   fri:{topic:'What causes recessions: mechanisms',s0:'"This Time is Different" (Reinhart & Rogoff) Ch. 1 introduction (library or PDF)',s1:'Build a personal dashboard tracking 5 indicators: LEI, yield curve slope, unemployment, CPI, PMI'}},
+  {phase:'Phase 4 · Portfolio Construction',title:'Asset Allocation',
+   tue:{topic:'Risk tolerance and time horizon',s0:'"The Bogleheads\' Guide to Investing" Ch. 3–5',s1:'Complete Vanguard\'s investor questionnaire; build your target asset allocation; justify each decision'},
+   wed:{topic:'Correlation & diversification',s0:'Ben Felix "Diversification Explained" YouTube',s1:'Check correlation between SPY, BND, GLD, VNQ over 10 years using Portfolio Visualizer'},
+   fri:{topic:'Rebalancing: why and how often',s0:'Vanguard "Best Practices for Portfolio Rebalancing" research paper (free PDF)',s1:'Simulate a 60/40 portfolio: never rebalance vs annual rebalancing over 20 years; show the difference'}},
+  {phase:'Phase 4 · Portfolio Construction',title:'Passive vs Active & Factor Investing',
+   tue:{topic:'Why most active managers underperform',s0:'"A Random Walk Down Wall Street" Ch. 4–6 + SPIVA Scorecard (S&P, free, latest year)',s1:'Look up 10-year returns of the top 10 actively managed funds; how many beat VTI net of fees?'},
+   wed:{topic:'Factor investing: value, momentum, quality',s0:'Ben Felix "Factor Investing" YouTube',s1:'Compare MTUM (momentum ETF) and QUAL (quality ETF) vs SPY over 5 years; explain the divergences'},
+   fri:{topic:'Tax-loss harvesting & tax efficiency',s0:'Bogleheads wiki "Tax-Efficient Fund Placement" + Wealthfront "Tax-Loss Harvesting" guide',s1:'Calculate tax drag on a taxable account at your marginal rate: active fund vs VTI over 10 years'}},
+  {phase:'Phase 4 · Portfolio Construction',title:'Your Personal Portfolio',
+   tue:{topic:'Emergency fund + investment waterfall',s0:'"I Will Teach You to Be Rich" by Ramit Sethi Ch. 1–3',s1:'Map your full financial picture: income → emergency fund → 401k match → IRA → taxable; fill in the gaps'},
+   wed:{topic:'Retirement accounts: IRA, Roth IRA, 401k',s0:'Investopedia "Roth vs Traditional IRA" + IRS Publication 590-A (skim the structure)',s1:'Given your income and bracket, calculate the Roth vs Traditional IRA benefit this tax year'},
+   fri:{topic:'Writing your Investment Policy Statement',s0:'"The Little Book of Common Sense Investing" by John Bogle Ch. 8–10',s1:'Write a 1-page Investment Policy Statement: goals, time horizon, risk tolerance, target allocation, rules'}},
+  {phase:'Phase 5 · Real Estate',title:'Real Estate Fundamentals',
+   tue:{topic:'Home valuation: comps, price/rent ratio, cap rate',s0:'"The Millionaire Real Estate Investor" (Keller) Ch. 1–3',s1:'Pull 3 recent comps for your target area in Frisco on Redfin; calculate price-to-rent ratio for each'},
+   wed:{topic:'Mortgage mechanics: amortization, APR, points',s0:'Khan Academy "Mortgages" series (3 videos, ~30 min, free)',s1:'Use a mortgage calculator to compare 30yr vs 20yr vs 15yr on a $450k loan; show total interest paid'},
+   fri:{topic:'True cost of homeownership',s0:'NYT "Rent vs Buy Calculator" (interactive, free) + Ramit Sethi "The True Cost of Buying a House"',s1:'Calculate annual cost of ownership: mortgage + property tax + insurance + maintenance (1%) + HOA'}},
+  {phase:'Phase 5 · Real Estate',title:'Real Estate Investment Analysis',
+   tue:{topic:'Cap rate, NOI, and cash-on-cash return',s0:'BiggerPockets "Real Estate Investing for Beginners" YouTube series ep. 1–3',s1:'Analyze a Frisco rental property listing: apply the 1% rule, then calculate a full cap rate'},
+   wed:{topic:'Leverage in real estate',s0:'"Real Estate by the Numbers" by Dave Meyer Ch. 1–4',s1:'Model the same $350k property: all-cash vs 20% down vs 10% down — compare ROE and monthly cash flow'},
+   fri:{topic:'REITs vs direct ownership',s0:'Ben Felix "Should You Invest in Real Estate?" YouTube + Investopedia "REITs vs Real Estate"',s1:'Compare VNQ (REIT ETF) total return vs Case-Shiller Home Price Index over 10 years; include dividends'}},
+  {phase:'Phase 5 · Real Estate',title:'Buying Your First Home (Frisco, TX)',
+   tue:{topic:'North Texas market dynamics',s0:'NTREIS market report + Redfin data for Frisco',s1:'Track Frisco: median price, days on market, list-to-sale ratio over last 12 months — buyer or seller market?'},
+   wed:{topic:'Negotiation & offer strategy',s0:'"Never Split the Difference" (Chris Voss) Ch. 1–2 — apply to real estate negotiation',s1:'Write a mock offer strategy for a home you\'ve been tracking; include contingencies and escalation clause'},
+   fri:{topic:'Mortgage pre-approval and rate shopping',s0:'CFPB "Shopping for a Mortgage" guide (free PDF)',s1:'Get quotes from 3 lenders including your current loan officer; compare APR, points, and origination fees'}},
+  {phase:'Phase 6 · Advanced Topics',title:'Options Basics',
+   tue:{topic:'Calls and puts: what they represent',s0:'tastytrade "Options for Beginners" series ep. 1–3 (YouTube, free)',s1:'Look up the option chain for SPY; identify which strikes have the highest open interest and why'},
+   wed:{topic:'Covered calls & cash-secured puts',s0:'"Options as a Strategic Investment" Ch. 1–2 (Lawrence McMillan)',s1:'Paper trade: sell a covered call on a position you own; calculate max profit, max loss, break-even price'},
+   fri:{topic:'The Greeks: delta, theta, vega',s0:'tastytrade "Understanding the Greeks" YouTube',s1:'For 3 SPY options at different strikes, look up delta and theta; explain each intuitively in your own words'}},
+  {phase:'Phase 6 · Advanced Topics',title:'Alternative Assets & Crypto',
+   tue:{topic:'What Bitcoin actually is: the protocol, not the price',s0:'Satoshi Nakamoto Bitcoin whitepaper (9 pages, free) + Lyn Alden "What Is Bitcoin?" essay',s1:'Trace a Bitcoin transaction on a blockchain explorer; understand UTXO and hash verification'},
+   wed:{topic:'Crypto as an asset class: risk and correlation',s0:'Patrick Boyle "Is Crypto an Asset Class?" YouTube',s1:'Plot BTC correlation with SPY and gold over 3 years using CoinMetrics or TradingView'},
+   fri:{topic:'Commodities: gold, oil, agricultural',s0:'"Hot Commodities" by Jim Rogers Ch. 1–3',s1:'Build a commodity dashboard: GLD, USO, DBA — YTD performance and 5-year trend; explain each driver'}},
+  {phase:'Phase 6 · Advanced Topics',title:'Building Your Investment Framework',
+   tue:{topic:'Your investment philosophy: write it down',s0:'Warren Buffett 2023 Berkshire Hathaway Annual Letter to shareholders (free, 15 min read)',s1:'Write a 1-page Investment Manifesto: what you believe, what you won\'t do, and what your edge is'},
+   wed:{topic:'Tax planning & capital gains strategy',s0:'Bogleheads wiki "Tax-Efficient Fund Placement" + IRS capital gains rate table',s1:'Map your accounts to asset classes for tax efficiency; estimate annual tax savings from optimal placement'},
+   fri:{topic:'Reviewing your year: lessons learned',s0:'Howard Marks "The Most Important Thing" Ch. 1 + Ch. 20 (lessons from experience)',s1:'Write an investment journal entry: biggest lesson from 18 weeks; what you\'ll do differently going forward'}}
+];
+
+/* ── ART & FASHION CURRICULUM (18 weeks) ── */
+var ART_CUR=[
+  {phase:'Phase 1 · Fashion Fundamentals',title:'Fashion History 1900–1960s',
+   sat:{topic:'Fashion history: silhouettes across decades',s0:'Coursera fashion module on 20th century fashion + Victoria & Albert Museum online collection (free)',s1:'Sketch 3 silhouettes from different decades; note how waist, shoulder, and hem changed each era'},
+   sun:{topic:'Birth of ready-to-wear',s0:'Documentary "The First Monday in May" (streaming) — first 30 min',s1:'Make a Pinterest board of 10 images from one decade that speaks to you; write 50 words on why'}},
+  {phase:'Phase 1 · Fashion Fundamentals',title:'Design Elements',
+   sat:{topic:'Line, shape, silhouette, texture in fashion',s0:'Coursera fashion module on design elements + study Zara vs Bottega Veneta product pages',s1:'Take 5 photos of objects around you focusing on one design element each; note how each one works'},
+   sun:{topic:'Color theory in fashion',s0:'Josef Albers "Interaction of Color" Ch. 1–4 (free online at Yale) + Refinery29 "Color Blocking" article',s1:'Build a color palette for a capsule wardrobe; use a color wheel; photograph 5 things you already own'}},
+  {phase:'Phase 1 · Fashion Fundamentals',title:'Fashion Industry & Business',
+   sat:{topic:'How fashion works: supply chain and seasons',s0:'"Overdressed: The Shockingly High Cost of Cheap Fashion" Ch. 1–3',s1:'Map the supply chain from cotton to a t-shirt; identify where fast vs slow fashion diverges'},
+   sun:{topic:'Fashion business models: luxury vs fast fashion',s0:'Business of Fashion "How Luxury Brands Make Money" article + skim LVMH annual report summary',s1:'Compare 3 brand strategies (Zara, H&M, Bottega Veneta) in a visual table; identify which you respect most'}},
+  {phase:'Phase 2 · Photography Fundamentals',title:'The Exposure Triangle',
+   sat:{topic:'Aperture: depth of field and bokeh',s0:'Mark Denney "Exposure Triangle Explained" YouTube',s1:'Shoot the same subject at f/1.8, f/5.6, f/11, f/22; compare how background blur changes mood'},
+   sun:{topic:'Shutter speed: freezing vs motion blur',s0:'Sean Tucker "Beginner\'s Guide to Shutter Speed" YouTube',s1:'Find a moving subject; shoot at 1/1000, 1/125, 1/30; choose which you prefer and write why'}},
+  {phase:'Phase 2 · Photography Fundamentals',title:'Composition',
+   sat:{topic:'Rule of thirds & when to break it',s0:'"Understanding Exposure" by Bryan Peterson Ch. 2',s1:'Shoot 10 photos: subject at dead center, rule of thirds, extreme edge — compare emotional impact of each'},
+   sun:{topic:'Leading lines, framing, foreground interest',s0:'Sean Tucker "Advanced Composition" YouTube',s1:'Find 3 naturally occurring leading lines in your environment; compose a deliberate shot using each one'}},
+  {phase:'Phase 2 · Photography Fundamentals',title:'Light',
+   sat:{topic:'Golden hour vs blue hour vs harsh midday',s0:'Mark Denney "How to Use Natural Light" YouTube',s1:'Shoot the same spot at 3 different times of day; compare mood, color temperature, and shadow direction'},
+   sun:{topic:'Direction of light: front, side, back, overhead',s0:'Digital Photography School "Direction of Light" article',s1:'Shoot a portrait or still-life with subject lit from each direction; identify which feels most dramatic and why'}},
+  {phase:'Phase 3 · Color & Composition Advanced',title:'Color Theory in Photography',
+   sat:{topic:'Complementary colors in photography',s0:'Joel Sartore "Color Theory for Photographers" + study 10 images from Magnum Photos collection (free online)',s1:'Find or create a scene with complementary colors (orange/blue, yellow/purple); photograph with intention'},
+   sun:{topic:'Monochromatic photography',s0:'Study Sebastião Salgado\'s photography (images free online) — note his tonal mastery',s1:'Shoot 10 images using only one color family; edit in Lightroom to enhance the monochromatic feel'}},
+  {phase:'Phase 3 · Color & Composition Advanced',title:'Fashion Photography',
+   sat:{topic:'History: Avedon, Newton, LaChapelle',s0:'Study Richard Avedon\'s Vogue work + Helmut Newton\'s stark style (both free online)',s1:'Attempt to recreate the lighting and composition of one historic fashion photo using only your phone'},
+   sun:{topic:'Street style photography',s0:'Scott Schuman "The Sartorialist" blog — read 30 images with critical notes on why each works',s1:'Shoot 20 street style frames; edit down to your 3 strongest; write what makes each one work'}},
+  {phase:'Phase 3 · Color & Composition Advanced',title:'Editing & Color Grading',
+   sat:{topic:'Lightroom fundamentals: tone, color, detail',s0:'Adobe Lightroom official YouTube beginner tutorial series (3 videos)',s1:'Take 5 photos and edit each using only Lightroom\'s tone panel; aim for consistency across all 5'},
+   sun:{topic:'Building a signature edit',s0:'Study the editing of 3 photographers whose tone you love; try to identify their curve and HSL settings',s1:'Develop your own Lightroom preset from scratch; apply to 10 photos; assess whether the look is consistent'}},
+  {phase:'Phase 4 · Personal Style',title:'Style Foundations',
+   sat:{topic:'Understanding your body proportions',s0:'"The Curated Closet" by Anuschka Rees Ch. 1–3',s1:'Complete the Curated Closet style discovery exercise; document your results in Notion'},
+   sun:{topic:'Style icons and what to learn from them',s0:'Documentary: "Diana Vreeland: The Eye Has to Travel" (30 min, streaming)',s1:'Choose 3 style icons; create a 9-image mood board for each; identify 1 principle from each to adopt'}},
+  {phase:'Phase 4 · Personal Style',title:'Wardrobe Architecture',
+   sat:{topic:'The capsule wardrobe: building blocks',s0:'"The Curated Closet" Ch. 4–6 + Caroline de Maigret "How to be Parisian Wherever You Are"',s1:'Audit your wardrobe: categorize every item as Core / Seasonal / Statement; identify the gaps'},
+   sun:{topic:'Color palette for your wardrobe',s0:'Study 3 Pinterest "wardrobe color palette" examples; understand the 60-30-10 rule',s1:'Build your personal 8-color wardrobe palette from what you already own and love; photograph it'}},
+  {phase:'Phase 4 · Personal Style',title:'Your Style Vocabulary',
+   sat:{topic:'Fashion vocabulary: fit, drape, proportion',s0:'Coursera fashion module on garment construction + fit guides from Uniqlo and Zara editorial',s1:'Try on 5 wardrobe items; describe the fit in precise technical language; note what could be tailored'},
+   sun:{topic:'Shopping with intention',s0:'"Overdressed" Ch. 5–6 + study the cost-per-wear concept',s1:'Write a specific shopping list for the next 3 months based on your audit; set a budget and a 24-hour rule'}},
+  {phase:'Phase 5 · Advanced Photography',title:'Storytelling Through Images',
+   sat:{topic:'Photo essays: telling a story across 10 images',s0:'Look at any Magnum Photos documentary essay online (free at magnumphotos.com); choose one and study it',s1:'Shoot a 10-image photo essay on one subject or theme in your daily life; sequence the images intentionally'},
+   sun:{topic:'The decisive moment: Cartier-Bresson',s0:'Henri Cartier-Bresson "The Decisive Moment" introduction (PDF free online)',s1:'Go somewhere with people for 30 min; shoot only candid moments; find your one decisive frame'}},
+  {phase:'Phase 5 · Advanced Photography',title:'Portrait Photography',
+   sat:{topic:'Environmental portrait: subject in context',s0:'Study Annie Leibovitz\'s environmental portraits from "A Photographer\'s Life" (images free online)',s1:'Shoot a portrait of a friend or yourself in an environment that says something about who they are'},
+   sun:{topic:'Directing subjects: posing without awkwardness',s0:'SLR Lounge "How to Direct Non-Models" YouTube',s1:'Shoot 20 frames with a friend using 5 different directing prompts; edit to your top 3 strongest frames'}},
+  {phase:'Phase 5 · Advanced Photography',title:'Building a Body of Work',
+   sat:{topic:'What makes a photography style recognizable',s0:'Study the Instagram feeds of 5 photographers you admire; reverse-engineer what makes each distinctive',s1:'Edit a set of 9 images from different shoots to look cohesive as a grid; consistent tone and subject matter'},
+   sun:{topic:'Artist statement: articulating your vision',s0:'MoMA "How to Write an Artist Statement" + read 3 examples from working photographers',s1:'Write a 150-word artist statement describing your photography — specific about subject, mood, and intent'}},
+  {phase:'Phase 6 · Creative Direction & Portfolio',title:'Creative Direction',
+   sat:{topic:'What a creative director does',s0:'"The Creative Act: A Way of Being" by Rick Rubin Ch. 1–5',s1:'Mood board a complete shoot concept before touching a camera: subject, location, wardrobe, lighting, references'},
+   sun:{topic:'Styling a photo shoot',s0:'Watch behind-the-scenes of a fashion editorial on YouTube',s1:'Style yourself or a friend for a shoot: choose 3 complete looks; photograph each with full intention'}},
+  {phase:'Phase 6 · Creative Direction & Portfolio',title:'Photography & Fashion Combined',
+   sat:{topic:'Self-portraiture and personal branding',s0:'Study how photographers like Petra Collins document themselves (Instagram / interviews)',s1:'Shoot a 10-image self-portrait series that represents your aesthetic; use timer or remote shutter'},
+   sun:{topic:'Integrating fashion and photography',s0:'Study "The Sartorialist" blog — Scott Schuman on the intersection of fashion, light, and moment',s1:'Go out for 90 min and shoot at the intersection of fashion, light, and street moment; edit your 3 best'}},
+  {phase:'Phase 6 · Creative Direction & Portfolio',title:'Portfolio & Reflection',
+   sat:{topic:'Building your creative portfolio',s0:'Browse 10 photography portfolios on Behance and Cargo Collective; note structure and image selection',s1:'Select your 20 strongest images from 18 weeks; arrange into a portfolio sequence; export as PDF'},
+   sun:{topic:'Creative growth reflection',s0:'Re-read your week 1 notes and look at your week 1 photos side by side',s1:'Write a 200-word reflection on your visual development; shoot one image that represents where you are now'}}
+];
+
+/* ── CURRICULUM MAP ── */
+var CURR_MAP={
+  ml:{cur:ML_CUR,days:['mon','wed','thu','sat'],dayLabels:{mon:'Monday',wed:'Wednesday',thu:'Thursday',sat:'Saturday'},s0label:'Theory · 25–30 min',s1label:'Coding · 40–45 min'},
+  english:{cur:ENG_CUR,days:['mon','tue','thu','fri','sun'],dayLabels:{mon:'Monday',tue:'Tuesday',thu:'Thursday',fri:'Friday',sun:'Sunday'},s0label:'Listening / reading · 25–30 min',s1label:'Writing / speaking practice · 20–25 min'},
+  finance:{cur:FIN_CUR,days:['tue','wed','fri'],dayLabels:{tue:'Tuesday',wed:'Wednesday',fri:'Friday'},s0label:'Read / watch · 20–25 min',s1label:'Analyze · 30–35 min'},
+  art:{cur:ART_CUR,days:['sat','sun'],dayLabels:{sat:'Saturday',sun:'Sunday'},s0label:'Study · 25–30 min',s1label:'Create · 35–40 min'}
+};
 
 function learnLoad(){
-  try{ const r=localStorage.getItem(LEARN_STORE); if(r) allLearnLogs=JSON.parse(r); }catch(e){ allLearnLogs={}; }
+  try{var r=localStorage.getItem(LEARN_STORE);if(r)allLearnLogs=JSON.parse(r);}catch(e){allLearnLogs={};}
   todayLearnLog=JSON.parse(JSON.stringify(allLearnLogs[learnTodayKey()]||{}));
   calcLearnStreaks();
 }
 function learnPersist(){
   allLearnLogs[learnTodayKey()]=JSON.parse(JSON.stringify(todayLearnLog));
-  try{ localStorage.setItem(LEARN_STORE,JSON.stringify(allLearnLogs)); }catch(e){}
+  try{localStorage.setItem(LEARN_STORE,JSON.stringify(allLearnLogs));}catch(e){}
 }
 function calcLearnStreaks(){
-  Object.keys(TR).forEach(id => {
-    let s=0; const d=new Date();
-    for(let i=0;i<365;i++){
-      const k=d.toISOString().slice(0,10),l=allLearnLogs[k];
-      if(l&&l[id]&&(l[id].tasks||[]).length>0){ s++; d.setDate(d.getDate()-1); } else break;
+  Object.keys(TR).forEach(function(id){
+    var s=0,d=new Date();
+    for(var i=0;i<365;i++){
+      var k=d.toISOString().slice(0,10),l=allLearnLogs[k];
+      if(l&&l[id]&&(l[id].tasks||[]).length>0){s++;d.setDate(d.getDate()-1);}else break;
     }
     learnStreaks[id]=s;
   });
 }
 
-function pickTask(trackId,sessIdx){
-  const sess=TR[trackId].sessions[sessIdx];
-  const key=trackId+'_'+sessIdx;
-  const base=dayOfYear()+sessIdx*7;
-  const offset=swapOffsets[key]||0;
-  return sess.acts[(base+offset)%sess.acts.length];
+/* ── curriculum task lookup ── */
+function learnGetCurrTask(trackId,sessIdx){
+  var cm=CURR_MAP[trackId];
+  if(!cm)return null;
+  var dow=new Date().getDay();
+  var dk=DOW_TO_KEY[dow];
+  if(cm.days.indexOf(dk)<0)return null;
+  var wi=learnCurrWeekIdx();
+  var week=cm.cur[wi];
+  if(!week||!week[dk])return null;
+  var d=week[dk];
+  var items=[{n:d.s0,tip:'Topic: '+d.topic},{n:d.s1,tip:''}];
+  return items[sessIdx]||null;
 }
-function swapTask(trackId,sessIdx){
-  const key=trackId+'_'+sessIdx;
+function learnPickGenericTask(trackId,sessIdx){
+  var sess=TR[trackId].sessions[sessIdx];
+  if(!sess||!sess.acts)return{n:'No activity defined.',tip:''};
+  var key=trackId+'_'+sessIdx;
+  var base=dayOfYear()+sessIdx*7;
+  var off=swapOffsets[key]||0;
+  return sess.acts[(base+off)%sess.acts.length];
+}
+function learnGetTaskForSession(trackId,sessIdx){
+  var ct=learnGetCurrTask(trackId,sessIdx);
+  if(ct)return{n:ct.n,tip:ct.tip,fromCurr:true};
+  var gt=learnPickGenericTask(trackId,sessIdx);
+  return{n:gt.n,tip:gt.tip,fromCurr:false};
+}
+function learnSwapTask(trackId,sessIdx){
+  var key=trackId+'_'+sessIdx;
   swapOffsets[key]=(swapOffsets[key]||0)+1;
   renderLearnToday();
 }
 
 /* ── Learning: header ── */
 function renderLearnHeader(){
-  const h=new Date().getHours();
+  var h=new Date().getHours();
   document.getElementById('l-greeting').textContent=(h<12?'Good morning':h<17?'Good afternoon':'Good evening')+', Zoey ✦';
   document.getElementById('l-dateline').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 }
 
 /* ── Learning: today ── */
 function renderLearnToday(){
-  const dow=new Date().getDay();
-  const ids=WEEKLY[dow];
-  document.getElementById('l-today-heading').innerHTML=
-    ids.map(id=>TR[id].icon+' '+TR[id].name).join(' &nbsp;·&nbsp; ');
-  document.getElementById('l-today-sub').textContent='2 focused tasks per track · ~1.5–2 hrs total · tap "swap" to get a different task';
-  const ct=document.getElementById('today-cards'); ct.innerHTML='';
-  ids.forEach(id=>{
-    const T=TR[id];
-    const saved=todayLearnLog[id]||{tasks:[],note:''};
-    const checked=saved.tasks||[];
-    let tasksHTML='';
-    T.sessions.forEach((sess,si)=>{
-      const task=pickTask(id,si);
-      const uid=id+'_s'+si;
-      const isChecked=checked.indexOf(uid)>-1;
+  var dow=new Date().getDay();
+  var ids=WEEKLY[dow];
+  document.getElementById('today-label').innerHTML=ids.map(function(id){return TR[id].icon+' '+TR[id].name;}).join('  ·  ');
+  var ct=document.getElementById('today-cards');ct.innerHTML='';
+  ids.forEach(function(id){
+    var T=TR[id];
+    var saved=todayLearnLog[id]||{tasks:[],note:''};
+    var checked=saved.tasks||[];
+    var sessCount=T.sessions.length;
+    var doneCount=checked.length;
+    // subtitle: show curriculum topic if today is a scheduled day
+    var subtitle=T.freq;
+    var wi=learnCurrWeekIdx();
+    var dk=DOW_TO_KEY[dow];
+    var cm=CURR_MAP[id];
+    if(cm&&cm.days.indexOf(dk)>-1&&cm.cur[wi]&&cm.cur[wi][dk]){
+      subtitle='Week '+(wi+1)+' · '+cm.cur[wi].title+' · '+cm.cur[wi][dk].topic;
+    }
+    var tasksHTML='';
+    T.sessions.forEach(function(sess,si){
+      var task=learnGetTaskForSession(id,si);
+      var uid=id+'_s'+si;
+      var isChecked=checked.indexOf(uid)>-1;
+      var canSwap=!task.fromCurr;
       tasksHTML+=
-        '<span class="l-task-session">'+sess.label+' &nbsp;·&nbsp; '+sess.time+'</span>'+
-        '<div class="l-task-row">'+
-          '<input class="l-task-cb" type="checkbox" id="'+uid+'" '+(isChecked?'checked':'')+
-            ' style="accent-color:'+T.color+'" onchange="learnToggleTask(\''+id+'\',\''+uid+'\',this.checked)">'+
-          '<div class="l-task-body">'+
-            '<label class="l-task-label" for="'+uid+'">'+task.n+'</label>'+
-            '<div class="l-task-meta">'+
-              '<span class="l-task-tip" style="color:'+T.color+'">💡 '+task.tip+'</span>'+
-            '</div>'+
+        '<div class="task-section">'+
+        '<div class="task-slabel">'+sess.label+' &nbsp;·&nbsp; '+sess.time+'</div>'+
+        '<div class="task-row">'+
+          '<input class="task-cb" type="checkbox" id="'+uid+'" '+(isChecked?'checked':'')+
+            ' onchange="learnToggleTask(\''+id+'\',\''+uid+'\',this.checked)">'+
+          '<div class="task-body">'+
+            '<label class="task-label" for="'+uid+'">'+task.n+'</label>'+
+            (task.tip?'<div class="task-tip" style="color:'+T.color+'">💡 '+task.tip+'</div>':'')+
+            (canSwap?'<button class="swap-link" onclick="learnSwapTask(\''+id+'\','+si+')">↻ different task</button>':'')+
           '</div>'+
         '</div>'+
-        '<div class="swap-row">'+
-          '<button class="swap-btn" onclick="swapTask(\''+id+'\','+si+')">↻ different task</button>'+
         '</div>';
     });
-    const doneCount=checked.length;
-    const isComplete=doneCount>=T.sessions.length;
-    const card=document.createElement('div');
-    card.className='plan-card'+(isComplete?' complete':'');
+    var card=document.createElement('div');
+    card.className='plan-card'+(doneCount>=sessCount?' complete':'');
     card.style.setProperty('--tc',T.color);
     card.id='pcard-'+id;
     card.innerHTML=
       '<div class="plan-card-top">'+
-        '<div class="plan-card-heading">'+
-          '<div class="plan-accent"></div>'+
-          '<span class="plan-icon">'+T.icon+'</span>'+
-          '<span class="plan-name">'+T.name+'</span>'+
-          '<span class="plan-streak"><b>'+(learnStreaks[id]||0)+'</b> day streak</span>'+
-          '<span class="plan-done-badge">Done ✓</span>'+
-        '</div>'+
+        '<div class="plan-accent"></div>'+
+        '<span class="plan-icon">'+T.icon+'</span>'+
+        '<div class="plan-info"><div class="plan-name">'+T.name+'</div><div class="plan-sub" title="'+subtitle+'">'+subtitle+'</div></div>'+
+        '<div class="plan-streak"><b>'+(learnStreaks[id]||0)+'</b>day streak</div>'+
+        '<div class="done-badge">Done ✓</div>'+
       '</div>'+
-      '<div class="plan-tasks">'+tasksHTML+'</div>'+
-      '<div class="plan-note-area">'+
-        '<div class="plan-note-lbl">Notes</div>'+
-        '<textarea class="plan-note-ta" rows="2" placeholder="What did you practice or notice?" id="note_'+id+'">'+(saved.note||'')+'</textarea>'+
+      tasksHTML+
+      '<div class="note-area"><div class="note-lbl">Notes</div>'+
+        '<textarea class="note-ta" rows="2" placeholder="What did you build or learn?" id="note_'+id+'">'+(saved.note||'')+'</textarea>'+
       '</div>';
     ct.appendChild(card);
   });
 }
 
 function learnToggleTask(trackId,uid,checked){
-  if(!todayLearnLog[trackId]) todayLearnLog[trackId]={tasks:[],note:''};
-  let tasks=todayLearnLog[trackId].tasks||[];
-  if(checked&&tasks.indexOf(uid)<0) tasks.push(uid);
-  if(!checked) tasks=tasks.filter(t=>t!==uid);
+  if(!todayLearnLog[trackId])todayLearnLog[trackId]={tasks:[],note:''};
+  var tasks=todayLearnLog[trackId].tasks||[];
+  if(checked&&tasks.indexOf(uid)<0)tasks.push(uid);
+  if(!checked)tasks=tasks.filter(function(t){return t!==uid;});
   todayLearnLog[trackId].tasks=tasks;
-  const T=TR[trackId];
-  const card=document.getElementById('pcard-'+trackId);
-  if(card) card.classList.toggle('complete',tasks.length>=T.sessions.length);
+  var T=TR[trackId],card=document.getElementById('pcard-'+trackId);
+  if(card)card.classList.toggle('complete',tasks.length>=T.sessions.length);
 }
 
 function learnSave(){
-  const dow=new Date().getDay();
-  WEEKLY[dow].forEach(id=>{
-    if(!todayLearnLog[id]) todayLearnLog[id]={tasks:[],note:''};
-    const nel=document.getElementById('note_'+id);
-    if(nel) todayLearnLog[id].note=nel.value;
+  var dow=new Date().getDay();
+  WEEKLY[dow].forEach(function(id){
+    if(!todayLearnLog[id])todayLearnLog[id]={tasks:[],note:''};
+    var nel=document.getElementById('note_'+id);
+    if(nel)todayLearnLog[id].note=nel.value;
   });
-  learnPersist(); calcLearnStreaks(); renderLearnToday();
-  const b=document.getElementById('svbtn');
-  if(b){ b.textContent='Saved ✓'; setTimeout(()=>{ b.textContent="Save today's log"; },2000); }
+  learnPersist();calcLearnStreaks();renderLearnToday();
+  var b=document.getElementById('svbtn');
+  if(b){b.textContent='Saved ✓';setTimeout(function(){b.textContent="Save today's log";},2000);}
+}
+
+/* ── Learning: curriculum ── */
+function learnRenderTrackSwitcher(){
+  var ts=document.getElementById('track-switcher');ts.innerHTML='';
+  [{id:'english',label:'🗣 English'},{id:'ml',label:'🤖 ML & AI'},{id:'finance',label:'📈 Finance'},{id:'art',label:'📷 Art'}].forEach(function(t){
+    var b=document.createElement('button');
+    b.className='ts-btn'+(learnCurrTrack===t.id?' on':'');
+    b.textContent=t.label;
+    b.onclick=function(){learnCurrTrack=t.id;learnCurrViewIdx=learnCurrWeekIdx();learnRenderCurriculum();};
+    ts.appendChild(b);
+  });
+}
+function learnRenderCurriculum(){
+  learnRenderTrackSwitcher();
+  var T=TR[learnCurrTrack];
+  var cm=CURR_MAP[learnCurrTrack];
+  var cur=cm.cur;
+  var todayWk=learnCurrWeekIdx();
+  var dow=new Date().getDay();
+  var todayDk=DOW_TO_KEY[dow];
+  document.getElementById('curr-title').textContent=T.name+' · 18-Week Curriculum';
+  document.getElementById('curr-wlabel').textContent='Week '+(learnCurrViewIdx+1)+' / 18';
+  var w=cur[learnCurrViewIdx];
+  var cardsHTML=cm.days.map(function(dk){
+    var d=w[dk];
+    if(!d)return'';
+    var isTodayCard=(learnCurrViewIdx===todayWk&&dk===todayDk);
+    return'<div class="day-card'+(isTodayCard?' is-today':'')+'" style="'+(isTodayCard?'border-color:'+T.color+';':'')+'">'
+      +'<div class="dc-accent" style="background:'+T.color+'"></div>'
+      +'<div class="dc-daytag">'+cm.dayLabels[dk]
+        +(isTodayCard?'<span class="dc-today-pill" style="background:'+T.bg+';color:'+T.tc+'">today</span>':'')
+      +'</div>'
+      +'<div class="dc-topic">'+d.topic+'</div>'
+      +'<div class="dc-resource"><div class="dc-rtype">'+cm.s0label+'</div><div class="dc-rtext">'+d.s0+'</div></div>'
+      +'<div class="dc-resource"><div class="dc-rtype">'+cm.s1label+'</div><div class="dc-rtext">'+d.s1+'</div></div>'
+      +'</div>';
+  }).join('');
+  document.getElementById('curr-content').innerHTML=
+    '<div class="phase-pill" style="background:'+T.bg+';color:'+T.tc+'">'+w.phase+'</div>'+
+    '<div class="week-title">Week '+(learnCurrViewIdx+1)+' · '+w.title+'</div>'+
+    '<div class="week-sub">'+(learnCurrViewIdx===todayWk?'← You are here · ':'')+cm.days.length+' sessions this week</div>'+
+    '<div class="day-cards">'+cardsHTML+'</div>';
+}
+function learnNavCurr(dir){
+  learnCurrViewIdx=Math.max(0,Math.min(17,learnCurrViewIdx+dir));
+  learnRenderCurriculum();
 }
 
 /* ── Learning: schedule ── */
 function renderLearnSchedule(){
-  const dow=new Date().getDay();
-  const g=document.getElementById('sched-grid'); g.innerHTML='';
-  [1,2,3,4,5,6,0].forEach(d=>{
-    const ids=WEEKLY[d],isT=d===dow,cell=document.createElement('div');
+  var dow=new Date().getDay();
+  var g=document.getElementById('sched-grid');g.innerHTML='';
+  [1,2,3,4,5,6,0].forEach(function(d){
+    var ids=WEEKLY[d],isT=d===dow,cell=document.createElement('div');
     cell.className='sched-day'+(isT?' is-today':'');
     cell.innerHTML='<div class="sched-dayname">'+DAY_NAMES[d]+(isT?' ●':'')+'</div>'
-      +ids.map(id=>'<div class="sched-dot" style="background:'+TR[id].color+'"></div><div class="sched-icon">'+TR[id].icon+'</div>').join('');
+      +ids.map(function(id){return'<div class="sched-dot" style="background:'+TR[id].color+'"></div><div class="sched-icon">'+TR[id].icon+'</div>';}).join('');
     g.appendChild(cell);
   });
-  document.getElementById('l-legend').innerHTML=Object.values(TR).map(T=>
-    '<div class="legend-item"><div class="legend-dot" style="background:'+T.color+'"></div>'+T.icon+' '+T.name+'</div>'
-  ).join('');
-  const dc=document.getElementById('detail-cards'); dc.innerHTML='';
-  Object.values(TR).forEach(T=>{
-    const sh=T.sessions.map(sess=>
-      '<div class="dsess"><div class="dsess-title">'+sess.label+' · '+sess.time+'</div>'
-      +sess.acts.map(a=>'<div class="dact"><span>'+a.n+'</span></div>').join('')+'</div>'
-    ).join('');
-    const c=document.createElement('div'); c.className='dcard';
-    c.innerHTML='<div class="dcard-accent" style="background:'+T.color+'"></div>'
-      +'<div class="dcard-hdr"><span class="dcard-icon">'+T.icon+'</span><span class="dcard-name">'+T.name+'</span></div>'
-      +'<div class="dcard-freq">'+T.freq+'</div>'+sh;
-    dc.appendChild(c);
-  });
+  document.getElementById('l-legend').innerHTML=Object.values(TR).map(function(T){
+    return'<div class="legend-item"><div class="legend-dot" style="background:'+T.color+'"></div>'+T.icon+' '+T.name+'</div>';
+  }).join('');
 }
 
 /* ── Learning: history ── */
 function learnRenderHistory(){
-  const l=document.getElementById('hlist'); l.innerHTML='';
-  const keys=Object.keys(allLearnLogs).sort().reverse().slice(0,60);
-  if(!keys.length){ l.innerHTML='<div class="l-empty">No history yet — start logging today!</div>'; return; }
-  keys.forEach(k=>{
-    const log=allLearnLogs[k];
-    const badges=Object.values(TR).map(T=>{
-      const t=(log[T.id]&&log[T.id].tasks)||[];
+  var l=document.getElementById('hlist');l.innerHTML='';
+  var keys=Object.keys(allLearnLogs).sort().reverse().slice(0,60);
+  if(!keys.length){l.innerHTML='<div class="l-empty">No history yet — start logging today!</div>';return;}
+  keys.forEach(function(k){
+    var log=allLearnLogs[k];
+    var badges=Object.values(TR).map(function(T){
+      var t=(log[T.id]&&log[T.id].tasks)||[];
       return t.length?'<span class="lbadge" style="background:'+T.bg+';color:'+T.tc+'">'+T.icon+' '+t.length+'/'+T.sessions.length+'</span>':'';
     }).filter(Boolean).join('');
-    const notes=Object.values(TR).map(T=>(log[T.id]&&log[T.id].note)||'').filter(Boolean);
-    const e=document.createElement('div'); e.className='hentry';
+    var notes=Object.values(TR).map(function(T){return(log[T.id]&&log[T.id].note)||'';}).filter(Boolean);
+    var e=document.createElement('div');e.className='hentry';
     e.innerHTML='<div class="hdate">'+learnFmtDate(k)+'</div>'
       +'<div class="hbadges">'+(badges||'<span style="font-size:10px;color:var(--text3)">Nothing logged</span>')+'</div>'
       +(notes.length?'<div class="hnote">"'+notes[0]+'"</div>':'');
@@ -1439,89 +1848,84 @@ function learnRenderHistory(){
 
 /* ── Learning: export CSV ── */
 function exportLearnCSV(){
-  const keys=Object.keys(allLearnLogs).sort().reverse();
-  if(!keys.length){ alert('No learning history to export yet!'); return; }
-
-  const trackIds = Object.keys(TR);
-  const header = ['Date','Day of Week',
-    ...trackIds.flatMap(id=>[
-      TR[id].name+' — tasks done',
-      TR[id].name+' — total sessions',
-      TR[id].name+' — notes'
-    ])
-  ];
-
-  const rows=[header];
-  const DAY_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  keys.forEach(k=>{
-    const log=allLearnLogs[k];
-    const dt=new Date(k+'T12:00:00');
-    const row=[k, DAY_FULL[dt.getDay()]];
-    trackIds.forEach(id=>{
-      const entry=log[id]||{};
-      const done=(entry.tasks||[]).length;
-      const total=TR[id].sessions.length;
-      const note=(entry.note||'').replace(/"/g,'""');
-      row.push(done, total, '"'+note+'"');
+  var keys=Object.keys(allLearnLogs).sort().reverse();
+  if(!keys.length){alert('No learning history to export yet!');return;}
+  var trackIds=Object.keys(TR);
+  var header=['Date','Day of Week'];
+  trackIds.forEach(function(id){
+    header.push(TR[id].name+' — tasks done',TR[id].name+' — total sessions',TR[id].name+' — notes');
+  });
+  var rows=[header];
+  var DAY_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  keys.forEach(function(k){
+    var log=allLearnLogs[k];
+    var dt=new Date(k+'T12:00:00');
+    var row=[k,DAY_FULL[dt.getDay()]];
+    trackIds.forEach(function(id){
+      var entry=log[id]||{};
+      var done=(entry.tasks||[]).length;
+      var total=TR[id].sessions.length;
+      var note=(entry.note||'').replace(/"/g,'""');
+      row.push(done,total,'"'+note+'"');
     });
     rows.push(row);
   });
-
-  const csv=rows.map(r=>r.join(',')).join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download=`learning-log-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  var csv=rows.map(function(r){return r.join(',');}).join('\n');
+  var blob=new Blob([csv],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='learning-log-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
   URL.revokeObjectURL(url);
 }
 
 /* ── Learning: stats ── */
 function renderLearnStats(){
-  const keys=Object.keys(allLearnLogs);
-  const total=keys.filter(k=>Object.values(TR).some(T=>allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0)).length;
-  const mo=new Date().toISOString().slice(0,7);
-  const modays=keys.filter(k=>k.startsWith(mo)&&Object.values(TR).some(T=>allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0)).length;
-  const best=Math.max(...Object.values(learnStreaks),0);
-  const todone=WEEKLY[new Date().getDay()].filter(id=>todayLearnLog[id]&&(todayLearnLog[id].tasks||[]).length>0).length;
+  var keys=Object.keys(allLearnLogs);
+  var total=keys.filter(function(k){return Object.values(TR).some(function(T){return allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0;});}).length;
+  var mo=new Date().toISOString().slice(0,7);
+  var modays=keys.filter(function(k){return k.startsWith(mo)&&Object.values(TR).some(function(T){return allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0;});}).length;
+  var best=Math.max.apply(null,Object.values(learnStreaks).concat([0]));
+  var todone=WEEKLY[new Date().getDay()].filter(function(id){return todayLearnLog[id]&&(todayLearnLog[id].tasks||[]).length>0;}).length;
   document.getElementById('sgrid').innerHTML=
     lsc('Days logged',total,'since you started')+lsc('This month',modays,'days active')+
     lsc('Best streak',best,'consecutive days')+lsc('Today',todone+'/2','tracks done');
-  document.getElementById('srow').innerHTML=Object.values(TR).map(T=>
-    '<div class="strk"><div class="strk-num" style="color:'+T.color+'">'+(learnStreaks[T.id]||0)+'</div>'
-    +'<div><div class="strk-name">'+T.icon+' '+T.name+'</div><div class="strk-sub">day streak</div></div></div>'
-  ).join('');
-  const dim=new Date().getDate();
-  document.getElementById('pbars').innerHTML=Object.values(TR).map(T=>{
-    const td=keys.filter(k=>k.startsWith(mo)&&allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0).length;
-    let sched=0;
-    for(let i=1;i<=dim;i++){ const d2=new Date(new Date().getFullYear(),new Date().getMonth(),i); if(WEEKLY[d2.getDay()].indexOf(T.id)>-1) sched++; }
-    const pct=sched>0?Math.min(100,Math.round(td/sched*100)):0;
-    return '<div class="pbwrap"><div class="pblabel"><span>'+T.icon+' '+T.name+'</span><span>'+td+'/'+sched+' scheduled ('+pct+'%)</span></div>'
+  document.getElementById('srow').innerHTML=Object.values(TR).map(function(T){
+    return'<div class="strk"><div class="strk-num" style="color:'+T.color+'">'+(learnStreaks[T.id]||0)+'</div>'
+      +'<div><div class="strk-name">'+T.icon+' '+T.name+'</div><div class="strk-sub">day streak</div></div></div>';
+  }).join('');
+  var dim=new Date().getDate();
+  document.getElementById('pbars').innerHTML=Object.values(TR).map(function(T){
+    var td=keys.filter(function(k){return k.startsWith(mo)&&allLearnLogs[k][T.id]&&(allLearnLogs[k][T.id].tasks||[]).length>0;}).length;
+    var sched=0;
+    for(var i=1;i<=dim;i++){var d2=new Date(new Date().getFullYear(),new Date().getMonth(),i);if(WEEKLY[d2.getDay()].indexOf(T.id)>-1)sched++;}
+    var pct=sched>0?Math.min(100,Math.round(td/sched*100)):0;
+    return'<div class="pbwrap"><div class="pblabel"><span>'+T.icon+' '+T.name+'</span><span>'+td+'/'+sched+' scheduled ('+pct+'%)</span></div>'
       +'<div class="pbbg"><div class="pbfill" style="width:'+pct+'%;background:'+T.color+'"></div></div></div>';
   }).join('');
-  document.getElementById('dlabels').innerHTML=['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>'<span>'+d+'</span>').join('');
-  const hm=document.getElementById('hmap'); hm.innerHTML='';
-  for(let i=27;i>=0;i--){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    const k=d.toISOString().slice(0,10),lg=allLearnLogs[k]||{};
-    const cnt=Object.values(TR).filter(T=>lg[T.id]&&(lg[T.id].tasks||[]).length>0).length;
-    const cell=document.createElement('div'); cell.className='hmcell';
+  document.getElementById('dlabels').innerHTML=['Su','Mo','Tu','We','Th','Fr','Sa'].map(function(d){return'<span>'+d+'</span>';}).join('');
+  var hm=document.getElementById('hmap');hm.innerHTML='';
+  for(var i=27;i>=0;i--){
+    var d=new Date();d.setDate(d.getDate()-i);
+    var k=d.toISOString().slice(0,10),lg=allLearnLogs[k]||{};
+    var cnt=Object.values(TR).filter(function(T){return lg[T.id]&&(lg[T.id].tasks||[]).length>0;}).length;
+    var cell=document.createElement('div');cell.className='hmcell';
     cell.style.background=cnt===0?'var(--bg2)':'rgba(127,119,221,'+(cnt===1?.3:cnt===2?.65:1)+')';
     cell.title=learnFmtDate(k)+': '+cnt+' tracks active';
     hm.appendChild(cell);
   }
 }
-function lsc(l,v,s){ return '<div class="scard"><div class="slabel">'+l+'</div><div class="sval">'+v+'</div><div class="ssub">'+s+'</div></div>'; }
+function lsc(l,v,s){return'<div class="scard"><div class="slabel">'+l+'</div><div class="sval">'+v+'</div><div class="ssub">'+s+'</div></div>';}
 
 /* ── Learning: nav ── */
-function lsw(name, btn){
-  document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('on'));
-  if(btn) btn.classList.add('on');
-  document.querySelectorAll('.lsec').forEach(s=>s.classList.remove('on'));
+function lsw(name,btn){
+  document.querySelectorAll('.ltab').forEach(function(t){t.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  document.querySelectorAll('.lsec').forEach(function(s){s.classList.remove('on');});
   document.getElementById('s-'+name).classList.add('on');
-  if(name==='schedule') renderLearnSchedule();
-  else if(name==='history') learnRenderHistory();
-  else if(name==='stats') renderLearnStats();
+  if(name==='curriculum'){learnCurrViewIdx=learnCurrWeekIdx();learnRenderCurriculum();}
+  else if(name==='schedule')renderLearnSchedule();
+  else if(name==='history')learnRenderHistory();
+  else if(name==='stats')renderLearnStats();
   else renderLearnToday();
 }
 
